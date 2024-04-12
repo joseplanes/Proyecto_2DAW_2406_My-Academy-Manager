@@ -1,0 +1,14 @@
+main {
+  background-color: #F1EFE7;
+}
+.content {
+  min-height: calc(100vh - 100px);
+  padding-bottom: 50px;
+  background-color: #F1EFE7;
+}
+footer {
+  position: static;
+  bottom: 0;
+  width: 100%;
+  
+}

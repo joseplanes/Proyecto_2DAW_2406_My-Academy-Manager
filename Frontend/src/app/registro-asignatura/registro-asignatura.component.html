@@ -1,0 +1,18 @@
+<form (ngSubmit)="onSubmit()" class="max-w-md mx-auto mt-8">
+    <div class="mb-4">
+        <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
+        <input placeholder="Nombre" type="text" id="nombre" name="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.nombre" required>
+    </div>
+    <div class="mb-4">
+        <label for="descripcion" class="block text-gray-700 text-sm font-bold mb-2">Descripción</label>
+        <textarea placeholder="Decripción" id="descripcion" name="descripcion" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.descripcion" required></textarea>
+    </div>
+    <div class="mb-4">
+        <label for="img" class="block text-gray-700 text-sm font-bold mb-2">Imagen</label>
+        <input placeholder="Ingrese el svg" type="text" id="img" name="img" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.img" required>
+    </div>
+    <div class="mb-4">
+        <button type="submit" class="bg-custom-green hover:bg-custom-darkgreen text-dark font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Guardar Asignatura</button>
+    </div>
+</form>
+

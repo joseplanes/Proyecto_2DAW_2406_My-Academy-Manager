@@ -1,0 +1,65 @@
+<section class="py-16">
+  <div class="relative px-8 mx-auto text-gray max-w-7xl">
+    <div class="flex flex-wrap -m-4">
+
+        <div class="flex-grow mb-4 mr-4">
+          <input #pattern (keyup)="patron=pattern.value" type="text" placeholder="Buscar clase..." class="w-full px-4 py-2 border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+        </div>
+        <div class="mr-4">
+          <a [routerLink]="['/asignatura/crear']">
+            <button class="flex flex-col items-center px-3 py-2 mb-4 font-semibold text-black rounded-md hover:text-custom-gray hover:bg-custom-darkgreen bg-custom-green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"/>
+              </svg>
+                Crear asignatura
+            </button>
+          </a>
+        </div>
+        <div class="mr-4">
+          <a [routerLink]="['/clases/crear']">
+            <button class="flex flex-col items-center px-3 py-2 mb-4 font-semibold text-black rounded-md hover:text-custom-gray hover:bg-custom-darkgreen bg-custom-green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"/>
+              </svg>
+                Crear clase
+            </button>
+          </a>
+        </div>
+        <div>
+          <a [routerLink]="['/aula/crear']">
+            <button class="flex flex-col items-center px-3 py-2 mb-4 font-semibold text-black rounded-md hover:text-custom-gray hover:bg-custom-darkgreen bg-custom-green">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"/>
+              </svg>
+                Crear aula
+            </button>
+          </a>
+        </div>
+
+      </div>
+
+
+
+      <div class="grid grid-cols-1 gap-4 -m-4 sm:grid-cols-2 lg:grid-cols-3">
+        @for (c of clases|patronClase:patron; track c.id) {
+          <div class="p-4">
+            <div class="flex flex-col p-8 bg-white border-2 border-gray-200 rounded-lg">
+            <div class="inline-flex items-center justify-center flex-shrink-0 w-16 h-16 mb-4 rounded-full sm:mr-8 sm:mb-0 bg-custom-green text-custom-green-500" [innerHTML]="getSafeHtml(c.asignatura.img)"></div>
+            <div class="flex-grow">
+              <h2 class="mb-3 text-lg font-medium text-gray-900 title-font">{{c.asignatura.nombre}}</h2>
+              <p class="text-base leading-relaxed">{{c.asignatura.descripcion}}</p>
+              <a [routerLink]="['/clase', c.id]" class="inline-flex items-center mt-3 text-custom-darkgreen">Más información
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+  </div>
+</section>
+
+
+

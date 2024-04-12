@@ -1,0 +1,153 @@
+<nav class="bg-custom-green" >
+  <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="relative flex items-center justify-between h-24">
+      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <!-- Mobile menu button-->
+        <button (click)="toggleMobileMenu()" type="button" class="relative inline-flex items-center justify-center p-2 text-white bg-gray-700 rounded-md hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-custom-darkgreen" aria-controls="mobile-menu" aria-expanded="false">
+          <span class="absolute -inset-0.5"></span>
+          <span class="sr-only">Open main menu</span>
+          <!--
+            Icon when menu is closed.
+
+            Menu open: "hidden", Menu closed: "block"
+          -->
+          <svg class="block w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+          <!--
+            Icon when menu is open.
+
+            Menu open: "block", Menu closed: "hidden"
+          -->
+          <svg class="hidden w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
+
+          <a routerLink="/" class="flex items-center flex-shrink-0">
+            <img class="w-auto h-14 logo" src="../assets/logo.png" alt="MyAcademy Manager">
+            <span id="nombre" class="text-center">My<br>Academy<br>Manager</span>
+          </a>
+
+        <div class="hidden sm:ml-6 sm:block">
+        <div class="flex space-x-4" *ngIf="identity">
+            @for (item of getMenu(); track $index) {
+              <a [routerLink]="item.url" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray" [attr.aria-current]="item.current ? 'page' : null">
+                <div [innerHTML]="getSafeHtml(item.icon)">
+                  </div>
+                {{item.nombre}}
+              </a>
+            }
+        </div>
+        <div class="flex space-x-4" *ngIf="!identity">
+          
+          <a routerLink="login" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+              <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+            </svg>
+            Login
+          </a>
+        </div>
+      </div>
+    </div>
+
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+
+
+        <!-- Profile dropdown -->
+        <div class="relative ml-3" style="z-index: 9999;" *ngIf="identity">
+          <div>
+            <button (click)="toggleDropdown()" type="button" class="relative flex text-sm rounded-full bg-custom-darkgreen focus:outline-none focus:ring-2 focus:ring-custom-darkgreen focus:ring-offset-2 focus:ring-offset-custom-darkgreen" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+              <span class="absolute -inset-1.5"></span>
+              <span class="sr-only">Open user menu</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+              </svg>                           
+            </button>
+          </div>
+
+          
+          <div [class.hidden]="!isMenuVisible" [class.block]="isMenuVisible" id="user-menu" class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+            <div class="flex items-center justify-left">
+              <div class="inline-flex items-center px-4 py-2 text-sm text-gray-700">
+                <span class="block text-sm text-gray-900 dark:text-white">{{identity.nombre+' '+identity.apellidos}}</span>
+                <span class="block text-sm  text-gray-500 truncate dark:text-gray-400"></span>
+              </div>              
+            </div>
+            <div class="flex items-center justify-left">
+              <a [routerLink]="['perfil']" class="inline-flex items-center px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                </svg>&nbsp;
+                  Perfil
+              </a>
+            </div>
+            <div class="flex items-center justify-left">
+              <a href="#" class="inline-flex items-center px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                  <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                </svg>&nbsp;Configuración
+              </a>
+            </div>
+
+            <div class="flex items-center justify-left">
+              <a [routerLink]="['/logout/1']" class="inline-flex items-center px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                &nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0z"/>
+                  <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                </svg>
+                  Cerrar Sesión
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu, show/hide based on menu state. -->
+  <div [class.hidden]="!isMobileMenuVisible" id="mobile-menu">
+    <div class="px-2 pt-2 pb-3 space-y-1" *ngIf="identity">
+      <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+      @for (item of getMenu(); track $index) {
+        <!-- Dentro de tu div de menú móvil, modifica el tag <a> así: -->
+        <a [routerLink]="item.url" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
+          <div class="flex-shrink-0" [innerHTML]="getSafeHtml(item.icon)"></div>
+          <span class="flex-grow">{{item.nombre}}</span>
+        </a>
+
+      }
+
+
+    </div>
+    <div class="px-2 pt-2 pb-3 space-y-1" *ngIf="!identity">
+        <a routerLink="login" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+            <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+          </svg>
+          Login
+        </a>
+      
+
+
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

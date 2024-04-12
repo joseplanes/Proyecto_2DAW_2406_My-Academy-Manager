@@ -1,0 +1,114 @@
+<header class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      
+      <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+        
+        <a (click)="cinfo()" id="inf" class="cursor-pointer bg-custom-green flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
+          </svg>Info</a>
+          <a (click)="calumno()" id="alum" class="cursor-pointer flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+              </svg>Alumnos</a>
+            <a (click)="cprof()" id="prof" class="cursor-pointer flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                      </svg>Profesor</a>   
+                  
+      </nav>
+    </div>
+  </header>
+
+  <main>
+   
+    
+      @if (infoclick) {
+        <section>
+          <div class="py-16">
+             <div class="px-8 mx-auto text-gray max-w-7xl">
+                <div class="relative">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Información de la clase</h1>
+            @for (clase of claseinfo; track $index) {
+  
+              <p class="leading-relaxed text-base">Nombre: {{clase.asignatura.nombre}}</p>
+            <p class="leading-relaxed text-base">Descripción: {{clase.asignatura.descripcion}} </p>
+            <p class="leading-relaxed text-base">Dias:
+             @for (dias of clase.dias; track $index) {
+              {{ dias.id | dias}}}
+                
+              </p>
+            <p class="leading-relaxed text-base">Hora de inicio: {{clase.hora_inicio | hora}}</p>
+            <p class="leading-relaxed text-base">Hora de fin: {{clase.hora_fin | hora}}</p>
+            <p class="leading-relaxed text-base">Aula: {{clase.aula.nombre}}</p>
+            
+            }
+              
+      
+          
+          </div>
+        </div>
+     </div>
+  </section>
+        
+      }@else if (alumnosclick) {
+        @for (clase of claseinfo; track $index) {
+          <section>
+            <div class="py-16">
+               <div class="px-8 mx-auto text-gray max-w-7xl">
+                  <div class="relative">
+                    <div class="flex justify-between items-center py-4 px-6">
+                    
+                      <div class="flex-grow mr-4">
+                        <input #pattern (keyup)="patron=pattern.value" type="text" placeholder="Buscar alumno..." class="w-full px-4 py-2 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                      </div>
+                    </div>
+                    
+                     <!-- lista alumnos -->
+                     <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  
+                      @for (alumno of clase.alumnos| patronAlumno:patron; track $index) {
+  
+                        <app-alumno-card [alumno]="alumno"></app-alumno-card>
+                      }
+                     </ul>
+         
+         
+                  </div>
+               </div>
+            </div>
+         </section>
+        }
+          
+
+        }@else if (profclick) {
+          @for (clase of claseinfo; track $index) {
+            <section>
+              <div class="py-16">
+                 <div class="px-8 mx-auto text-gray max-w-7xl">
+                    <div class="relative">
+           
+                       <!-- lista profesor -->
+                       <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    
+                        
+    
+                          <app-alumno-card [alumno]="clase.profesor"></app-alumno-card>
+                        
+                       </ul>
+           
+           
+                    </div>
+                 </div>
+              </div>
+           </section>
+        }
+      }
+
+
+        
+      
+  
+    </main>
+      
