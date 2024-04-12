@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, HostListener, DoCheck } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { ApiService } from '../api.service';
+import { ApiService } from '../services/api.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 
 
 

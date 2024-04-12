@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { ApiService } from '../api.service';
+import { ApiService } from '../services/api.service';
 import { UsuarioCardComponent } from '../usuario-card/usuario-card.component';
 import { PatronPipe } from '../pipes/patron.pipe';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router,ActivatedRoute,Params } from '@angular/router';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
 
 

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ApiService } from '../api.service';
+import { ApiService } from '../services/api.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { PatronClasePipe } from '../pipes/patron-clase.pipe';

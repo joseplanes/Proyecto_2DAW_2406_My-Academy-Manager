@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
-import { ApiService } from '../api.service';
+import { ApiService } from '../services/api.service';
 import { AlumnoCardComponent } from '../alumno-card/alumno-card.component';
 import { DiasPipe } from '../pipes/dias.pipe';
 import { HoraPipe } from '../pipes/hora.pipe';
