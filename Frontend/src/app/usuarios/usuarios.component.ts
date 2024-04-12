@@ -28,10 +28,10 @@ export class UsuariosComponent {
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.loadUser();
-    if(this.identity.rol!=='admin'){
-      this.router.navigate(['/asistencia']);
+    if(this.identity.rol=='admin'){
+      this.getUsuarios();
     }else{
-    this.getUsuarios();
+      this.router.navigate(['/asistencia']);
     }
   }
   loadUser(){
@@ -44,7 +44,6 @@ export class UsuariosComponent {
       (response:any)=>{
         this.usuarios=response.data;
         this.usuariosParseados=JSON.parse(this.usuarios);
-        console.log(this.usuarios);
       },
       error =>{
         console.log(error);
