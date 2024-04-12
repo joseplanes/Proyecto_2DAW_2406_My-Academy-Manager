@@ -10,6 +10,7 @@ import { RegistroAsignaturaComponent } from './registro-asignatura/registro-asig
 import { RegistroAulaComponent } from './registro-aula/registro-aula.component';
 import { LoginComponent } from './login/login.component';
 import { IdentityGuard } from './services/identity.guard';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
 {
@@ -75,9 +76,8 @@ export const routes: Routes = [
 },
 {
     path:'',
-    component:AsistenciaComponent,
-    title:'Inicio',
-    canActivate: [IdentityGuard]
+    component:HomeComponent,
+    title:'Inicio'
 },
 {
     path:'login',
