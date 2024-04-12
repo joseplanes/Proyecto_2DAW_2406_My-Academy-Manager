@@ -39,6 +39,7 @@ class JwtAuth
                 'rol' => $user->getRol(),
                 'id_profesor' => ($user->getRol() == 'profesor') ? $user->getProfesors()->first()->getId() : null,
                 'id_alumno' => ($user->getRol() == 'alumno') ? $user->getAlumnos()->first()->getId() : null,
+                'fecha_nacimiento'=> $user->getFechaNacimiento(),
                 'iat' => time(),
                 'exp' => time() + (7 * 24 * 60 * 60)
             ];

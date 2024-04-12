@@ -149,10 +149,7 @@ class UserController extends AbstractController
         
         //Si es correcto, hacer la actualización del usuario
         if($authCheck){
-            //Actualizar el usuario
-
-            //Conseguir entity manager
-
+            
             //Conseguir datos del usuario identificado
             $identity = $jwtAuth->checkToken($token, true);
 
@@ -167,15 +164,15 @@ class UserController extends AbstractController
             $usuario = $ur->findOneBy(['id' => $identity->sub]);
 
             //Recoger datos post
-            $json = $request->getContent();
-            $params =  json_decode($request->getContent(), true);
+            $json = $request->get('json', null);
+            $params =  json_decode($json);
 
 
             //Comprobar y validar
             if(!empty($json)){
-                $nombre= (!empty($params['nombre'])) ? $params['nombre'] : null;
-                $apellidos= (!empty($params['apellidos'])) ? $params['apellidos'] : null;
-                $email= (!empty($params['email'])) ? $params['email'] : null;
+                $nombre= (!empty($params->nombre)) ? $params->nombre : null;
+                $apellidos= (!empty($params->apellidos)) ? $params->apellidos : null;
+                $email= (!empty($params->email)) ? $params->email : null;
 
 
                 //Asignar nuevos dartos al objeto de usuario
@@ -186,29 +183,17 @@ class UserController extends AbstractController
                     $usuario->setEmail($email);
                     
 
-                    $usuarioExistente = $ur->findBy(['email' => $email]);
-                    
-                    if (!$usuarioExistente ) {
-                        //Guardar cambios en la base de datos
-                        $entityManager->persist($usuario);
-                        $entityManager->flush();
+                    $entityManager->persist($usuario);
+                    $entityManager->flush();
 
-                        //Devolver respuesta
-                        $data = [
-                            'status' => 'success',
-                            'code' => 200,
-                            'message' => 'Usuario actualizado',
-                            'usuario' => $usuario
-                        ];
-                    } else {
-                        $data = [
-                            'status' => 'error',
-                            'code' => 400,
-                            'message' => 'Ya existe un usuario con este correo electrónico'
-                        ];
-                        
-                        
-                    }
+                    //Devolver respuesta
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Usuario actualizado',
+                        'usuario' => $usuario
+                    ]; 
+                    
                 }
             }
           

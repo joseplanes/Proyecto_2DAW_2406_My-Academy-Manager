@@ -48,7 +48,7 @@ export class LoginComponent {
                 localStorage.setItem('token', this.token);
                 localStorage.setItem('identity', JSON.stringify(this.identity));
 
-                this._router.navigate(['/']);
+                this._router.navigate(['/asistencia']);
                 
               } else {
                 this.status = 'error';
