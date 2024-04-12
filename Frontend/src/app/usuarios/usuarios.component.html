@@ -1,45 +1,52 @@
-
-    <section>
-      <div class="py-16">
-         <div class="px-8 mx-auto text-gray max-w-7xl">
-             <div class="relative">
-                <div class="flex justify-between items-center py-4 px-6">
-                    
-                    <div class="flex-grow mr-4">
-                      <input #pattern (keyup)="patron=pattern.value" type="text" placeholder="Buscar usuario..." class="w-full px-4 py-2 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    </div>
-                    
-                    <div class="mr-4">
-                        <select [(ngModel)]="roles" class="shadow appearance-none border rounded w-46 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="" selected>Selecciona un rol</option>
-                            <option value="alumno">Alumno</option>
-                            <option value="profesor">Profesor</option>
-                            <option value="admin">Administrador</option>
-                          </select>
-                    </div>
-                    
-                    <a [routerLink]="['crear']">
-                        <button class="flex flex-col items-center px-3 py-2 text-black rounded-md hover:bg-custom-darkgreen hover:text-custom-gray bg-custom-green font-semibold ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
-                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
-                              </svg>
-                            Crear usuario
-                        </button>
-                    </a>
+@if (identity.rol == 'admin') {
+  <section>
+    <div class="py-16">
+        <div class="px-8 mx-auto text-gray max-w-7xl">
+            <div class="relative">
+              <div class="flex justify-between items-center py-4 px-6">
+                  
+                  <div class="flex-grow mr-4">
+                    <input #pattern (keyup)="patron=pattern.value" type="text" placeholder="Buscar usuario..." class="w-full px-4 py-2 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                   </div>
-   
-               
-               <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            
-                @for (u of getUsuarios()|patron:patron | patron:roles; track u.id) {
-
-                  <app-usuario-card [usuario]="u"></app-usuario-card>
-                }
-               </ul>
-   
-   
-            </div>
-         </div>
-      </div>
-   </section>
+                  
+                  <div class="mr-4">
+                      <select [(ngModel)]="roles" class="shadow appearance-none border rounded w-46 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                          <option value="" selected>Selecciona un rol</option>
+                          <option value="alumno">Alumno</option>
+                          <option value="profesor">Profesor</option>
+                          <option value="admin">Administrador</option>
+                        </select>
+                  </div>
+                  
+                  <a [routerLink]="['crear']">
+                      <button class="flex flex-col items-center px-3 py-2 text-black rounded-md hover:bg-custom-darkgreen hover:text-custom-gray bg-custom-green font-semibold ">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                              <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                              <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
+                            </svg>
+                          Crear usuario
+                      </button>
+                  </a>
+                </div>
+  
+              
+              <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          
+              @for (u of usuariosParseados | patron:patron | patron:roles; track u.id) {
+  
+                <app-usuario-card [usuario]="u"></app-usuario-card>
+                
+              }
+              </ul>
+  
+  
+          </div>
+        </div>
+    </div>
+  </section>
+}@else {
+  <script>
+    window.location.href = '/asistencia'; 
+  </script>
+  
+}

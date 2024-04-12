@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +42,13 @@ export class ApiService {
     
   }
 
-  getUsuarios(){
-    return this.usuarios;
+
+
+  getUsuarios(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.get(this.baseUrl+'list/usuarios', {headers: headers});
   }
 
   getAsignaturas(){

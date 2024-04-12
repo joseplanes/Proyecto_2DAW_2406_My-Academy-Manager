@@ -32,7 +32,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\JwtAuth;
 
-#[Route('', name: 'app_list')]
+#[Route('/list', name: 'app_list')]
 class ListController extends AbstractController
 {
     #[Route('/asignaturas', name: 'app_asignaturas', methods: ['GET'])]
@@ -306,6 +306,53 @@ class ListController extends AbstractController
                     'status' => 'success',
                     'code' => 200,
                     'data' => $datos
+                ];
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
+
+    #[Route('/usuarios', name: 'app_users', methods: ['GET'])]
+    public function listarUsuarios(Request $request,JwtAuth $jwt_auth ,UsuarioRepository $ur, SerializerInterface $serializer)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            
+
+            $identity = $jwt_auth->checkToken($token, true);
+
+            if($identity->rol == 'admin'){
+                            
+                $usuarios = $ur->findAll();
+        
+                $datos = $serializer->serialize($usuarios, 'json', ['groups' => 'usuario', 'max_depth' => 1]);
+        
+                    
+                $data = [
+                    'status' => 'success',
+                    'code' => 200,
+                    'data' => $datos
+                ];
+                                
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No tienes permiso para realizar esta accióna'
                 ];
             }
         }else{
