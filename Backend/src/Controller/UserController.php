@@ -36,79 +36,107 @@ use App\Services\JwtAuth;
 #[Route('usuarios', name: 'app_user')]
 class UserController extends AbstractController
 {
-    #[Route('', name: 'app_usuarios', methods: ['GET'])]
-    public function listarUsuarios(UsuarioRepository $ur, SerializerInterface $serializer): Response
-    {
-        $usuarios = $ur->findAll();
-        
-
-        
-        $data = $serializer->serialize($usuarios, 'json', ['groups' => 'usuario', 'max_depth' => 1]);
-
-    
-        return new Response($data, 200, [
-            'Content-Type' => 'application/json'
-        ]);
-    }
 
     #[Route('/crear', name: 'crear_usuario', methods: ['POST'])]
-    public function crearUsuario(Request $request, SerializerInterface $serializer, UsuarioRepository $ur,AlumnoRepository $ar ,ClaseRepository $cr, EntityManagerInterface $entityManager)
+    public function crearUsuario(Request $request,JwtAuth $jwtAuth ,SerializerInterface $serializer, UsuarioRepository $ur,AlumnoRepository $ar ,ClaseRepository $cr, EntityManagerInterface $entityManager)
     {
-        $data = json_decode($request->getContent(), true);
-
-        $usuario = $serializer->deserialize(json_encode($data), Usuario::class, 'json');
-
-        $usuarioExistente = $ur->findOneBy(['email' => $usuario->getEmail()]);
-
-    if ($usuarioExistente) {
-        return new JsonResponse(['error' => 'Ya existe un usuario con este correo electrónico', 'usuario' => $usuario], 400);
-
-    }   
+        //Recoger la cabecera de autenticación
+        $token=$request->headers->get('Authorization');
+        //Crea rmetodo para comprobar si el token es correcto
+        $authCheck = $jwtAuth->checkToken($token);
         
-        $entityManager->persist($usuario);
-        $entityManager->flush();
-
-       
-
-        switch ($usuario->getRol()) {
-            case 'alumno':
-                $alumno = new Alumno();
-                $alumno->setUsuario($usuario);
-                foreach ($data['clases'] as $claseId) {
-                    $clase = $cr->find($claseId);
-                    if ($clase) {
-                        $alumno->addClase($clase);
-                    }
-                }
-    
-                $entityManager->persist($alumno);
-                $entityManager->flush();
-    
-                $responseMessage = 'Alumno creado con éxito';
-                $responseBody = ['alumno' => $alumno];
-                break;
-            case 'profesor':
-                $profesor = new Profesor();
-                $profesor->setUsuario($usuario);
-                
-                $entityManager->persist($profesor);
-                $entityManager->flush();
+        //Si es correcto, comprobar admin
+        if($authCheck){
             
-                $responseMessage = 'Profesor creado con éxito';
-                $responseBody = ['profesor' => $profesor];
-                break;
-            case 'admin':
-                $responseMessage = 'Admin creado con éxito';
-                $responseBody = ['admin' => $usuario];
-                break;
-        }
-    
-        return new JsonResponse(['message' => $responseMessage] + $responseBody, 201);
+            //Conseguir datos del usuario identificado
+            $identity = $jwtAuth->checkToken($token, true);
 
+            if($identity->rol == 'admin'){
+                $json = $request->get('json', null);
+                $params =  json_decode($json);
+
+                if(!empty($json)){
+                    $nombre= (!empty($params->nombre)) ? $params->nombre : null;
+                    $apellidos= (!empty($params->apellidos)) ? $params->apellidos : null;
+                    $dni= (!empty($params->dni)) ? $params->dni : null;
+                    $email= (!empty($params->email)) ? $params->email : null;
+                    $password= (!empty($params->password)) ? $params->password : null;
+                    $fechaNacimiento= (!empty($params->fechaNacimiento)) ? $params->fechaNacimiento : null;
+                    $rol= (!empty($params->rol)) ? $params->rol : null;
+                    $clases= (!empty($params->clases)) ? $params->clases : null;
+                    
+                
+                    $usuarioExistente = $ur->findOneBy(['email' => $email]);
+                    if ($usuarioExistente) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'Ya existe un usuario con este correo electrónico',
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    $usuario = new Usuario();
+                    $usuario->setNombre($nombre);
+                    $usuario->setApellidos($apellidos);
+                    $usuario->setDni($dni);
+                    $usuario->setEmail($email);
+                    $usuario->setPassword($password);
+                    $usuario->setFechaNacimiento(new \DateTime($fechaNacimiento));
+                    $usuario->setRol($rol);
+
+                    $entityManager->persist($usuario);
+                    $entityManager->flush();
+                    
+                    switch ($usuario->getRol()) {
+                        case 'alumno':
+                            $alumno = new Alumno();
+                            $alumno->setUsuario($usuario);
+                            foreach ($clases as $claseId) {
+                                $clase = $cr->find($claseId);
+                                if ($clase) {
+                                    $alumno->addClase($clase);
+                                }
+                            }
+                            $entityManager->persist($alumno);
+                            $entityManager->flush();
+                            $data = [
+                                'status' => 'success',
+                                'code' => 200,
+                                'message' => 'Alumno creado con éxito',
+                                'alumno' => $alumno
+                            ];
+                            break;
+                        case 'profesor':
+                            $profesor = new Profesor();
+                            $profesor->setUsuario($usuario);
+                            $entityManager->persist($profesor);
+                            $entityManager->flush();
+                            $data = [
+                                'status' => 'success',
+                                'code' => 200,
+                                'message' => 'Profesor creado con éxito',
+                                'profesor' => $profesor
+                            ];
+                            break;
+                        case 'admin':
+                            $data = [
+                                'status' => 'success',
+                                'code' => 200,
+                                'message' => 'Admin creado con éxito',
+                                'admin' => $usuario
+                            ];
+                            break;
+                    }
+                return new JsonResponse($data);
+
+            }
         
-       
+            }
+            return new JsonResponse($data);
+        }
+ 
 
-    }
+    } 
 
     #[Route('/login', name: 'login', methods: ['POST'])]
     public function login(Request $request, JwtAuth $jwtAuth)

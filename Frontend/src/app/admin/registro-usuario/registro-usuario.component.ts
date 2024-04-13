@@ -1,44 +1,84 @@
 import { Component, inject } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { RouterModule, Router,ActivatedRoute,Params } from '@angular/router';
 
 @Component({
   selector: 'app-registro-usuario',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,RouterModule],
   templateUrl: './registro-usuario.component.html',
   styleUrl: './registro-usuario.component.css'
 })
 export class RegistroUsuarioComponent {
-  private api=inject(ApiService);
+  private api=inject(ApiService)
+  private userService=inject(UserService)
+  public token:any;
+  public identity:any;
   formData:any={};
   clases= <any>[];
- ngOnInit(){ 
-    this.formData={
-      clases: []
-    };
-  
-    this.clases=[];
+  public status:string='';
+  public message:string='';
 
-    this.getClasesBasic();
+  constructor(private router: Router, private route: ActivatedRoute) {
+    this.loadUser();
+    if(this.identity.rol=='admin'){
+      this.getClases();
+      this.formData={
+        clases: []
+      };
+    }else{
+      this.router.navigate(['/asistencia']);
+    }
   }
-  getClasesBasic(){
-    return this.api.getClasesBasic().subscribe((JSON:any)=>{
-      this.clases=JSON})
+  loadUser(){
+    this.token=this.userService.getToken();
+    this.identity=this.userService.getIdentity();
   }
 
-  onSubmit(){
+  getClases(){
+    return this.api.getClases(this.token).subscribe(
+      (response:any)=>{
+        let clases = response.data;
+        this.clases = JSON.parse(clases);
+      },
+      error =>{
+        console.log(error);
+      }
+    );
+  }
+
+  onSubmit(useredirForm: any) {
     const selectedClases = Object.keys(this.formData.clases)
     .filter(key => this.formData.clases[key])
     .map(Number);
     const formDataToSend = {
       ...this.formData,
       clases: selectedClases
-  };
+    };
+    
     console.log(this.formData);
-    this.api.createUsuario(formDataToSend).subscribe((data:any)=>{
-      console.log(data);
-    })
-  }
+
+    this.userService.create(this.token,formDataToSend).subscribe(
+     (response:any ) => {
+       if(response && response.status == 'success'){
+         this.status = 'success';
+         this.message = response.message;
+         
+       }else{
+         this.status = 'error';
+         this.message = response.message;
+       }
+     },
+     error => {
+       this.status = 'error';
+       console.log(error);
+     }
+   );
+
+  
+   
+ }
 
 }

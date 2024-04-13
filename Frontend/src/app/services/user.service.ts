@@ -40,6 +40,16 @@ export class UserService {
     return this._http.put(this.baseUrl+'usuarios/editar', params, {headers: headers});
   }
 
+  create(token:any, user:any){
+    let json = JSON.stringify(user);
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this._http.post(this.baseUrl+'usuarios/crear', params, {headers: headers});
+  }
+
   getIdentity() {
     let identityString = localStorage.getItem('identity');
     if (identityString !== null) {
