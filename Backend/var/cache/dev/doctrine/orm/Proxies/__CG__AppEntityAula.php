@@ -7,7 +7,7 @@ namespace Proxies\__CG__\App\Entity;
  */
 class Aula extends \App\Entity\Aula implements \Doctrine\ORM\Proxy\InternalProxy
 {
-     use \Symfony\Component\VarExporter\LazyGhostTrait {
+    use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -24,7 +24,7 @@ class Aula extends \App\Entity\Aula implements \Doctrine\ORM\Proxy\InternalProxy
         'clases' => [parent::class, 'clases', null],
         'id' => [parent::class, 'id', null],
         'nombre' => [parent::class, 'nombre', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

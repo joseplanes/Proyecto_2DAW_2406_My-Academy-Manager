@@ -157,6 +157,6 @@ class __TwigTemplate_b9bc3c1a35b714b21fa254746c9627fa extends Template
     </ul>
 </div>
 {% endblock %}
-", "admin/index.html.twig", "C:\\xampp\\htdocs\\MyAcademy-Manager\\Backend\\templates\\admin\\index.html.twig");
+", "admin/index.html.twig", "C:\\xampp\\htdocs\\My-Academy-Manager\\Backend\\templates\\admin\\index.html.twig");
     }
 }

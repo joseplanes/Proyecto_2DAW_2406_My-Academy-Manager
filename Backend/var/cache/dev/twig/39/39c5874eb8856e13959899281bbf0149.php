@@ -214,6 +214,6 @@ class __TwigTemplate_3bba9bf498240acda51b8030731c35d7 extends Template
         {% block body %}{% endblock %}
     </body>
 </html>
-", "base.html.twig", "C:\\xampp\\htdocs\\tfg copia\\Backend\\templates\\base.html.twig");
+", "base.html.twig", "C:\\xampp\\htdocs\\My-Academy-Manager\\Backend\\templates\\base.html.twig");
     }
 }

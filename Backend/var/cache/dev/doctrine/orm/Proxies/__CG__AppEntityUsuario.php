@@ -7,7 +7,7 @@ namespace Proxies\__CG__\App\Entity;
  */
 class Usuario extends \App\Entity\Usuario implements \Doctrine\ORM\Proxy\InternalProxy
 {
-     use \Symfony\Component\VarExporter\LazyGhostTrait {
+    use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -36,7 +36,7 @@ class Usuario extends \App\Entity\Usuario implements \Doctrine\ORM\Proxy\Interna
         'password' => [parent::class, 'password', null],
         'profesors' => [parent::class, 'profesors', null],
         'rol' => [parent::class, 'rol', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {
