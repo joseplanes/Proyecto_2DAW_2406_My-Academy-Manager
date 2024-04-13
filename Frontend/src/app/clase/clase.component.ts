@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { RouterModule, Router,ActivatedRoute,Params } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { PatronClasePipe } from '../pipes/patron-clase.pipe';
 
 
@@ -14,20 +16,40 @@ import { PatronClasePipe } from '../pipes/patron-clase.pipe';
 })
 export class ClaseComponent {
   private api=inject(ApiService)
+  private userService=inject(UserService)
+  public token:any;
+  public identity:any;
+  public clases:any;
+ 
+
   patron: string = '';
-  clases= <any>[];
-  ngOnInit(){
-    this.clases=[];
-    this.getClases();
+  roles:string='';
+
+  constructor(private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
+    this.loadUser();
+    if(this.identity.rol=='admin'){
+      this.getClases();
+    }else{
+      this.router.navigate(['/asistencia']);
+    }
+  }
+  loadUser(){
+    this.token=this.userService.getToken();
+    this.identity=this.userService.getIdentity();
   }
   getSafeHtml(html: any) {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
-  constructor(private sanitizer: DomSanitizer) { }
-
   getClases(){
-    return this.api.getClases().subscribe((JSON:any)=>{
-      this.clases=JSON})
+    return this.api.getClases(this.token).subscribe(
+      (response:any)=>{
+        let clases = response.data;
+        this.clases = JSON.parse(clases);
+      },
+      error =>{
+        console.log(error);
+      }
+    );
   }
 }

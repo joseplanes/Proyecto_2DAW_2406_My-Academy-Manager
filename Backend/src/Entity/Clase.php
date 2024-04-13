@@ -14,37 +14,25 @@ class Clase
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    #[Groups(['clase','clasebasic'])]
-    
+    #[ORM\Column] 
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'clases')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['clase','clasebasic'])]
-    
     private ?Asignatura $asignatura = null;
 
     #[ORM\ManyToOne(inversedBy: 'clases')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['clase'])]
-   
     private ?Profesor $profesor = null;
 
     #[ORM\ManyToOne(inversedBy: 'clases')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['clase'])]
-    
     private ?Aula $aula = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    #[Groups(['clase'])]
-    
     private ?\DateTimeInterface $hora_inicio = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    #[Groups(['clase'])]
-    
     private ?\DateTimeInterface $hora_fin = null;
 
     #[ORM\ManyToMany(targetEntity: DiasSemana::class, inversedBy: 'clases')]
@@ -62,12 +50,12 @@ class Clase
         $this->alumnos = new ArrayCollection();
         $this->calificacions = new ArrayCollection();
     }
-    #[Groups(['alumno'])]
+    #[Groups(['alumno', 'clase', 'clasebasic'])]
     public function getId(): ?int
     {
         return $this->id;
     }
-    #[Groups(['alumno'])]
+    #[Groups(['alumno', 'clase', 'clasebasic'])]
     public function getAsignatura(): ?Asignatura
     {
         return $this->asignatura;
@@ -79,7 +67,7 @@ class Clase
 
         return $this;
     }
-
+    #[Groups(['clase', 'clasebasic'])]
     public function getProfesor(): ?Profesor
     {
         return $this->profesor;
@@ -91,7 +79,7 @@ class Clase
 
         return $this;
     }
-
+    #[Groups(['clase'])]
     public function getAula(): ?Aula
     {
         return $this->aula;
@@ -103,7 +91,7 @@ class Clase
 
         return $this;
     }
-
+    #[Groups(['clase'])]
     public function getHoraInicio(): ?\DateTimeInterface
     {
         return $this->hora_inicio;
@@ -115,7 +103,7 @@ class Clase
 
         return $this;
     }
-
+    #[Groups(['clase'])]
     public function getHoraFin(): ?\DateTimeInterface
     {
         return $this->hora_fin;
@@ -132,8 +120,7 @@ class Clase
      * @return Collection<int, DiasSemana>
      */
 
-     #[Groups(['clase'])]
-    
+    #[Groups(['clase'])]
     public function getDias(): Collection
     {
         return $this->dias;
@@ -159,7 +146,6 @@ class Clase
      * @return Collection<int, Alumno>
      */
     #[Groups(['clase'])]
-    
     public function getAlumnos(): Collection
     {
         return $this->alumnos;

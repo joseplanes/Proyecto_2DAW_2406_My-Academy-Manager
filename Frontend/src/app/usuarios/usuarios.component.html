@@ -32,7 +32,7 @@
               
               <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           
-              @for (u of usuariosParseados | patron:patron | patron:roles; track u.id) {
+              @for (u of usuarios | patron:patron | patron:roles; track u.id) {
   
                 <app-usuario-card [usuario]="u"></app-usuario-card>
                 
@@ -44,9 +44,4 @@
         </div>
     </div>
   </section>
-}@else {
-  <script>
-    window.location.href = '/asistencia'; 
-  </script>
-  
 }

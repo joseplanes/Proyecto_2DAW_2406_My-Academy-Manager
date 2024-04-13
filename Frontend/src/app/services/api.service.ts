@@ -29,9 +29,7 @@ export class ApiService {
     return this.menu;
   }
 
-  getClases(){
-    return this.http.get(this.baseUrl+"clase");
-  }
+  
   
   getClasesBasic(){
     return this.http.get(this.baseUrl+"clasebasic");
@@ -49,6 +47,13 @@ export class ApiService {
                                    .set('Authorization', token);
 
     return this.http.get(this.baseUrl+'list/usuarios', {headers: headers});
+  }
+
+  getClases(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.get(this.baseUrl+'list/clases', {headers: headers});
   }
 
   getAsignaturas(){

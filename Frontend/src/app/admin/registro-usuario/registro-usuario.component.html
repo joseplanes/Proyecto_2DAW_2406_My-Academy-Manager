@@ -1,0 +1,56 @@
+
+<form (ngSubmit)="onSubmit()" class="max-w-md mx-auto mt-8">
+    <div class="mb-4">
+      <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
+      <input placeholder="Nombre" type="text" id="nombre" name="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.nombre" required>
+    </div>
+    <div class="mb-4">
+      <label for="apellidos" class="block text-gray-700 text-sm font-bold mb-2">Apellidos</label>
+      <input placeholder="Apellidos" type="text" id="apellidos" name="apellidos" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.apellidos" required>
+    </div>
+    <div class="mb-4">
+      <label for="dni" class="block text-gray-700 text-sm font-bold mb-2">DNI</label>
+      <input placeholder="Dni" type="text" id="dni" name="dni" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.dni" required>
+    </div>
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+      <input placeholder="Email" type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.email" required>
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
+      <input placeholder="Contraseña" type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.password" required>
+    </div>
+    <div class="mb-4">
+      <label for="fechaNacimiento" class="block text-gray-700 text-sm font-bold mb-2">Fecha de Nacimiento</label>
+      <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.fechaNacimiento" required>
+    </div>
+    <div class="mb-4">
+      <label for="rol" class="block text-gray-700 text-sm font-bold mb-2">Rol</label>
+      <select id="rol" name="rol" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.rol" required>
+        <option value="" disabled selected hidden>Selecciona un rol</option>
+        <option value="alumno">Alumno</option>
+        <option value="profesor">Profesor</option>
+        <option value="admin">Administrador</option>
+      </select>
+    </div>
+    @if (formData.rol === "alumno") {
+      <div class="mb-4">
+          <label for="clases" class="block text-gray-700 text-sm font-bold mb-2">Matrícula de Clases</label>
+          @for (c of clases; track c.id) {
+            <div class="relative flex gap-x-3">
+                <div class="flex h-6 items-center">
+                  <input id="{{ c.id }}" name="{{ c.asignatura.nombre }}" [(ngModel)]="formData.clases[c.id]" [value]="c.id" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                </div>
+                <div class="text-sm leading-6">
+                    <label for="{{ c.id }}" class="font-medium text-gray-900">{{c.asignatura.nombre}}</label>
+                </div>
+            </div>
+          }
+      </div>
+  }
+    <div class="mb-4">
+      <button type="submit" class="bg-custom-green hover:bg-custom-darkgreen text-dark font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Registrarse</button>
+    </div>
+  </form>
+  
+  

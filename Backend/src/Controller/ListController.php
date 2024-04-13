@@ -29,6 +29,7 @@ use App\Entity\Mensaje;
 use App\Repository\MensajeRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\JwtAuth;
 
@@ -45,8 +46,7 @@ class ListController extends AbstractController
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $json = json_decode($request->getContent(), true);
-
+            
             $identity = $jwt_auth->checkToken($token, true);
 
             if($identity->rol == 'admin'){
@@ -84,9 +84,8 @@ class ListController extends AbstractController
         return new JsonResponse($data);
     }
 
-
-    #[Route('/clases', name: 'app_clase', methods: ['GET'])]
-    public function listarClases(Request $request,JwtAuth $jwt_auth ,ClaseRepository $claseRepository, SerializerInterface $serializer)
+    #[Route('/usuarios', name: 'app_users', methods: ['GET'])]
+    public function listarUsuarios(Request $request,JwtAuth $jwt_auth ,UsuarioRepository $ur, SerializerInterface $serializer)
     {
         //Recoger token
         $token = $request->headers->get('Authorization');
@@ -95,15 +94,60 @@ class ListController extends AbstractController
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $json = json_decode($request->getContent(), true);
+            
+            $identity = $jwt_auth->checkToken($token, true);
+
+            if($identity->rol == 'admin'){
+                            
+                $usuarios = $ur->findAll();
+        
+                $datos = $serializer->serialize($usuarios, 'json', ['groups' => 'usuario', 'max_depth' => 1]);
+        
+                    
+                $data = [
+                    'status' => 'success',
+                    'code' => 200,
+                    'data' => $datos
+                ];
+                                
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No tienes permiso para realizar esta accióna'
+                ];
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
+
+    #[Route('/clases', name: 'app_claselist', methods: ['GET'])]
+    public function listarClases(Request $request, JwtAuth $jwt_auth , ClaseRepository $cr, SerializerInterface $serializer)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
 
             $identity = $jwt_auth->checkToken($token, true);
 
             if($identity->rol == 'admin'){
                     
-                $clases = $claseRepository->findAll();
+                $clases = $cr->findAll();
     
-                $datos = $serializer->serialize($clases, 'json', ['groups' => 'clase', 'max_depth' => 1]);
+                $datos = $serializer->serialize($clases, 'json',['groups' => 'clase', 'max_depth' => 1]);
     
                 
                 $data = [
@@ -146,10 +190,8 @@ class ListController extends AbstractController
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $json = json_decode($request->getContent(), true);
-
             $identity = $jwt_auth->checkToken($token, true);
-
+            
             if($identity->rol == 'admin'){
                         
                 $aulas = $ar->findAll();
@@ -193,8 +235,6 @@ class ListController extends AbstractController
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $json = json_decode($request->getContent(), true);
-
             $identity = $jwt_auth->checkToken($token, true);
 
             if($identity->rol == 'admin'){
@@ -239,8 +279,7 @@ class ListController extends AbstractController
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $json = json_decode($request->getContent(), true);
-
+            
             $identity = $jwt_auth->checkToken($token, true);
                                 
             $dias = $ds->findAll();
@@ -321,50 +360,6 @@ class ListController extends AbstractController
     }
 
 
-    #[Route('/usuarios', name: 'app_users', methods: ['GET'])]
-    public function listarUsuarios(Request $request,JwtAuth $jwt_auth ,UsuarioRepository $ur, SerializerInterface $serializer)
-    {
-        //Recoger token
-        $token = $request->headers->get('Authorization');
-
-        //Comprobar si es correcto
-        $authCheck = $jwt_auth->checkToken($token);
-
-        if($authCheck){
-            
-
-            $identity = $jwt_auth->checkToken($token, true);
-
-            if($identity->rol == 'admin'){
-                            
-                $usuarios = $ur->findAll();
-        
-                $datos = $serializer->serialize($usuarios, 'json', ['groups' => 'usuario', 'max_depth' => 1]);
-        
-                    
-                $data = [
-                    'status' => 'success',
-                    'code' => 200,
-                    'data' => $datos
-                ];
-                                
-            }else{
-                $data = [
-                    'status' => 'error',
-                    'code' => 400,
-                    'message' => 'No tienes permiso para realizar esta accióna'
-                ];
-            }
-        }else{
-            $data = [
-                'status' => 'error',
-                'code' => 400,
-                'message' => 'No tienes permiso para realizar esta acción'
-            ];
-            
-        }
-
-        return new JsonResponse($data);
-    }
+    
 
 }

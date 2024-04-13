@@ -21,7 +21,6 @@ export class UsuariosComponent {
   public token:any;
   public identity:any;
   public usuarios:any;
-  public usuariosParseados:any;
 
   patron: string = '';
   roles:string='';
@@ -42,8 +41,8 @@ export class UsuariosComponent {
   getUsuarios(){
     return this.api.getUsuarios(this.token).subscribe(
       (response:any)=>{
-        this.usuarios=response.data;
-        this.usuariosParseados=JSON.parse(this.usuarios);
+        let usuarios=response.data;
+        this.usuarios=JSON.parse(usuarios);
       },
       error =>{
         console.log(error);

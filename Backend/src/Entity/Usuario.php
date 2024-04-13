@@ -114,7 +114,7 @@ class Usuario
 
         return $this;
     }
-    #[Groups(['clase', 'usuario'])]
+    #[Groups(['usuario'])]
     public function getRol(): ?string
     {
         return $this->rol;
