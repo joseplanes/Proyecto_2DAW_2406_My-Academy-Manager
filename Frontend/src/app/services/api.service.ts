@@ -8,26 +8,15 @@ export class ApiService {
 
   private baseUrl = 'http://localhost:8000/'; 
 
-  private menu=<any>[]
-
   private usuarios=<any>[]
 
  
 
 
   constructor(private http: HttpClient) { 
-    http.get(this.baseUrl+"menu").subscribe((JSON:any)=>{
-      this.menu=JSON})
-
-      /* http.get(this.baseUrl+"usuarios").subscribe((JSON:any)=>{
-        this.usuarios=JSON}) */
-
       
   }
 
-  getMenu(){
-    return this.menu;
-  }
 
   
   
@@ -93,4 +82,3 @@ export class ApiService {
 
   
 }
-

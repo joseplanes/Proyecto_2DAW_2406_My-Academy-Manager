@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, HostListener, DoCheck } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { ApiService } from '../services/api.service';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/user.service';
 
 
@@ -19,7 +18,6 @@ export class NavBarComponent{
 
   
   constructor(private sanitizer: DomSanitizer) { }
-  private api=inject(ApiService)
   private userService=inject(UserService)
   public identity: any;
   public token: any;
@@ -27,13 +25,6 @@ export class NavBarComponent{
   ngDoCheck(){
     this.loadUser();
   }
-  
-  getSafeHtml(html: any) {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
-  }
- getMenu(){
-  return this.api.getMenu();
- }
 
 
   isMenuVisible: boolean = false; // Inicialmente el menú está oculto
