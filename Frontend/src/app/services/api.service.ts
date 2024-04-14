@@ -10,9 +10,6 @@ export class ApiService {
 
   private usuarios=<any>[]
 
- 
-
-
   constructor(private http: HttpClient) { 
       
   }
@@ -29,8 +26,6 @@ export class ApiService {
     
   }
 
-
-
   getUsuarios(token:any){
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
                                    .set('Authorization', token);
@@ -44,40 +39,64 @@ export class ApiService {
 
     return this.http.get(this.baseUrl+'list/clases', {headers: headers});
   }
+  createClase(token:any, clase:any){
+    let json = JSON.stringify(clase);
+    let params = 'json='+json;
 
-  getAsignaturas(){
-    return this.http.get(this.baseUrl+"asignaturas");
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.post(this.baseUrl+'admin/clase/crear', params, {headers: headers});
   }
 
-  getProfesores(){
-    return this.http.get(this.baseUrl+"profesores");
+ 
+
+  getAsignaturas(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.get(this.baseUrl+'list/asignaturas', {headers: headers});
   }
 
-  getAulas(){
-    return this.http.get(this.baseUrl+"aulas");
+  createAsignatura(token:any, asignatura:any){
+    let json = JSON.stringify(asignatura);
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.post(this.baseUrl+'admin/asignaturas/crear', params, {headers: headers});
+  }
+
+  createAula(token:any, aula:any){
+    let json = JSON.stringify(aula);
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.post(this.baseUrl+'admin/aulas/crear', params, {headers: headers});
+  }
+
+  getProfesores(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.get(this.baseUrl+'list/profesores', {headers: headers});
+  }
+
+  getAulas(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.get(this.baseUrl+'list/aulas', {headers: headers});
   }
   
-  getDias(){
-    return this.http.get(this.baseUrl+"dias");
-  }
+  getDias(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
 
-
-
-
-  createAula(data:any){
-    return this.http.post(this.baseUrl+"aulas/crear",data);
-  }
-
-  createUsuario(data:any){
-    return this.http.post(this.baseUrl+"usuarios/crear",data);
-  }
-
-  createClase(data:any){
-    return this.http.post(this.baseUrl+"clase/crear",data);
-  }
-
-  createAsignatura(data:any){
-    return this.http.post(this.baseUrl+"asignaturas/crear",data);
+    return this.http.get(this.baseUrl+'list/dias', {headers: headers});
   }
 
   
