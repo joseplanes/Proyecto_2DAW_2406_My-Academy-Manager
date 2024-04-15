@@ -28,13 +28,13 @@
 
           <a routerLink="/" class="flex items-center flex-shrink-0">
             <img class="w-auto h-14 logo" src="../assets/logo.png" alt="MyAcademy Manager">
-            <span id="nombre" class="text-center">My<br>Academy<br>Manager</span>
+            <span id="nombre" class="text-center" style="vertical-align: middle; margin-bottom: 10px;">My<br>Academy<br>Manager</span>
           </a>
 
-        <div class="hidden sm:ml-6 sm:block">
+        <div class="hidden mx-auto sm:ml-6 sm:block">
         <div class="flex space-x-4" *ngIf="identity">
           @if (identity.rol == 'profesor') {
-            <a [routerLink]="'/'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
+            <a [routerLink]="'/inicio'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
                 <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
@@ -56,7 +56,7 @@
             </a>
           }
           @else if (identity.rol == 'alumno') {
-            <a [routerLink]="'/'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
+            <a [routerLink]="'/inicio'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
                 <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
@@ -91,7 +91,7 @@
             </a>
 
           }@else if (identity.rol == 'admin') {
-            <a [routerLink]="'/'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
+            <a [routerLink]="'/inicio'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
                 <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
@@ -124,11 +124,11 @@
         <div class="flex space-x-4 ml-auto" *ngIf="!identity">
 
           <a routerLink="login" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 10px;">
               <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
               <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
             </svg>
-            Login
+            LOG IN
           </a>
         </div>
       </div>
@@ -187,7 +187,7 @@
     <div class="px-2 pt-2 pb-3 space-y-1" *ngIf="identity">
       <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
       @if (identity.rol == 'profesor') {
-        <a [routerLink]="'/'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
+        <a [routerLink]="'/inicio'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
             <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
             <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
@@ -209,7 +209,7 @@
         </a>
       }
       @else if (identity.rol == 'alumno') {
-        <a [routerLink]="'/'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
+        <a [routerLink]="'/inicio'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
             <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
             <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
@@ -244,7 +244,7 @@
         </a>
 
       }@else if (identity.rol == 'admin') {
-        <a [routerLink]="'/'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
+        <a [routerLink]="'/inicio'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
             <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
             <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>

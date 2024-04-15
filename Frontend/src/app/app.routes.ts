@@ -11,6 +11,7 @@ import { RegistroAulaComponent } from './admin/registro-aula/registro-aula.compo
 import { LoginComponent } from './login/login.component';
 import { IdentityGuard } from './services/identity.guard';
 import { HomeComponent } from './home/home.component';
+import { LandingComponent } from './landing/landing.component';
 
 export const routes: Routes = [
 {
@@ -75,7 +76,7 @@ export const routes: Routes = [
     canActivate: [IdentityGuard]
 },
 {
-    path:'',
+    path:'inicio',
     component:HomeComponent,
     title:'Inicio'
 },
@@ -88,5 +89,10 @@ export const routes: Routes = [
     path:'logout/:sure',
     component:LoginComponent,
     title:'Logout'
+},
+{
+  path:'',
+  component: LandingComponent,
+  title:'MyAcademy Manager'
 },
 ];
