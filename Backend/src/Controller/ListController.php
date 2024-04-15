@@ -418,6 +418,29 @@ class ListController extends AbstractController
                     'data' => $datos
                 ];
             }
+            else if($identity->rol == 'admin'){
+                $clasesid = $pr->findAll();
+                $today = new \DateTime();
+                $todaynumber = $today->format('N');
+                $clases = [];
+                foreach($clasesid as $clase){
+                    $claseDia= $clase->getDias();
+                    foreach($claseDia as $dia){
+                        if($dia->getId() == $todaynumber){
+                            $clases[] = $clase;
+                        }
+                    }
+                }
+    
+                $datos = $serializer->serialize($clases, 'json', ['groups' => 'clasesprofesor', 'max_depth' => 1]);
+    
+                
+                $data = [
+                    'status' => 'success',
+                    'code' => 200,
+                    'data' => $datos
+                ];
+            }
         }else{
             $data = [
                 'status' => 'error',
