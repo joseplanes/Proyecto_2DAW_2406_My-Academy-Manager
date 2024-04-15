@@ -357,7 +357,7 @@ class ListController extends AbstractController
 
 
     #[Route('/misclaseshoy', name: 'app_misclaseshoy', methods: ['GET'])]
-    public function misClasesHoy(Request $request,JwtAuth $jwt_auth , ProfesorRepository $pr,AlumnoRepository $ar , SerializerInterface $serializer)
+    public function misClasesHoy(Request $request,JwtAuth $jwt_auth , ClaseRepository $cr,ProfesorRepository $pr,AlumnoRepository $ar , SerializerInterface $serializer)
     {
         //Recoger token
         $token = $request->headers->get('Authorization');
@@ -419,7 +419,7 @@ class ListController extends AbstractController
                 ];
             }
             else if($identity->rol == 'admin'){
-                $clasesid = $pr->findAll();
+                $clasesid = $cr->findAll();
                 $today = new \DateTime();
                 $todaynumber = $today->format('N');
                 $clases = [];
