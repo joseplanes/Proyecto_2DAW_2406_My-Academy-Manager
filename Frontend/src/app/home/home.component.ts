@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Component , OnInit, inject} from '@angular/core';
+import { RouterModule, RouterOutlet, Router,ActivatedRoute,Params  } from '@angular/router';
+import { ApiService } from '../services/api.service';
+import { UserService } from '../services/user.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { PatronClasePipe } from '../pipes/patron-clase.pipe';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +21,33 @@ export class HomeComponent implements OnInit {
   currentYear: number = new Date().getFullYear(); // Inicializado
   currentMonth: number = new Date().getMonth(); // Inicializado
 
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
+    this.loadUser();
+    if(this.identity.rol=='alumno'||this.identity.rol=='profesor'){
+      this.getMisClasesHoy();
+    }else{
+      this.router.navigate(['/asistencia']);
+    }
+  }
+  getMisClasesHoy(){
+    return this.api.getMisClasesHoy(this.token).subscribe(
+      (response:any)=>{
+        let clases = response.data;
+        this.clases = JSON.parse(clases);
+        if(!this.clases.length){
+          this.clases = [{id:1, asignatura:{nombre:"No tienes clase hoy"}}]; 
+      }
+      },
+      error =>{
+        console.log(error);
+      }
+    );
+  }
+
+  loadUser(){
+    this.token=this.userService.getToken();
+    this.identity=this.userService.getIdentity();
+  }
 
   ngOnInit(): void {
     this.generateCalendar();
@@ -77,5 +107,11 @@ export class HomeComponent implements OnInit {
 
     this.updateCalendar(this.currentYear, this.currentMonth);
   }
+
+  private api=inject(ApiService)
+  private userService=inject(UserService)
+  public token:any;
+  public identity:any;
+  public clases:any;
 }
 

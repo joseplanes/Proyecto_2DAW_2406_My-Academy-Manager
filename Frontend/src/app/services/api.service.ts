@@ -39,6 +39,12 @@ export class ApiService {
 
     return this.http.get(this.baseUrl+'list/misclases', {headers: headers});
   }
+  getMisClasesHoy(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.get(this.baseUrl+'list/misclaseshoy', {headers: headers});
+  }
 
   getClases(token:any){
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
