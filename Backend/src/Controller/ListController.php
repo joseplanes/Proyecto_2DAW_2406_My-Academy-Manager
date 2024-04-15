@@ -356,6 +356,81 @@ class ListController extends AbstractController
     }
 
 
+    #[Route('/misclaseshoy', name: 'app_misclaseshoy', methods: ['GET'])]
+    public function misClasesHoy(Request $request,JwtAuth $jwt_auth , ProfesorRepository $pr,AlumnoRepository $ar , SerializerInterface $serializer)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            $json = json_decode($request->getContent(), true);
+
+            $identity = $jwt_auth->checkToken($token, true);
+            
+            if($identity->rol == 'alumno'){
+
+                $alumnoId = $identity->id_alumno;
+                $clasesid = $ar->find($alumnoId)->getClases();
+                $today = new \DateTime();
+                $today = new \DateTime();
+                $todaynumber = $today->format('N');
+                $clases = [];
+                foreach($clasesid as $clase){
+                    $claseDia= $clase->getDias();
+                    foreach($claseDia as $dia){
+                        if($dia->getId() == $todaynumber){
+                            $clases[] = $clase;
+                        }
+                    }
+                }
+                
+                $datos = $serializer->serialize($clases, 'json', ['groups' => 'clasesalumno', 'max_depth' => 1]);
+
+                $data = [
+                    'status' => 'success',
+                    'code' => 200,
+                    'data' => $datos
+                ];
+            }else if($identity->rol == 'profesor'){
+                $profesorId = $identity->id_profesor;
+                $clasesid = $pr->find($profesorId)->getClases();
+                $today = new \DateTime();
+                $todaynumber = $today->format('N');
+                $clases = [];
+                foreach($clasesid as $clase){
+                    $claseDia= $clase->getDias();
+                    foreach($claseDia as $dia){
+                        if($dia->getId() == $todaynumber){
+                            $clases[] = $clase;
+                        }
+                    }
+                }
+    
+                $datos = $serializer->serialize($clases, 'json', ['groups' => 'clasesprofesor', 'max_depth' => 1]);
+    
+                
+                $data = [
+                    'status' => 'success',
+                    'code' => 200,
+                    'data' => $datos
+                ];
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
+
     
 
 }
