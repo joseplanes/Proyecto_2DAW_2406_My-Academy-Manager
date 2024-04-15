@@ -78,7 +78,8 @@ export const routes: Routes = [
 {
     path:'inicio',
     component:HomeComponent,
-    title:'Inicio'
+    title:'Inicio',
+    canActivate: [IdentityGuard]
 },
 {
     path:'login',

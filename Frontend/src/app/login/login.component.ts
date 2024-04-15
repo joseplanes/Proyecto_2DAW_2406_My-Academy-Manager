@@ -21,12 +21,12 @@ export class LoginComponent {
   constructor(private _router: Router, private _route: ActivatedRoute) {
     this.user = new User(1, '', '', '', '', new Date(), '', '');
     this.status = '';
-    this.token = '';    
-    
+    this.token = '';
+
   }
   ngOnInit(){
     this.logout();
-  
+
   }
   onSubmit(loginForm: any) {
      this.userService.login(this.user).subscribe(
@@ -40,7 +40,7 @@ export class LoginComponent {
             (response:any ) => {
               if (!response.status || response.status != 'error') {
                 this.token = response;
-                
+
                 console.log(this.identity)
                 console.log(this.token)
 
@@ -48,8 +48,8 @@ export class LoginComponent {
                 localStorage.setItem('token', this.token);
                 localStorage.setItem('identity', JSON.stringify(this.identity));
 
-                this._router.navigate(['/asistencia']);
-                
+                this._router.navigate(['/inicio']);
+
               } else {
                 this.status = 'error';
               }
@@ -59,7 +59,7 @@ export class LoginComponent {
               console.log(error);
             }
           );
-          
+
         } else {
           this.status = 'error';
         }
@@ -70,8 +70,8 @@ export class LoginComponent {
       }
     );
 
-   
-    
+
+
   }
 
   logout() {
