@@ -33,6 +33,13 @@ export class ApiService {
     return this.http.get(this.baseUrl+'list/usuarios', {headers: headers});
   }
 
+  getMisClases(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.get(this.baseUrl+'list/misclases', {headers: headers});
+  }
+
   getClases(token:any){
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
                                    .set('Authorization', token);

@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { IdentityGuard } from './services/identity.guard';
 import { HomeComponent } from './home/home.component';
 import { LandingComponent } from './landing/landing.component';
+import { MisClasesComponent } from './mis-clases/mis-clases.component';
 
 export const routes: Routes = [
 {
@@ -96,4 +97,10 @@ export const routes: Routes = [
   component: LandingComponent,
   title:'MyAcademy Manager'
 },
+{
+    path: 'misclases',
+    component: MisClasesComponent,
+    title: 'Mis Clases',
+    canActivate: [IdentityGuard]
+}
 ];
