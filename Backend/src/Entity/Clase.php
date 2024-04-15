@@ -50,12 +50,12 @@ class Clase
         $this->alumnos = new ArrayCollection();
         $this->calificacions = new ArrayCollection();
     }
-    #[Groups(['alumno', 'clase', 'clasebasic'])]
+    #[Groups(['alumno', 'clase', 'clasebasic','clasesalumno','clasesprofesor'])]
     public function getId(): ?int
     {
         return $this->id;
     }
-    #[Groups(['alumno', 'clase', 'clasebasic'])]
+    #[Groups(['alumno', 'clase', 'clasebasic','clasesalumno','clasesprofesor'])]
     public function getAsignatura(): ?Asignatura
     {
         return $this->asignatura;
@@ -67,7 +67,7 @@ class Clase
 
         return $this;
     }
-    #[Groups(['clase', 'clasebasic'])]
+    #[Groups(['clase', 'clasebasic','clasesalumno'])]
     public function getProfesor(): ?Profesor
     {
         return $this->profesor;
@@ -79,7 +79,7 @@ class Clase
 
         return $this;
     }
-    #[Groups(['clase'])]
+    #[Groups(['clase','clasesalumno','clasesprofesor'])]
     public function getAula(): ?Aula
     {
         return $this->aula;
@@ -91,7 +91,7 @@ class Clase
 
         return $this;
     }
-    #[Groups(['clase'])]
+    #[Groups(['clase','clasesalumno','clasesprofesor'])]
     public function getHoraInicio(): ?\DateTimeInterface
     {
         return $this->hora_inicio;
@@ -103,7 +103,7 @@ class Clase
 
         return $this;
     }
-    #[Groups(['clase'])]
+    #[Groups(['clase','clasesalumno','clasesprofesor'])]
     public function getHoraFin(): ?\DateTimeInterface
     {
         return $this->hora_fin;
@@ -120,7 +120,7 @@ class Clase
      * @return Collection<int, DiasSemana>
      */
 
-    #[Groups(['clase'])]
+    #[Groups(['clase','clasesalumno','clasesprofesor'])]
     public function getDias(): Collection
     {
         return $this->dias;

@@ -52,7 +52,7 @@ class Alumno
     /**
      * @return Collection<int, Clase>
      */
-    #[Groups(['alumno'])]
+    #[Groups(['alumno', 'clasesalumno'])]
     public function getClases(): Collection
     {
         return $this->clases;

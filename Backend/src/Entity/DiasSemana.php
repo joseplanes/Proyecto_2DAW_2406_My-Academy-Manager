@@ -26,13 +26,13 @@ class DiasSemana
     {
         $this->clases = new ArrayCollection();
     }
-    #[Groups(['clase', 'dias'])]
+    #[Groups(['clase', 'dias','clasesprofesor','clasesalumno'])]
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    #[Groups(['dias'])]
+    #[Groups(['dias','clasesprofesor','clasesalumno'])]
     public function getDia(): ?string
     {
         return $this->dia;

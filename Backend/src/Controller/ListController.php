@@ -305,7 +305,7 @@ class ListController extends AbstractController
     }
 
     #[Route('/misclases', name: 'app_misclases', methods: ['GET'])]
-    public function misClases(Request $request,JwtAuth $jwt_auth ,ClaseRepository $claseRepository, SerializerInterface $serializer)
+    public function misClases(Request $request,JwtAuth $jwt_auth , ProfesorRepository $pr,AlumnoRepository $ar , SerializerInterface $serializer)
     {
         //Recoger token
         $token = $request->headers->get('Authorization');
@@ -321,14 +321,9 @@ class ListController extends AbstractController
             if($identity->rol == 'alumno'){
 
                 $alumnoId = $identity->id_alumno;
-                $clases = $claseRepository->createQueryBuilder('c')
-                ->join('c.alumnos', 'a')
-                ->where('a.id = :alumnoId')
-                ->setParameter('alumnoId', $alumnoId)
-                ->getQuery()
-                ->getResult();
+                $clases = $ar->find($alumnoId)->getClases();
                 
-                $datos = $serializer->serialize($clases, 'json', ['groups' => 'clase', 'max_depth' => 1]);
+                $datos = $serializer->serialize($clases, 'json', ['groups' => 'clasesalumno', 'max_depth' => 1]);
 
                 $data = [
                     'status' => 'success',
@@ -336,9 +331,10 @@ class ListController extends AbstractController
                     'data' => $datos
                 ];
             }else if($identity->rol == 'profesor'){
-                $clases = $claseRepository->findBy(['profesor' => $identity->id_profesor]);
+                $profesorId = $identity->id_profesor;
+                $clases = $pr->find($profesorId)->getClases();
     
-                $datos = $serializer->serialize($clases, 'json', ['groups' => 'clase', 'max_depth' => 1]);
+                $datos = $serializer->serialize($clases, 'json', ['groups' => 'clasesprofesor', 'max_depth' => 1]);
     
                 
                 $data = [

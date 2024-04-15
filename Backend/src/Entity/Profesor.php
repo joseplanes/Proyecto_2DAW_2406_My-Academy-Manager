@@ -48,6 +48,7 @@ class Profesor
     /**
      * @return Collection<int, Clase>
      */
+    #[Groups(['clasesprofesor'])]
     public function getClases(): Collection
     {
         return $this->clases;

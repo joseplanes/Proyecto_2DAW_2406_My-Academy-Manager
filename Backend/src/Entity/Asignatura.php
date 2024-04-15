@@ -34,12 +34,12 @@ class Asignatura
         $this->clases = new ArrayCollection();
     }
     
-    #[Groups(['clase', 'asignaturas'])]
+    #[Groups(['clase', 'asignaturas','clasesprofesor','clasesalumno'])]
     public function getId(): ?int
     {
         return $this->id;
     }
-    #[Groups(['clase', 'asignaturas', 'alumno','clasebasic'])]
+    #[Groups(['clase', 'asignaturas', 'alumno','clasebasic','clasesprofesor','clasesalumno'])]
     public function getNombre(): ?string
     {
         return $this->nombre;
@@ -51,7 +51,7 @@ class Asignatura
 
         return $this;
     }
-    #[Groups(['clase'])]
+    #[Groups(['clase','clasesprofesor','clasesalumno'])]
     
     public function getDescripcion(): ?string
     {
@@ -64,7 +64,7 @@ class Asignatura
 
         return $this;
     }
-    #[Groups(['clase'])]
+    #[Groups(['clase','clasesprofesor','clasesalumno'])]
     
     public function getImg(): ?string
     {

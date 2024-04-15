@@ -29,12 +29,12 @@ class Aula
     {
         $this->clases = new ArrayCollection();
     }
-    #[Groups(['aula'])]
+    #[Groups(['aula', 'clasesprofesor','clasesalumno'])]
     public function getId(): ?int
     {
         return $this->id;
     }
-    #[Groups(['clase', 'aula'])]
+    #[Groups(['clase', 'aula','clasesprofesor','clasesalumno'])]
     public function getNombre(): ?string
     {
         return $this->nombre;
