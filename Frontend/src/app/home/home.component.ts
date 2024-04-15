@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
     this.loadUser();
-    if(this.identity.rol=='alumno'||this.identity.rol=='profesor'){
+    if(this.identity.rol=='alumno'||this.identity.rol=='profesor'|| this.identity.rol=='admin'){
       this.getMisClasesHoy();
     }else{
       this.router.navigate(['/asistencia']);
