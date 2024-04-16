@@ -31,7 +31,7 @@
             <span id="nombre" class="text-center" style="vertical-align: middle; margin-bottom: 10px;">My<br>Academy<br>Manager</span>
           </a>
 
-          <a routerLink="/" class="flex items-center flex-shrink-0" *ngIf="!identity">
+          <a href="#" class="flex items-center flex-shrink-0" *ngIf="!identity">
             <img class="w-auto h-14 logo" src="../assets/logo.png" alt="MyAcademy Manager">
             <span id="nombre" class="text-center" style="vertical-align: middle; margin-bottom: 10px;">My<br>Academy<br>Manager</span>
           </a>
@@ -132,7 +132,7 @@
         <div class="justify-end hidden pr-16 sm:flex lg:pr-0" *ngIf="!identity">
           <a
           [routerLink]="'/login'"
-          class="inline-flex items-center justify-center px-6 py-4 text-base font-medium text-black transition duration-300 ease-in-out rounded bg-white hover:bg-opacity-85 hover:shadow-lg"
+          class="inline-flex items-center justify-center px-6 py-4 text-base font-medium text-black transition duration-300 ease-in-out bg-white rounded hover:bg-opacity-85 hover:shadow-lg"
           >
             Iniciar Sesión
           </a>
@@ -155,7 +155,7 @@
             <div class="flex items-center justify-left">
               <div class="inline-flex items-center px-4 py-2 text-sm text-gray-700">
                 <span class="block text-sm text-gray-900">{{identity.nombre+' '+identity.apellidos}}</span>
-                <span class="block text-sm  text-gray-500 truncate dark:text-gray-400"></span>
+                <span class="block text-sm text-gray-500 truncate dark:text-gray-400"></span>
               </div>
             </div>
             <div class="flex items-center justify-left">
@@ -274,6 +274,7 @@
       }
 
     </div>
+    
     <div class="px-2 pt-2 pb-3 space-y-1" *ngIf="!identity">
         <a routerLink="login" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
