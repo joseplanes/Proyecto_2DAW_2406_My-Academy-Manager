@@ -5,11 +5,12 @@ import { ApiService } from '../services/api.service';
 import { UserService } from '../services/user.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PatronClasePipe } from '../pipes/patron-clase.pipe';
+import { HoraPipe } from '../pipes/hora.pipe';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, RouterOutlet, CommonModule],
+  imports: [RouterModule, RouterOutlet, CommonModule, HoraPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
