@@ -1,11 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { Component, inject,  } from '@angular/core';
+import { RouterModule, Router,ActivatedRoute,Params} from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { AlumnoCardComponent } from '../alumno-card/alumno-card.component';
 import { DiasPipe } from '../pipes/dias.pipe';
 import { HoraPipe } from '../pipes/hora.pipe';
 import { PatronAlumnoPipe } from '../pipes/patron-alumno.pipe';
-
+import { UserService } from '../services/user.service';
+import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { PatronClasePipe } from '../pipes/patron-clase.pipe';
 
 
 @Component({
@@ -15,28 +18,44 @@ import { PatronAlumnoPipe } from '../pipes/patron-alumno.pipe';
   templateUrl: './clase-detalle.component.html',
   styleUrl: './clase-detalle.component.css'
 })
-export class ClaseDetalleComponent  implements OnInit{
+export class ClaseDetalleComponent {
  
-  
-  claseinfo=<any>[];
+  private api=inject(ApiService)
+  private userService=inject(UserService)
+  public token:any;
+  public identity:any;
+  public claseinfo:any;
   claseId: number = 0;
   patron:string='';
   
-  constructor(private route: ActivatedRoute, private api: ApiService) {}
-  ngOnInit(): void {
-    this.claseinfo=[];
-    const id = this.route.snapshot.params["id"];
-    const claseId = id ? +id : 0;
-    console.log(claseId);
-    this.claseId=claseId;
-    this.getClassInfo(claseId);
+  constructor(private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
+    this.loadUser();
+    if(this.identity.rol=='admin'||this.identity.rol=='profesor'||this.identity.rol=='alumno'){
+      const id = this.route.snapshot.params["id"];
+      const claseId = id ? +id : 0;
+      this.claseId=claseId;
+      
+      this.getClase();
+    }else{
+      this.router.navigate(['/']);
+    }
   }
-  
 
-  getClassInfo(claseId:number){
-    this.api.getClase(claseId).subscribe((JSON:any)=>{
-      this.claseinfo=JSON;
-    });
+  getClase(){
+    return this.api.getClase(this.claseId,this.token).subscribe(
+      (response:any)=>{
+        let clases = response.data;
+        this.claseinfo = JSON.parse(clases);
+      },
+      error =>{
+        console.log(error);
+      }
+    );
+  }
+
+  loadUser(){
+    this.token=this.userService.getToken();
+    this.identity=this.userService.getIdentity();
   }
     
   infoclick: boolean = true;

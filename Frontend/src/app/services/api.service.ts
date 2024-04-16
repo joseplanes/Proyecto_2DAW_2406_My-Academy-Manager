@@ -21,8 +21,10 @@ export class ApiService {
     return this.http.get(this.baseUrl+"clasebasic");
   }
 
-  getClase(id:number){
-    return this.http.get(this.baseUrl+`clase/${id}`);
+  getClase(id:number, token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`list/clase/${id}`, {headers: headers});
     
   }
 
