@@ -15,7 +15,7 @@
     </svg>
     <span class="sr-only">Info</span>
     <div>
-      <span class="font-medium">{{message}}</span> {{message}}
+      <span class="font-medium">No se han guardado las faltas de asistencia.</span> 
     </div>
   </div>
 }
@@ -42,7 +42,7 @@
                 <input id="{{ alumno.usuario.id }}" name="{{ alumno.usuario.id }}" [(ngModel)]="formData.alumnos[alumno.id]" [value]="alumno.id" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
               </div>
               <div class="text-sm leading-6">
-                  <label for="{{ alumno.usuario.id }}" class="font-medium text-gray-900">{{alumno.usuario.nombre}}</label>
+                  <label for="{{ alumno.usuario.id }}" class="font-medium text-gray-900">{{alumno.usuario.nombre}} {{alumno.usuario.apellidos}}</label>
               </div>
           </div>
       }            
