@@ -530,14 +530,14 @@ class ListController extends AbstractController
                         }
                     }
                     $entityManager->flush();
-                }
-                    
-                    
                     $data = [
                         'status' => 'success',
                         'code' => 200,
                         'message' => 'Faltas de asistencia guardadas correctamente.'
                     ];
+                }
+                    
+                    
 
                 }else{
                     $data = [

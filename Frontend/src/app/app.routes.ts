@@ -18,8 +18,14 @@ import { RegistroAsistenciaComponent } from './registro-asistencia/registro-asis
 export const routes: Routes = [
 {
     path: 'asistencia',
-    component: RegistroAsistenciaComponent,
+    component: AsistenciaComponent,
     title: 'Asistencia',
+    canActivate: [IdentityGuard]
+},
+{
+    path: 'faltasasistencia',
+    component: RegistroAsistenciaComponent,
+    title: 'Registro Asistencia',
     canActivate: [IdentityGuard]
 },
 {
