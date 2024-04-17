@@ -38,7 +38,7 @@ export class RegistroclaseComponent {
       this.getDias();
 
     }else{
-      this.router.navigate(['/asistencia']);
+      this.router.navigate(['/inicio']);
     }
   }
   loadUser(){

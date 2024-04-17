@@ -25,7 +25,7 @@ export class RegistroAsignaturaComponent {
     if(this.identity.rol=='admin'){
       this.formData={};
     }else{
-      this.router.navigate(['/asistencia']);
+      this.router.navigate(['/inicio']);
     }
   }
   loadUser(){

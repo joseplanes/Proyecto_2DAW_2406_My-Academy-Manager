@@ -29,7 +29,7 @@ export class RegistroUsuarioComponent {
         clases: []
       };
     }else{
-      this.router.navigate(['/asistencia']);
+      this.router.navigate(['/inicio']);
     }
   }
   loadUser(){

@@ -30,7 +30,7 @@ export class ClaseComponent {
     if(this.identity.rol=='admin'){
       this.getClases();
     }else{
-      this.router.navigate(['/asistencia']);
+      this.router.navigate(['/inicio']);
     }
   }
   loadUser(){
