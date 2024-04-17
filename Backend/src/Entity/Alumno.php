@@ -26,10 +26,17 @@ class Alumno
     #[ORM\OneToMany(targetEntity: Calificacion::class, mappedBy: 'alumno')]
     private Collection $calificacions;
 
+    /**
+     * @var Collection<int, Asistencia>
+     */
+    #[ORM\OneToMany(targetEntity: Asistencia::class, mappedBy: 'alumno')]
+    private Collection $asistencias;
+
     public function __construct()
     {
         $this->clases = new ArrayCollection();
         $this->calificacions = new ArrayCollection();
+        $this->asistencias = new ArrayCollection();
     }
     #[Groups(['clase', 'alumno'])]
     public function getId(): ?int
@@ -101,6 +108,36 @@ class Alumno
             // set the owning side to null (unless already changed)
             if ($calificacion->getAlumno() === $this) {
                 $calificacion->setAlumno(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Asistencia>
+     */
+    public function getAsistencias(): Collection
+    {
+        return $this->asistencias;
+    }
+
+    public function addAsistencia(Asistencia $asistencia): static
+    {
+        if (!$this->asistencias->contains($asistencia)) {
+            $this->asistencias->add($asistencia);
+            $asistencia->setAlumno($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAsistencia(Asistencia $asistencia): static
+    {
+        if ($this->asistencias->removeElement($asistencia)) {
+            // set the owning side to null (unless already changed)
+            if ($asistencia->getAlumno() === $this) {
+                $asistencia->setAlumno(null);
             }
         }
 
