@@ -13,11 +13,12 @@ import { IdentityGuard } from './services/identity.guard';
 import { HomeComponent } from './home/home.component';
 import { LandingComponent } from './landing/landing.component';
 import { MisClasesComponent } from './mis-clases/mis-clases.component';
+import { RegistroAsistenciaComponent } from './registro-asistencia/registro-asistencia.component';
 
 export const routes: Routes = [
 {
     path: 'asistencia',
-    component: AsistenciaComponent,
+    component: RegistroAsistenciaComponent,
     title: 'Asistencia',
     canActivate: [IdentityGuard]
 },

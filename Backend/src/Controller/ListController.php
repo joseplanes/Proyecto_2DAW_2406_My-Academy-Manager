@@ -32,6 +32,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\JwtAuth;
+use App\Entity\Asistencia;
+use App\Repository\AsistenciaRepository;
 
 #[Route('/list', name: 'app_list')]
 class ListController extends AbstractController
@@ -493,7 +495,7 @@ class ListController extends AbstractController
 
 
     #[Route('/asistencia', name: 'asistencia', methods: ['POST'])]
-    public function Asistencia(Request $request,JwtAuth $jwt_auth,EntityManagerInterface $entityManager, SerializerInterface $serializer)
+    public function Asistencia(Request $request,ClaseRepository $cr, AlumnoRepository $ar, JwtAuth $jwt_auth,EntityManagerInterface $entityManager, SerializerInterface $serializer)
     {
         //Recoger token
         $token = $request->headers->get('Authorization');
@@ -510,27 +512,38 @@ class ListController extends AbstractController
                 $params =  json_decode($json);
 
                 if(!empty($json)){
-                    $nombre= (!empty($params->nombre)) ? $params->nombre : null;
-                    $capacidad= (!empty($params->capacidad)) ? $params->capacidad : null;
+                    $fecha= (!empty($params->fecha)) ? $params->fecha : null;
+                    $claseid= (!empty($params->clase)) ? $params->clase : null;
+                    $alumnos= (!empty($params->alumnos)) ? $params->alumnos : null;
                     
-                    $aula = new Aula();
-                    $aula->setNombre($nombre);
-                    $aula->setCapacidad($capacidad);
-                    
-                    $entityManager->persist($aula);
+                    $clase = $cr->find($claseid);
+
+                if ($clase && $fecha && $alumnos) {
+                    foreach ($alumnos as $alumnoId) {
+                        $asistencia = new Asistencia();
+                        $asistencia->setClase($clase);
+                        $asistencia->setFecha(new \DateTime($fecha));
+                        $alumno = $ar->find($alumnoId);
+                        if ($alumno) {
+                            $asistencia->setAlumno($alumno);
+                            $entityManager->persist($asistencia);
+                        }
+                    }
                     $entityManager->flush();
+                }
+                    
                     
                     $data = [
                         'status' => 'success',
                         'code' => 200,
-                        'message' => 'Aula creada correctamente'
+                        'message' => 'Faltas de asistencia guardadas correctamente.'
                     ];
 
                 }else{
                     $data = [
                         'status' => 'error',
                         'code' => 400,
-                        'message' => 'No se ha podido crear el aula'
+                        'message' => 'No se han guardado los datos correctamente'
                     ];
                 
                 }

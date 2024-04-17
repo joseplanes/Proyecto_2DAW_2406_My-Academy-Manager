@@ -38,12 +38,12 @@ class Alumno
         $this->calificacions = new ArrayCollection();
         $this->asistencias = new ArrayCollection();
     }
-    #[Groups(['clase', 'alumno'])]
+    #[Groups(['clase', 'alumno','clasesprofesor'])]
     public function getId(): ?int
     {
         return $this->id;
     }
-    #[Groups(['clase', 'alumno'])]
+    #[Groups(['clase', 'alumno', 'clasesprofesor'])]
     public function getUsuario(): ?Usuario
     {
         return $this->usuario;

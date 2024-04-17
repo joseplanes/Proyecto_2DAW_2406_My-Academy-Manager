@@ -5,7 +5,7 @@
     </svg>
     <span class="sr-only">Info</span>
     <div>
-      <span class="font-medium">{{message}}.</span> Puedes crear más clases, o volver a la lista de clases pinchando <a [routerLink]="'/clase'">aquí</a>.
+      <span class="font-medium">{{message}}</span> Puedes pasar más faltas, o volver al inicio pinchando <a [routerLink]="'/inicio'">aquí</a>.
     </div>
   </div>
 }@else if (status=='error'){
@@ -15,61 +15,41 @@
     </svg>
     <span class="sr-only">Info</span>
     <div>
-      <span class="font-medium">No se han podido crear la clase.</span> {{message}}
+      <span class="font-medium">{{message}}</span> {{message}}
     </div>
   </div>
 }
 <form #createasistencia (ngSubmit)="onSubmit(createasistencia)" class="max-w-md mx-auto mt-8">
   <div class="mb-4">
-      <label for="asignatura" class="block text-gray-700 text-sm font-bold mb-2">Asignatura</label>
-      <select id="asignatura" name="asignatura" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.asignatura" required>
-          <option value="" disabled selected hidden>Selecciona una asignatura</option>
-          @for (a of asignaturas; track a.id) {
-              <option [value]="a.id">{{a.nombre}}</option>
+    <label for="fecha" class="block text-gray-700 text-sm font-bold mb-2">Fecha</label>
+    <input type="date" id="fecha" name="fecha" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.fecha" required>
+  </div>
+  <div class="mb-4">
+      <label for="asignatura" class="block text-gray-700 text-sm font-bold mb-2">Clase</label>
+      <select id="asignatura" name="asignatura" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.clase" required>
+          <option value="" disabled selected hidden>Selecciona una clase</option>
+          @for (c of clases; track $index) {
+              <option [value]="c.id">{{c.asignatura.nombre}}</option>
           }
       </select>
   </div>
-  <div class="mb-4">
-      <label for="profesor" class="block text-gray-700 text-sm font-bold mb-2">Profesor</label>
-      <select id="profesor" name="profesor" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.profesor" required>
-          <option value="" disabled selected hidden>Selecciona un profesor</option>
-          @for (p of profesores; track p.id) {
-              <option [value]="p.id">{{p.usuario.nombre}}</option>
-          }
-      </select>
-  </div>
-  <div class="mb-4">
-      <label for="aula" class="block text-gray-700 text-sm font-bold mb-2">Aula</label>
-      <select id="aula" name="aula" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.aula" required>
-          <option value="" disabled selected hidden>Selecciona un aula</option>
-          @for (aU of aulas; track aU.id) {
-              <option [value]="aU.id">{{aU.nombre}}</option>
-          }
-      </select>
-  </div>
-  <div class="mb-4">
-      <label for="horaInicio" class="block text-gray-700 text-sm font-bold mb-2">Hora de inicio</label>
-      <input type="time" id="horaInicio" name="horaInicio" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.horaInicio" required>
-  </div>
-  <div class="mb-4">
-      <label for="horaFin" class="block text-gray-700 text-sm font-bold mb-2">Hora de fin</label>
-      <input type="time" id="horaFin" name="horaFin" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.horaFin" required>
-  </div>
-  <div class="mb-4">
-      <label for="dias" class="block text-gray-700 text-sm font-bold mb-2">Días</label>
-      @for (dia of dias; track $index) {
+  @if (formData.clase) {
+    <div class="mb-4">
+      <label for="alumnos" class="block text-gray-700 text-sm font-bold mb-2">Alumnos (Seleccionar los que tengan falta)</label>
+      @for (alumno of obtenerAlumnosDeClase(formData.clase); track alumno.id) {
           <div class="relative flex gap-x-3">
               <div class="flex h-6 items-center">
-                <input id="{{ dia.id }}" name="{{ dia.dia }}" [(ngModel)]="formData.dias[dia.id]" [value]="dia.id" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                <input id="{{ alumno.usuario.id }}" name="{{ alumno.usuario.id }}" [(ngModel)]="formData.alumnos[alumno.id]" [value]="alumno.id" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
               </div>
               <div class="text-sm leading-6">
-                  <label for="{{ dia.dia }}" class="font-medium text-gray-900">{{dia.dia}}</label>
+                  <label for="{{ alumno.usuario.id }}" class="font-medium text-gray-900">{{alumno.usuario.nombre}}</label>
               </div>
           </div>
-      }
-                
-  </div>
+      }            
+    </div>
+  }
+  
   <div class="mb-4">
-      <button type="submit" class="bg-custom-green hover:bg-custom-darkgreen text-dark font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Guardar Clase</button>
+      <button type="submit" class="bg-custom-green hover:bg-custom-darkgreen text-dark font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Guardar Faltas de Asistencia</button>
   </div>
 </form>

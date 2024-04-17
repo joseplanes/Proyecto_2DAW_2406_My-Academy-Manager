@@ -49,12 +49,12 @@ class Usuario
         $this->profesors = new ArrayCollection();
         $this->alumnos = new ArrayCollection();
     }
-    #[Groups(['usuario'])]
+    #[Groups(['usuario','clasesprofesor'])]
     public function getId(): ?int
     {
         return $this->id;
     }
-    #[Groups(['clase', 'usuario', 'profesor'])]
+    #[Groups(['clase', 'usuario', 'profesor','clasesprofesor'])]
     public function getNombre(): ?string
     {
         return $this->nombre;
@@ -66,7 +66,7 @@ class Usuario
 
         return $this;
     }
-    #[Groups(['clase', 'usuario', 'profesor'])]
+    #[Groups(['clase', 'usuario', 'profesor','clasesprofesor'])]
     public function getApellidos(): ?string
     {
         return $this->apellidos;
