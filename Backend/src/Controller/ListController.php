@@ -492,6 +492,63 @@ class ListController extends AbstractController
     }
 
 
+    #[Route('/asistencia', name: 'asistencia', methods: ['POST'])]
+    public function Asistencia(Request $request,JwtAuth $jwt_auth,EntityManagerInterface $entityManager, SerializerInterface $serializer)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            
+            $identity = $jwt_auth->checkToken($token, true);
+
+            if($identity->rol == 'profesor'){
+                $json = $request->get('json', null);
+                $params =  json_decode($json);
+
+                if(!empty($json)){
+                    $nombre= (!empty($params->nombre)) ? $params->nombre : null;
+                    $capacidad= (!empty($params->capacidad)) ? $params->capacidad : null;
+                    
+                    $aula = new Aula();
+                    $aula->setNombre($nombre);
+                    $aula->setCapacidad($capacidad);
+                    
+                    $entityManager->persist($aula);
+                    $entityManager->flush();
+                    
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Aula creada correctamente'
+                    ];
+
+                }else{
+                    $data = [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'No se ha podido crear el aula'
+                    ];
+                
+                }
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No tienes permiso para realizar esta acción'
+                ];
+                
+            }
+                
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
     
 
 }

@@ -15,11 +15,6 @@ export class ApiService {
   }
 
 
-  
-  
-  getClasesBasic(){
-    return this.http.get(this.baseUrl+"clasebasic");
-  }
 
   getClase(id:number, token:any){
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
@@ -91,6 +86,15 @@ export class ApiService {
                                    .set('Authorization', token);
 
     return this.http.post(this.baseUrl+'admin/aulas/crear', params, {headers: headers});
+  }
+  createAsistencia(token:any, asistencia:any){
+    let json = JSON.stringify(asistencia);
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.post(this.baseUrl+'list/asistencia', params, {headers: headers});
   }
 
   getProfesores(token:any){
