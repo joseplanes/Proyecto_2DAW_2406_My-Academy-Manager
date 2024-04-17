@@ -62,7 +62,7 @@ class Clase
     {
         return $this->id;
     }
-    #[Groups(['alumno', 'clase', 'clasebasic','clasesalumno','clasesprofesor'])]
+    #[Groups(['alumno', 'clase', 'clasebasic','clasesalumno','clasesprofesor','asistencia'])]
     public function getAsignatura(): ?Asignatura
     {
         return $this->asignatura;
@@ -98,7 +98,7 @@ class Clase
 
         return $this;
     }
-    #[Groups(['clase','clasesalumno','clasesprofesor'])]
+    #[Groups(['clase','clasesalumno','clasesprofesor', 'asistencia'])]
     public function getHoraInicio(): ?\DateTimeInterface
     {
         return $this->hora_inicio;

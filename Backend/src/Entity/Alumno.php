@@ -117,6 +117,7 @@ class Alumno
     /**
      * @return Collection<int, Asistencia>
      */
+    #[Groups(['asistencia'])]
     public function getAsistencias(): Collection
     {
         return $this->asistencias;

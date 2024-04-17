@@ -4,7 +4,10 @@ namespace App\Entity;
 
 use App\Repository\AsistenciaRepository;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AsistenciaRepository::class)]
 class Asistencia
@@ -29,7 +32,7 @@ class Asistencia
     {
         return $this->id;
     }
-
+    #[Groups(['asistencia'])]
     public function getClase(): ?Clase
     {
         return $this->clase;
@@ -53,7 +56,7 @@ class Asistencia
 
         return $this;
     }
-
+    #[Groups(['asistencia'])]
     public function getFecha(): ?\DateTimeInterface
     {
         return $this->fecha;

@@ -39,7 +39,7 @@ class Asignatura
     {
         return $this->id;
     }
-    #[Groups(['clase', 'asignaturas', 'alumno','clasebasic','clasesprofesor','clasesalumno'])]
+    #[Groups(['clase', 'asignaturas', 'alumno','clasebasic','clasesprofesor','clasesalumno','asistencia'])]
     public function getNombre(): ?string
     {
         return $this->nombre;
