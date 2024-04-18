@@ -32,43 +32,9 @@
               
               <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           
-              @for (usuario of usuarios | patron:patron | patron:roles; track usuario.id) {
+                @for (u of usuarios | patron:patron | patron:roles; track u.id) {
   
-                <li class="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow">  
-                  <div class="flex w-full items-center justify-between space-x-6 p-6">
-                    <div class="flex-1 truncate">
-                      <div class="flex items-center space-x-3">
-                        <h3 class="truncate text-sm font-medium text-gray-900">{{usuario.nombre}} {{usuario.apellidos}}</h3>
-                        <span class="inline-flex flex-shrink-0 items-center rounded-full bg-green-50 px-1.5 py-0.5 text-xs font-medium text-blue-600 ring-1 ring-inset ring-green-600/20">{{usuario.id}}</span>
-                      </div>
-                      <p class="mt-1 truncate text-sm text-gray-500">{{usuario.rol.charAt(0).toUpperCase() + usuario.rol.slice(1)}}</p>
-                    </div>
-                    
-                    <img class="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300" src="https://www.tailframes.com/images/avatar.webp" alt=""> 
-                  </div>
-                  <div>
-                    <div class="-mt-px flex divide-x divide-gray-200">
-                      <div class="flex w-0 flex-1">
-                        <a href="mailto:{{usuario.email}}" class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
-                          <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
-                            <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
-                          </svg>
-                          {{usuario.email}}
-                        </a>
-                      </div>
-                      @if (usuario.rol=='alumno') {
-                        <button [routerLink]="'/inicio'" class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-1 px-2 text-sm font-semibold text-gray-900 bg-custom-green hover:bg-custom-darkgreen">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square h-4 w-4" viewBox="0 0 16 16">
-                              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                          </svg>
-                        </button>
-                        
-                      }
-                    </div>
-                  </div>
-                </li>
+                  <app-usuario-card [usuario]="u"></app-usuario-card>
                 
               }
               </ul>
