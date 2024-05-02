@@ -29,25 +29,40 @@
       <select id="asignatura" name="asignatura" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.clase" required>
           <option value="" disabled selected hidden>Selecciona una clase</option>
           @for (c of clases; track $index) {
-              <option [value]="c.id">{{c.asignatura.nombre}}</option>
+              <option [value]="c.id">{{c.asignatura.nombre}} - {{c.horaInicio|hora}}</option>
           }
       </select>
   </div>
   @if (formData.clase) {
     <div class="mb-4">
-      <label for="alumnos" class="block text-gray-700 text-sm font-bold mb-2">Alumnos (Seleccionar los que tengan falta)</label>
-      @for (alumno of obtenerAlumnosDeClase(formData.clase); track alumno.id) {
-          <div class="relative flex gap-x-3">
-              <div class="flex h-6 items-center">
-                <input id="{{ alumno.usuario.id }}" name="{{ alumno.usuario.id }}" [(ngModel)]="formData.alumnos[alumno.id]" [value]="alumno.id" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-              </div>
-              <div class="text-sm leading-6">
-                  <label for="{{ alumno.usuario.id }}" class="font-medium text-gray-900">{{alumno.usuario.nombre}} {{alumno.usuario.apellidos}}</label>
-              </div>
-          </div>
-      }            
+        <label for="alumnos" class="block text-gray-700 text-sm font-bold mb-2"></label>
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-custom-green">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
+                        Alumno
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">
+                        Falta
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @for (alumno of obtenerAlumnosDeClase(formData.clase); track alumno.id) {
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{alumno.usuario.nombre}} {{alumno.usuario.apellidos}}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <input id="{{ alumno.usuario.id }}" name="{{ alumno.usuario.id }}" [(ngModel)]="formData.alumnos[alumno.id]" [value]="alumno.id" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-  }
+}
+
   
   <div class="mb-4">
       <button type="submit" class="bg-custom-green hover:bg-custom-darkgreen text-dark font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Guardar Faltas de Asistencia</button>

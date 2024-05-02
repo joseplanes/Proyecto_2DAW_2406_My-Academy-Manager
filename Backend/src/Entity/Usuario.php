@@ -44,10 +44,17 @@ class Usuario
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $dni = null;
 
+    /**
+     * @var Collection<int, Mensaje>
+     */
+    #[ORM\OneToMany(targetEntity: Mensaje::class, mappedBy: 'remitente')]
+    private Collection $mensajes;
+
     public function __construct()
     {
         $this->profesors = new ArrayCollection();
         $this->alumnos = new ArrayCollection();
+        $this->mensajes = new ArrayCollection();
     }
     #[Groups(['usuario','clasesprofesor'])]
     public function getId(): ?int
@@ -195,6 +202,36 @@ class Usuario
     public function setDni(?string $dni): static
     {
         $this->dni = $dni;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mensaje>
+     */
+    public function getMensajes(): Collection
+    {
+        return $this->mensajes;
+    }
+
+    public function addMensaje(Mensaje $mensaje): static
+    {
+        if (!$this->mensajes->contains($mensaje)) {
+            $this->mensajes->add($mensaje);
+            $mensaje->setRemitente($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMensaje(Mensaje $mensaje): static
+    {
+        if ($this->mensajes->removeElement($mensaje)) {
+            // set the owning side to null (unless already changed)
+            if ($mensaje->getRemitente() === $this) {
+                $mensaje->setRemitente(null);
+            }
+        }
 
         return $this;
     }

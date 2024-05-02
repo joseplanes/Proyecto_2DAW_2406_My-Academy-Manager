@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { RouterModule, Router,ActivatedRoute,Params } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HoraPipe } from '../pipes/hora.pipe';
 
 @Component({
   selector: 'app-registro-asistencia',
   standalone: true,
-  imports: [FormsModule, RouterModule],
+  imports: [FormsModule, RouterModule,HoraPipe],
   templateUrl: './registro-asistencia.component.html',
   styleUrl: './registro-asistencia.component.css'
 })
