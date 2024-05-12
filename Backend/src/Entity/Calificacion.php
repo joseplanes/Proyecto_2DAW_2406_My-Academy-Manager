@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\CalificacionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CalificacionRepository::class)]
 class Calificacion
@@ -21,11 +24,14 @@ class Calificacion
     #[ORM\JoinColumn(nullable: false)]
     private ?Alumno $alumno = null;
 
+    #[ORM\Column]
+    private ?int $nota = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    #[Groups(['notas'])]
     public function getClase(): ?Clase
     {
         return $this->clase;
@@ -46,6 +52,18 @@ class Calificacion
     public function setAlumno(?Alumno $alumno): static
     {
         $this->alumno = $alumno;
+
+        return $this;
+    }
+    #[Groups(['notas'])]
+    public function getNota(): ?int
+    {
+        return $this->nota;
+    }
+
+    public function setNota(int $nota): static
+    {
+        $this->nota = $nota;
 
         return $this;
     }

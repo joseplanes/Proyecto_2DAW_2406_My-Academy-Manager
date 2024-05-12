@@ -602,6 +602,45 @@ class ListController extends AbstractController
         return new JsonResponse($data);
     }
 
+    #[Route('/misnotas', name: 'app_misfaltas', methods: ['GET'])]
+    public function misNotas(Request $request,JwtAuth $jwt_auth , AlumnoRepository $ar , SerializerInterface $serializer)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            $json = json_decode($request->getContent(), true);
+
+            $identity = $jwt_auth->checkToken($token, true);
+            
+            if($identity->rol == 'alumno'){
+
+                $alumnoId = $identity->id_alumno;
+                $notas = $ar->find($alumnoId)->getCalificacions();
+                
+                $datos = $serializer->serialize($notas, 'json', ['groups' => 'notas', 'max_depth' => 1]);
+
+                $data = [
+                    'status' => 'success',
+                    'code' => 200,
+                    'data' => $datos
+                ];
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
     
 
 }
