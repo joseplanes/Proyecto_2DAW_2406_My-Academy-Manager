@@ -602,7 +602,7 @@ class ListController extends AbstractController
         return new JsonResponse($data);
     }
 
-    #[Route('/misnotas', name: 'app_misfaltas', methods: ['GET'])]
+    #[Route('/misnotas', name: 'app_misnotas', methods: ['GET'])]
     public function misNotas(Request $request,JwtAuth $jwt_auth , AlumnoRepository $ar , SerializerInterface $serializer)
     {
         //Recoger token
