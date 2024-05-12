@@ -125,5 +125,12 @@ export class ApiService {
     return this.http.get(this.baseUrl+'list/misfaltas', {headers: headers});
   }
 
+  getMisNotas(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.get(this.baseUrl+'list/misnotas', {headers: headers});
+  }
+
   
 }
