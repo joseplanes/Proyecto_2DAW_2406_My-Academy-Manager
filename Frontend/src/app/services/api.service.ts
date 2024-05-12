@@ -125,5 +125,21 @@ export class ApiService {
     return this.http.get(this.baseUrl+'list/misfaltas', {headers: headers});
   }
 
+  getMisNotas(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.get(this.baseUrl+'list/misnotas', {headers: headers});
+  }
+  createCalificaciones(token:any, calificaciones:any){
+    let json = JSON.stringify(calificaciones);
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.post(this.baseUrl+'list/calificaciones', params, {headers: headers});
+  }
+
   
 }

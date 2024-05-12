@@ -33,9 +33,7 @@ export class HomeComponent implements OnInit {
       (response:any)=>{
         let clases = response.data;
         this.clases = JSON.parse(clases);
-        if(!this.clases.length){
-          this.clases = [{id:1, asignatura:{nombre:"No tienes clase hoy"}}]; 
-      }
+        
       },
       error =>{
         console.log(error);

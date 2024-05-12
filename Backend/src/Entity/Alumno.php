@@ -87,6 +87,7 @@ class Alumno
     /**
      * @return Collection<int, Calificacion>
      */
+    #[Groups(['notas'])]
     public function getCalificacions(): Collection
     {
         return $this->calificacions;
