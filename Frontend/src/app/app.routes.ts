@@ -105,9 +105,9 @@ export const routes: Routes = [
   title:'MyAcademy Manager'
 },
 {
-    path: 'misclases',
+    path: 'clases',
     component: MisClasesComponent,
-    title: 'Mis Clases',
+    title: 'Clases',
     canActivate: [IdentityGuard]
 }
 ];
