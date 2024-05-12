@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { LandingComponent } from './landing/landing.component';
 import { MisClasesComponent } from './mis-clases/mis-clases.component';
 import { RegistroAsistenciaComponent } from './registro-asistencia/registro-asistencia.component';
+import { RegistroCalificacionesComponent } from './registro-calificaciones/registro-calificaciones.component';
 
 export const routes: Routes = [
 {
@@ -108,6 +109,12 @@ export const routes: Routes = [
     path: 'clases',
     component: MisClasesComponent,
     title: 'Clases',
+    canActivate: [IdentityGuard]
+},
+{
+    path: 'calificaciones',
+    component: RegistroCalificacionesComponent,
+    title: 'Calificaciones',
     canActivate: [IdentityGuard]
 }
 ];

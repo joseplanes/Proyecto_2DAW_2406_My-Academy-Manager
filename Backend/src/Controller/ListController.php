@@ -641,6 +641,73 @@ class ListController extends AbstractController
         return new JsonResponse($data);
     }
 
-    
+    #[Route('/calificaciones', name: 'calificaciones', methods: ['POST'])]
+    public function Calificaciones(Request $request,ClaseRepository $cr, AlumnoRepository $ar, JwtAuth $jwt_auth,EntityManagerInterface $entityManager, SerializerInterface $serializer)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            
+            $identity = $jwt_auth->checkToken($token, true);
+
+            if($identity->rol == 'profesor'){
+                $json = $request->get('json', null);
+                $params =  json_decode($json);
+
+                if(!empty($json)){
+                    $claseid= (!empty($params->clase)) ? $params->clase : null;
+                    $notas=(!empty($params->notas)) ? $params->notas : null;
+                    
+                    $clase = $cr->find($claseid);
+
+                if ($clase && $notas) {
+                    $alumnos = $clase->getAlumnos();
+                    for ($i=0; $i < count($alumnos); $i++) { 
+                       $alumno = $alumnos[$i]->getId();
+                          $calificacion = new Calificacion();
+                            $calificacion->setClase($clase);
+                            $calificacion->setNota($notas[$i]);
+                            $alumno = $ar->find($alumno);
+                            if ($alumno) {
+                                $calificacion->setAlumno($alumno);
+                                $entityManager->persist($calificacion);
+                            }
+                    }
+                    $entityManager->flush();
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Calificaciones guardadas correctamente.'
+                    ];
+                }
+                    
+                    
+
+                }else{
+                    $data = [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'No se han guardado los datos correctamente'
+                    ];
+                
+                }
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No tienes permiso para realizar esta acción'
+                ];
+                
+            }
+                
+            
+        }
+
+        return new JsonResponse($data);
+    }   
 
 }

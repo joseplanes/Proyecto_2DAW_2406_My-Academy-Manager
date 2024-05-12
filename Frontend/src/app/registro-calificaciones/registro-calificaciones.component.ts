@@ -29,7 +29,7 @@ export class RegistroCalificacionesComponent {
     this.loadUser();
     if(this.identity.rol=='profesor'){
       this.formData={
-        alumnos: []
+        notas: []
       }
       this.getClases();
     }else{
@@ -64,14 +64,7 @@ export class RegistroCalificacionesComponent {
   }
   
   onSubmit(createaula: any) {
-    const selectedAlumnos = Object.keys(this.formData.alumnos)
-    .filter(key => this.formData.alumnos[key])
-    .map(Number);
-    const formDataToSend = {
-      ...this.formData,
-      alumnos: selectedAlumnos
-  };
-    this.api.createAsistencia(this.token, formDataToSend).subscribe(
+    this.api.createCalificaciones(this.token, this.formData).subscribe(
       (response:any ) => {
         if(response && response.status == 'success'){
           this.status = 'success';
@@ -86,7 +79,7 @@ export class RegistroCalificacionesComponent {
         this.status = 'error';
         console.log(error);
       }
-    );
+    ); 
     
   }
 }
