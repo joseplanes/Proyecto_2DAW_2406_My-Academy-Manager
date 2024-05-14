@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\MensajeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MensajeRepository::class)]
 class Mensaje
@@ -27,12 +30,12 @@ class Mensaje
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $fecha = null;
-
+    #[Groups(['mensaje'])]
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    #[Groups(['mensaje'])]
     public function getRemitente(): ?Usuario
     {
         return $this->remitente;
@@ -44,7 +47,7 @@ class Mensaje
 
         return $this;
     }
-
+    #[Groups(['mensaje'])]
     public function getReceptor(): ?Usuario
     {
         return $this->receptor;
@@ -56,7 +59,7 @@ class Mensaje
 
         return $this;
     }
-
+    #[Groups(['mensaje'])]
     public function getMensaje(): ?string
     {
         return $this->mensaje;
@@ -68,7 +71,7 @@ class Mensaje
 
         return $this;
     }
-
+    #[Groups(['mensaje'])]
     public function getFecha(): ?\DateTimeInterface
     {
         return $this->fecha;

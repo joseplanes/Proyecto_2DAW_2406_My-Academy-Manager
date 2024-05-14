@@ -710,4 +710,48 @@ class ListController extends AbstractController
         return new JsonResponse($data);
     }   
 
+    #[Route('/mismensajes/{remi}', name: 'app_mismensajes', methods: ['GET'])]
+    public function misMensajes($remi, Request $request,JwtAuth $jwt_auth , UsuarioRepository $ur ,MensajeRepository $mr, SerializerInterface $serializer)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            $json = json_decode($request->getContent(), true);
+
+            $identity = $jwt_auth->checkToken($token, true);
+            
+            if($identity->rol == 'alumno'|| $identity->rol == 'profesor'|| $identity->rol == 'admin'){
+
+                $usuarioId = $identity->sub;
+                $todosmensajes = $ur->find($usuarioId)->getMensajes();
+                $qb = $mr->createQueryBuilder('m');
+                $qb->where('m.remitente = :id OR m.receptor = :id')
+                   ->setParameter('id', $remi); 
+                $mensajes = $qb->getQuery()->getResult();
+                
+                $datos = $serializer->serialize($mensajes, 'json', ['groups' => 'mensaje', 'max_depth' => 1]);
+
+                $data = [
+                    'status' => 'success',
+                    'code' => 200,
+                    'data' => $datos
+                ];
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
+
 }
