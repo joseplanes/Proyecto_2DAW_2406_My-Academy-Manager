@@ -1,0 +1,24 @@
+<section class="py-16">
+    <div class="relative p-4 px-8 mx-auto overflow-hidden bg-white border-4 max-w-7xl border-gray-200 col-span-full lg:col-span-3 rounded-xl dark:border-gray-800 dark:bg-gray-400">
+        <h2 class="text-2xl font-bold mb-4 text-center">Calificaciones</h2>
+            <div class="mb-4">
+                <table class="mx-auto min-w-full divide-y divide-gray-200 center">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 bg-custom-green text-left">Asignatura</th>
+                            <th class="px-6 py-3 text-left bg-custom-green text-black">Nota</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @for (n of notas; track $index) {
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ n.clase.asignatura.nombre }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ n.nota }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</section>
+
