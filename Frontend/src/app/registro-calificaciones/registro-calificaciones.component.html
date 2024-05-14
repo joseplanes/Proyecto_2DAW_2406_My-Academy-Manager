@@ -52,7 +52,7 @@
                       <div class="text-sm text-gray-900">{{alumno.usuario.nombre}} {{alumno.usuario.apellidos}}</div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex justify-center items-center">
-                      <input id="nota_{{ alumno.usuario.id }}" name="nota_{{ alumno.usuario.id }}" [(ngModel)]="formData.notas[alumno.id-1]"  type="number" min="0" max="10" class="h-8 w-16 rounded border border-gray-300 text-black focus:ring-indigo-600">
+                    <input id="nota{{ alumno.usuario.id }}" name="nota{{ alumno.usuario.id }}" [(ngModel)]="formData.notas[alumno.id-1]" type="number" min="0" max="10" class="h-8 w-16 rounded border border-gray-300 text-black focus:ring-indigo-600 text-center justify-center">
                   </td>
               </tr>
           }
