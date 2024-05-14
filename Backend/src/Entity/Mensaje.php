@@ -25,6 +25,9 @@ class Mensaje
     #[ORM\Column(type: Types::TEXT)]
     private ?string $mensaje = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $fecha = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +65,18 @@ class Mensaje
     public function setMensaje(string $mensaje): static
     {
         $this->mensaje = $mensaje;
+
+        return $this;
+    }
+
+    public function getFecha(): ?\DateTimeInterface
+    {
+        return $this->fecha;
+    }
+
+    public function setFecha(\DateTimeInterface $fecha): static
+    {
+        $this->fecha = $fecha;
 
         return $this;
     }
