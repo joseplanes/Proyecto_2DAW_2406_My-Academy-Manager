@@ -66,7 +66,7 @@
               </svg>
               ASISTENCIA
             </a>
-            <a [routerLink]="'/'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
+            <a [routerLink]="'/mensajes'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"/>
             </svg>
@@ -101,7 +101,7 @@
               </svg>
               MI ASISTENCIA
             </a>
-            <a [routerLink]="'/'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
+            <a [routerLink]="'/mensajes'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"/>
             </svg>
@@ -129,7 +129,7 @@
               </svg>
               CLASES
             </a>
-            <a [routerLink]="'/'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
+            <a [routerLink]="'/mensajes'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
                 <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"/>
             </svg>
@@ -157,9 +157,9 @@
             <button (click)="toggleDropdown()" type="button" class="relative flex text-sm rounded-full bg-custom-darkgreen focus:outline-none focus:ring-2 focus:ring-custom-darkgreen focus:ring-offset-2 focus:ring-offset-custom-darkgreen" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Open user menu</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-              </svg>
+              <div class="flex items-center font-bold text-2xl justify-center h-16 w-16 rounded-full bg-custom-gray flex-shrink-0" >
+                {{identity.nombre[0]}}
+              </div>
             </button>
           </div>
 
@@ -228,7 +228,7 @@
           </svg>
           ASISTENCIA
         </a>
-        <a [routerLink]="'/'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
+        <a [routerLink]="'/mensajes'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
             <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"/>
         </svg>
@@ -263,7 +263,7 @@
           </svg>
           MI ASISTENCIA
         </a>
-        <a [routerLink]="'/'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
+        <a [routerLink]="'/mensajes'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
             <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"/>
         </svg>
@@ -291,7 +291,7 @@
           </svg>
           CLASES
         </a>
-        <a [routerLink]="'/'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
+        <a [routerLink]="'/mensajes'" class="flex items-center px-3 py-2 space-x-2 text-base font-medium text-black rounded-md hover:bg-custom-gray" aria-current="page" (click)="closeMobileMenu()">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
             <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"/>
         </svg>

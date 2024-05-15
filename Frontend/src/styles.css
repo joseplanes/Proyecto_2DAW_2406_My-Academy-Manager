@@ -7,8 +7,8 @@
 
 :root {
     --c-bg: snow;
-    --c-scrollbar: lightsteelblue;
-    --c-scrollbar-hover: #000;
+    --c-scrollbar: #A6BDA9;
+    --c-scrollbar-hover: #4d6e51;
   }
 
   ::-webkit-scrollbar {

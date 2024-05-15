@@ -23,6 +23,19 @@ export class ApiService {
     
   }
 
+  getMisMensajes(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`list/mismensajes`, {headers: headers});
+    
+  }
+  getMisMensajesUnicos(remi:number, token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`list/mismensajes/${remi}`, {headers: headers});
+    
+  }
+
   getUsuarios(token:any){
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
                                    .set('Authorization', token);
@@ -139,6 +152,16 @@ export class ApiService {
                                    .set('Authorization', token);
 
     return this.http.post(this.baseUrl+'list/calificaciones', params, {headers: headers});
+  }
+
+  enviarMensaje(token:any, mensaje:any){
+    let json = JSON.stringify(mensaje);
+    let params = 'json='+json;
+
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+
+    return this.http.post(this.baseUrl+'list/mismensajes/crear', params, {headers: headers});
   }
 
   

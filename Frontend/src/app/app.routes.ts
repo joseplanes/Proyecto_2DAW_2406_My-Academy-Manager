@@ -16,6 +16,7 @@ import { MisClasesComponent } from './mis-clases/mis-clases.component';
 import { RegistroAsistenciaComponent } from './registro-asistencia/registro-asistencia.component';
 import { RegistroCalificacionesComponent } from './registro-calificaciones/registro-calificaciones.component';
 import { CalificacionesComponent } from './calificaciones/calificaciones.component';
+import { MensajesComponent } from './mensajes/mensajes.component';
 
 export const routes: Routes = [
 {
@@ -122,6 +123,12 @@ export const routes: Routes = [
     path: 'misnotas',
     component: CalificacionesComponent,
     title: 'Calificaciones',
+    canActivate: [IdentityGuard]
+},
+{
+    path: 'mensajes',
+    component: MensajesComponent,
+    title: 'Mensajes',
     canActivate: [IdentityGuard]
 }
 ];
