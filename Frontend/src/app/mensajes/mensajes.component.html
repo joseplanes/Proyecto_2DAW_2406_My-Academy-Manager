@@ -86,7 +86,7 @@
                           d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                   </svg>
                 </button>
-                <app-lista-modal *ngIf="modalService.modalAbierto$ | async" (elementoSeleccionado)="onElementoSeleccionado($event)"></app-lista-modal>
+                <app-lista-modal *ngIf="modalService.modalAbierto$ | async" (elementoSeleccionado)="onElementoSeleccionado($event)" class="h-4"></app-lista-modal>
               </div>
             </div>
           </div>
@@ -182,7 +182,14 @@
               </div>
             </div>
 
-            
+            <div class="h-full overflow-hidden py-4">
+              <div #messagesContainer class="h-full overflow-y-auto">
+                <div class="grid grid-cols-12 gap-y-2">
+                  
+                </div>
+              </div>
+            </div>
+
             <div class="flex flex-row items-center">
               <div class="flex flex-row items-center w-full border rounded-3xl h-12 px-2 align-bottom">
                 <div class="w-full">
