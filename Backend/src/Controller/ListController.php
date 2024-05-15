@@ -99,7 +99,7 @@ class ListController extends AbstractController
             
             $identity = $jwt_auth->checkToken($token, true);
 
-            if($identity->rol == 'admin'){
+            if($identity->rol == 'admin'|| $identity->rol == 'profesor'|| $identity->rol == 'alumno'){
                             
                 $usuarios = $ur->findAll();
         
@@ -710,8 +710,48 @@ class ListController extends AbstractController
         return new JsonResponse($data);
     }   
 
-    #[Route('/mismensajes/{remi}', name: 'app_mismensajes', methods: ['GET'])]
-    public function misMensajes($remi, Request $request,JwtAuth $jwt_auth , UsuarioRepository $ur ,MensajeRepository $mr, SerializerInterface $serializer)
+    #[Route('/mismensajes', name: 'app_mismensajes', methods: ['GET'])]
+    public function misMensajes(Request $request,JwtAuth $jwt_auth , UsuarioRepository $ur ,MensajeRepository $mr, SerializerInterface $serializer,EntityManagerInterface $em)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            $json = json_decode($request->getContent(), true);
+
+            $identity = $jwt_auth->checkToken($token, true);
+            
+            if($identity->rol == 'alumno'|| $identity->rol == 'profesor'|| $identity->rol == 'admin'){
+
+                $usuarioId = $identity->sub;
+                $todosmensajes = $ur->find($usuarioId)->getMensajes();
+                $mensajes = $mr->findConversacionesUnicasPorUsuario($usuarioId);
+
+                $datos = $serializer->serialize($mensajes, 'json', ['groups' => 'mensaje', 'max_depth' => 1]);
+
+                $data = [
+                    'status' => 'success',
+                    'code' => 200,
+                    'data' => $datos
+                ];
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
+    #[Route('/mismensajes/{remi}', name: 'app_mismensajesremi', methods: ['GET'])]
+    public function misMensajesUnicos($remi, Request $request,JwtAuth $jwt_auth , UsuarioRepository $ur ,MensajeRepository $mr, SerializerInterface $serializer)
     {
         //Recoger token
         $token = $request->headers->get('Authorization');
@@ -729,8 +769,21 @@ class ListController extends AbstractController
                 $usuarioId = $identity->sub;
                 $todosmensajes = $ur->find($usuarioId)->getMensajes();
                 $qb = $mr->createQueryBuilder('m');
-                $qb->where('m.remitente = :id OR m.receptor = :id')
-                   ->setParameter('id', $remi); 
+                $qb->where(
+                    $qb->expr()->andX(
+                        $qb->expr()->eq('m.remitente', ':remi'),
+                        $qb->expr()->eq('m.receptor', ':usuarioId')
+                    )
+                )
+                ->orWhere(
+                    $qb->expr()->andX(
+                        $qb->expr()->eq('m.remitente', ':usuarioId'),
+                        $qb->expr()->eq('m.receptor', ':remi')
+                    )
+                )
+                ->orderBy('m.fecha', 'ASC')
+                ->setParameter('remi', $remi)
+                ->setParameter('usuarioId', $usuarioId);
                 $mensajes = $qb->getQuery()->getResult();
                 
                 $datos = $serializer->serialize($mensajes, 'json', ['groups' => 'mensaje', 'max_depth' => 1]);
@@ -747,6 +800,68 @@ class ListController extends AbstractController
                 'code' => 400,
                 'message' => 'No tienes permiso para realizar esta acción'
             ];
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
+    #[Route('/mismensajes/crear', name: 'crear_mensaje', methods: ['POST'])]
+    public function crearMensaje(Request $request,JwtAuth $jwt_auth,EntityManagerInterface $entityManager, SerializerInterface $serializer, UsuarioRepository $ur)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            
+            $identity = $jwt_auth->checkToken($token, true);
+
+            if($identity->rol == 'admin' || $identity->rol == 'profesor' || $identity->rol == 'alumno'){
+                $json = $request->get('json', null);
+                $params =  json_decode($json);
+
+                if(!empty($json)){
+                    $remi= (!empty($params->remi)) ? $params->remi : null;
+                    $rece= (!empty($params->receptor)) ? $params->receptor : null;
+                    $mensa= (!empty($params->mensaje)) ? $params->mensaje : null;
+
+                    $remitente = $ur->find($remi);
+                    $receptor = $ur->find($rece);
+                    if($remitente && $receptor){
+                        $mensaje = new Mensaje();
+                        $mensaje->setRemitente($remitente);
+                        $mensaje->setReceptor($receptor);
+                        $mensaje->setMensaje($mensa);
+                        $mensaje->setFecha(new \DateTime('now'));
+
+                        $entityManager->persist($mensaje);
+                        $entityManager->flush();
+                        $data = [
+                            'status' => 'success',
+                            'code' => 200,
+                            'message' => 'Mensaje enviado correctamente'
+                        ];
+                    }    
+                }else{
+                    $data = [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'No se ha podido enviar el mansaje'
+                    ];
+                
+                }
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No tienes permiso para realizar esta acción'
+                ];
+                
+            }
+                
             
         }
 
