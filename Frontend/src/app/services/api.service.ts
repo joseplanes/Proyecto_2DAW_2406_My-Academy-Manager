@@ -14,6 +14,25 @@ export class ApiService {
       
   }
 
+  getMiJornada(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`list/mijornadalaboral`, {headers: headers});
+    
+  }
+  setInicioJornada(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`list/iniciojornada`, {headers: headers});
+    
+  }
+
+  setFinJornada(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`list/finjornada`, {headers: headers});
+    
+  }
 
 
   getClase(id:number, token:any){

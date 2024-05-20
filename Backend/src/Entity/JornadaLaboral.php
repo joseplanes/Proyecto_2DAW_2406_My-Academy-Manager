@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\JornadaLaboralRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: JornadaLaboralRepository::class)]
 class JornadaLaboral
@@ -43,7 +46,7 @@ class JornadaLaboral
 
         return $this;
     }
-
+    #[Groups(['jornada'])]
     public function getDia(): ?\DateTimeInterface
     {
         return $this->dia;
@@ -55,7 +58,7 @@ class JornadaLaboral
 
         return $this;
     }
-
+    #[Groups(['jornada'])]
     public function getInicio(): ?\DateTimeInterface
     {
         return $this->Inicio;
@@ -67,7 +70,7 @@ class JornadaLaboral
 
         return $this;
     }
-
+    #[Groups(['jornada'])]
     public function getFin(): ?\DateTimeInterface
     {
         return $this->Fin;

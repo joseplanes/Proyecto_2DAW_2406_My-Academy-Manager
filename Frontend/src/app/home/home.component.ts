@@ -21,13 +21,59 @@ export class HomeComponent implements OnInit {
   private weekdays: string[] = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
   currentYear: number = new Date().getFullYear(); // Inicializado
   currentMonth: number = new Date().getMonth(); // Inicializado
+  public jornada:any;
 
   constructor(private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
     this.loadUser();
     if(this.identity.rol=='alumno'||this.identity.rol=='profesor'|| this.identity.rol=='admin'){
       this.getMisClasesHoy();
+      if(this.identity.rol=='profesor'){
+        this.getJornada();
+      }
     }
   }
+
+  getJornada(){
+    return this.api.getMiJornada(this.token).subscribe(
+      (response:any)=>{
+        if(response.data){
+        let jornada = response.data;
+        this.jornada = JSON.parse(jornada);
+        }
+      },
+      error =>{
+        console.log(error);
+      }
+    );
+  }
+
+  setJornada(){
+    return this.api.setInicioJornada(this.token).subscribe(
+      (response:any)=>{
+        let jornada = response.message;
+        console.log(jornada);
+        this.getJornada();
+      },
+      error =>{
+        console.log(error);
+      }
+    );
+  }
+
+  setFinJornada(){
+    return this.api.setFinJornada(this.token).subscribe(
+      (response:any)=>{
+        let jornada = response.message;
+        console.log(jornada);
+        this.getJornada();
+      },
+      error =>{
+        console.log(error);
+      }
+    );
+  }
+
+
   getMisClasesHoy(){
     return this.api.getMisClasesHoy(this.token).subscribe(
       (response:any)=>{

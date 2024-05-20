@@ -870,7 +870,7 @@ class ListController extends AbstractController
         return new JsonResponse($data);
     }
 
-    #[Route('/iniciojornada', name: 'app_iniciojornada', methods: ['POST'])]
+    #[Route('/iniciojornada', name: 'app_iniciojornada', methods: ['GET'])]
     public function InicioJornada(EntityManagerInterface $entityManager,Request $request,JwtAuth $jwt_auth , ProfesorRepository $pr, JornadaLaboralRepository $jr , SerializerInterface $serializer)
     {
         //Recoger token
@@ -891,9 +891,9 @@ class ListController extends AbstractController
                 
                 if($profe){
                     $jornada =new JornadaLaboral();
-                    $jornada->setProfesor($pr->find($profesorId));
+                    $jornada->setProfesor($profe);
                     $jornada->setDia(new \DateTime('now'));
-                    $jornada->setHoraInicio(new \DateTime('now'));
+                    $jornada->setInicio(new \DateTime('now'));
 
                     $entityManager->persist($jornada);
                     $entityManager->flush();
@@ -904,6 +904,105 @@ class ListController extends AbstractController
                         'message' => 'Jornada iniciada correctamente'
                     ];
 
+                }else{
+                    $data = [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'No se ha podido iniciar la jornada'
+                    ];
+                }
+                
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
+    #[Route('/mijornadalaboral', name: 'app_mijornada', methods: ['GET'])]
+    public function miJornada(Request $request,JwtAuth $jwt_auth ,ProfesorRepository $pr, JornadaLaboralRepository $jr , SerializerInterface $serializer,EntityManagerInterface $em)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            $json = json_decode($request->getContent(), true);
+
+            $identity = $jwt_auth->checkToken($token, true);
+            
+            if($identity->rol == 'profesor'){
+
+                $profesorId = $identity->id_profesor;
+                $jornada = $jr->findOneBy(['dia' => new \DateTime('today'), 'profesor' => $pr->find($profesorId)]);
+                if($jornada!=null){
+                    $datos = $serializer->serialize($jornada, 'json', ['groups' => 'jornada', 'max_depth' => 1]);
+
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'data' => $datos
+                    ];
+                }else{
+                    $data = [
+                        'status' => 'errora',
+                        'code' => 400,
+                        'message' => 'No tienes jornada laboral hoy'
+                    ];
+                }
+                
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
+    #[Route('/finjornada', name: 'app_finjornada', methods: ['GET'])]
+    public function FinJornada(EntityManagerInterface $entityManager,Request $request,JwtAuth $jwt_auth , ProfesorRepository $pr, JornadaLaboralRepository $jr , SerializerInterface $serializer)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            $json = json_decode($request->getContent(), true);
+
+            $identity = $jwt_auth->checkToken($token, true);
+            
+            if($identity->rol == 'profesor'){
+
+                $profesorId = $identity->id_profesor;
+                $profe= $pr->find($profesorId);
+                
+                if($profe){
+                    $jornada = $jr->findOneBy(['dia' => new \DateTime('today'), 'profesor' => $pr->find($profesorId)]);
+                    if($jornada){
+                        $jornada->setFin(new \DateTime('now'));
+                        $entityManager->persist($jornada);
+                        $entityManager->flush();
+                        $data = [
+                            'status' => 'fin',
+                            'code' => 200,
+                            'message' => 'Jornada finalizada correctamente'
+                        ];
+                    }
                 }else{
                     $data = [
                         'status' => 'error',
