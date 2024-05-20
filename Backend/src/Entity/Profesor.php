@@ -23,9 +23,16 @@ class Profesor
     #[ORM\OneToMany(targetEntity: Clase::class, mappedBy: 'profesor')]
     private Collection $clases;
 
+    /**
+     * @var Collection<int, JornadaLaboral>
+     */
+    #[ORM\OneToMany(targetEntity: JornadaLaboral::class, mappedBy: 'profesor')]
+    private Collection $jornadaLaborals;
+
     public function __construct()
     {
         $this->clases = new ArrayCollection();
+        $this->jornadaLaborals = new ArrayCollection();
     }
     #[Groups(['clase', 'profesor'])]
     public function getId(): ?int
@@ -70,6 +77,36 @@ class Profesor
             // set the owning side to null (unless already changed)
             if ($clase->getProfesor() === $this) {
                 $clase->setProfesor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JornadaLaboral>
+     */
+    public function getJornadaLaborals(): Collection
+    {
+        return $this->jornadaLaborals;
+    }
+
+    public function addJornadaLaboral(JornadaLaboral $jornadaLaboral): static
+    {
+        if (!$this->jornadaLaborals->contains($jornadaLaboral)) {
+            $this->jornadaLaborals->add($jornadaLaboral);
+            $jornadaLaboral->setProfesor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJornadaLaboral(JornadaLaboral $jornadaLaboral): static
+    {
+        if ($this->jornadaLaborals->removeElement($jornadaLaboral)) {
+            // set the owning side to null (unless already changed)
+            if ($jornadaLaboral->getProfesor() === $this) {
+                $jornadaLaboral->setProfesor(null);
             }
         }
 
