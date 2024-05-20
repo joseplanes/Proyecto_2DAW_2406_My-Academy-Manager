@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ApiService {
 
-  private baseUrl = 'http://localhost:8000/'; 
+  private baseUrl = 'http://localhost:8000/api/'; 
 
   private usuarios=<any>[]
 

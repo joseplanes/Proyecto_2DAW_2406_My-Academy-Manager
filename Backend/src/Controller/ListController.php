@@ -34,8 +34,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\JwtAuth;
 use App\Entity\Asistencia;
 use App\Repository\AsistenciaRepository;
+use App\Entity\JornadaLaboral;
+use App\Repository\JornadaLaboralRepository;
 
-#[Route('/list', name: 'app_list')]
+#[Route('/api/list', name: 'app_list')]
 class ListController extends AbstractController
 {
     #[Route('/asignaturas', name: 'app_asignaturas', methods: ['GET'])]
@@ -862,6 +864,61 @@ class ListController extends AbstractController
                 
             }
                 
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
+    #[Route('/iniciojornada', name: 'app_iniciojornada', methods: ['POST'])]
+    public function InicioJornada(EntityManagerInterface $entityManager,Request $request,JwtAuth $jwt_auth , ProfesorRepository $pr, JornadaLaboralRepository $jr , SerializerInterface $serializer)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            $json = json_decode($request->getContent(), true);
+
+            $identity = $jwt_auth->checkToken($token, true);
+            
+            if($identity->rol == 'profesor'){
+
+                $profesorId = $identity->id_profesor;
+                $profe= $pr->find($profesorId);
+                
+                if($profe){
+                    $jornada =new JornadaLaboral();
+                    $jornada->setProfesor($pr->find($profesorId));
+                    $jornada->setDia(new \DateTime('now'));
+                    $jornada->setHoraInicio(new \DateTime('now'));
+
+                    $entityManager->persist($jornada);
+                    $entityManager->flush();
+
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Jornada iniciada correctamente'
+                    ];
+
+                }else{
+                    $data = [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'No se ha podido iniciar la jornada'
+                    ];
+                }
+                
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
             
         }
 

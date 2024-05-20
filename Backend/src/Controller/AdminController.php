@@ -32,7 +32,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\JwtAuth;
 
-#[Route('/admin', name: 'app_admin')]
+#[Route('/api/admin', name: 'app_admin')]
 class AdminController extends AbstractController
 {
     #[Route('/asignaturas/crear', name: 'app_asignaturas_crear', methods: ['POST'])]

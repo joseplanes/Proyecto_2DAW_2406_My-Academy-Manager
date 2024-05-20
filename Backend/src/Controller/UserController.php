@@ -33,7 +33,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Services\JwtAuth;
 
 
-#[Route('usuarios', name: 'app_user')]
+#[Route('/api/usuarios', name: 'app_user')]
 class UserController extends AbstractController
 {
 
