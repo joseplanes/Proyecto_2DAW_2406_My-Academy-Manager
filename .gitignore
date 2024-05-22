@@ -1,0 +1,84 @@
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Angular specific
+/Frontend/node_modules/
+/Frontend/dist/
+/Frontend/out-tsc/
+/Frontend/tmp/
+/Frontend/temp/
+/Frontend/.yarn/
+/Frontend/.pnp.*
+/Frontend/.yarnrc.yml
+/Frontend/.pnp.loader.mjs
+
+# Angular cache and IDE files
+/Frontend/.angular/
+/Frontend/.idea/
+/Frontend/.vscode/
+/Frontend/*.sublime-project
+/Frontend/*.sublime-workspace
+
+# Optional npm cache directory
+/Frontend/.npm
+
+# Optional eslint cache
+/Frontend/.eslintcache
+
+# Optional stylelint cache
+/Frontend/.stylelintcache
+
+# Angular testing
+/Frontend/coverage/
+/Frontend/*.tsbuildinfo
+
+# Angular environment variable files
+/Frontend/.env
+/Frontend/.env.*
+
+# Compiled output
+/Frontend/*.js
+/Frontend/*.d.ts
+/Frontend/*.map
+
+# Symfony specific
+/Backend/var/
+/Backend/public/bundles/
+/Backend/node_modules/
+/Backend/.env
+/Backend/.env.local
+/Backend/.env.*.local
+/Backend/.env.testing
+/Backend/.env.development.local
+/Backend/.env.production.local
+/Backend/.phpunit.result.cache
+
+# Symfony log and cache directories
+/Backend/var/cache/
+/Backend/var/log/
+/Backend/var/sessions/
+/Backend/var/test/
+
+# Symfony IDE and Editor files
+/Backend/.idea/
+/Backend/.vscode/
+/Backend/*.sublime-project
+/Backend/*.sublime-workspace
+
+# Symfony PHPStorm specific
+/Backend/.phpstorm.meta.php
+/Backend/.phpstorm.no_index
+
+# Symfony project specific
+/Backend/public/uploads/
+/Backend/public/media/cache/
+/Backend/public/css/
+/Backend/public/js/
+/Backend/public/build/
