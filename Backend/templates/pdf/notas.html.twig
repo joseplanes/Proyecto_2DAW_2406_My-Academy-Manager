@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Notas del Alumno</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #A6BDA9;
+        }
+        .footer {
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            bottom: 0px;
+            font-size: 12px;
+        }
+        .pagenum:before {
+            content: counter(page);
+        }
+    </style>
+</head>
+<body>
+    <img src="{{ asset('/images/logo.png') }}" alt="Logotipo" class="logo">
+    <h1>MYACADEMY MANAGER</h1>
+    <h3>Notas de {{ alumno.usuario.nombre }} {{alumno.usuario.apellidos}}</h3>
+    <h3>ID de Alumno: {{ alumno.id }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Asignatura</th>
+                <th>Nota</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nota in notas %}
+                <tr>
+                    <td>{{ nota.clase.asignatura.nombre }}</td>
+                    <td>{{ nota.nota }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+     <div class="footer">
+        <p>Informe generado por MyAcademy Manager: {{ "now" | date("d-m-Y H:i") }}</p>
+        <p>Página <span class="pagenum"></span></p>
+    </div>
+</body>
+</html>
