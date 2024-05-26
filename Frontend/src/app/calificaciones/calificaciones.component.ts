@@ -45,5 +45,17 @@ export class CalificacionesComponent {
       }
     );
   }
+  getPDF() {
+    this.api.getMisNotasPDF(this.token).subscribe(
+      (response: Blob) => { 
+        let fileURL = URL.createObjectURL(response);
+        window.open(fileURL);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  
 }
 

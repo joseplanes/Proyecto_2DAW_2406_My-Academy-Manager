@@ -163,6 +163,11 @@ export class ApiService {
 
     return this.http.get(this.baseUrl+'list/misnotas', {headers: headers});
   }
+  getMisNotasPDF(token:any){
+    let headers = new HttpHeaders().set('Authorization', token);
+
+    return this.http.get(this.baseUrl+'pdf/misnotas', {headers: headers, responseType: 'blob'});
+  }
   createCalificaciones(token:any, calificaciones:any){
     let json = JSON.stringify(calificaciones);
     let params = 'json='+json;
