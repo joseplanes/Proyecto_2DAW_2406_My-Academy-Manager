@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component , OnInit, inject} from '@angular/core';
-import { RouterModule, RouterOutlet, Router,ActivatedRoute,Params  } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { RouterModule, RouterOutlet, Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { UserService } from '../services/user.service';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { PatronClasePipe } from '../pipes/patron-clase.pipe';
+import { DomSanitizer } from '@angular/platform-browser';
 import { HoraPipe } from '../pipes/hora.pipe';
 
 @Component({
@@ -12,84 +11,82 @@ import { HoraPipe } from '../pipes/hora.pipe';
   standalone: true,
   imports: [RouterModule, RouterOutlet, CommonModule, HoraPipe],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   monthYear: string = '';
   days: any[] = [];
   private weekdays: string[] = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
   currentYear: number = new Date().getFullYear(); // Inicializado
   currentMonth: number = new Date().getMonth(); // Inicializado
-  public jornada:any;
+  currentDay: number = new Date().getDate(); // Día actual
+  public jornada: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
     this.loadUser();
-    if(this.identity.rol=='alumno'||this.identity.rol=='profesor'|| this.identity.rol=='admin'){
+    if (this.identity.rol == 'alumno' || this.identity.rol == 'profesor' || this.identity.rol == 'admin') {
       this.getMisClasesHoy();
-      if(this.identity.rol=='profesor'){
+      if (this.identity.rol == 'profesor') {
         this.getJornada();
       }
     }
   }
 
-  getJornada(){
+  getJornada() {
     return this.api.getMiJornada(this.token).subscribe(
-      (response:any)=>{
-        if(response.data){
-        let jornada = response.data;
-        this.jornada = JSON.parse(jornada);
+      (response: any) => {
+        if (response.data) {
+          let jornada = response.data;
+          this.jornada = JSON.parse(jornada);
         }
       },
-      error =>{
+      error => {
         console.log(error);
       }
     );
   }
 
-  setJornada(){
+  setJornada() {
     return this.api.setInicioJornada(this.token).subscribe(
-      (response:any)=>{
+      (response: any) => {
         let jornada = response.message;
         console.log(jornada);
         this.getJornada();
       },
-      error =>{
+      error => {
         console.log(error);
       }
     );
   }
 
-  setFinJornada(){
+  setFinJornada() {
     return this.api.setFinJornada(this.token).subscribe(
-      (response:any)=>{
+      (response: any) => {
         let jornada = response.message;
         console.log(jornada);
         this.getJornada();
       },
-      error =>{
+      error => {
         console.log(error);
       }
     );
   }
 
-
-  getMisClasesHoy(){
+  getMisClasesHoy() {
     return this.api.getMisClasesHoy(this.token).subscribe(
-      (response:any)=>{
+      (response: any) => {
         let clases = response.data;
         this.clases = JSON.parse(clases);
-        
       },
-      error =>{
+      error => {
         console.log(error);
       }
     );
   }
 
-  loadUser(){
-    this.token=this.userService.getToken();
-    this.identity=this.userService.getIdentity();
+  loadUser() {
+    this.token = this.userService.getToken();
+    this.identity = this.userService.getIdentity();
   }
 
   ngOnInit(): void {
@@ -129,6 +126,15 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  isToday(day: number, index: number): boolean {
+    const today = new Date();
+    const todayDay = today.getDate();
+    const todayMonth = today.getMonth();
+    const todayYear = today.getFullYear();
+
+    return day === todayDay && this.currentMonth === todayMonth && this.currentYear === todayYear;
+  }
+
   previousMonth(): void {
     if (this.currentMonth === 0) {
       this.currentYear--;
@@ -151,10 +157,11 @@ export class HomeComponent implements OnInit {
     this.updateCalendar(this.currentYear, this.currentMonth);
   }
 
-  private api=inject(ApiService)
-  private userService=inject(UserService)
-  public token:any;
-  public identity:any;
-  public clases:any;
+  private api = inject(ApiService)
+  private userService = inject(UserService)
+  public token: any;
+  public identity: any;
+  public clases: any;
 }
+
 
