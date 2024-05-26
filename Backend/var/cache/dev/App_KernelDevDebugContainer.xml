@@ -364,11 +364,11 @@
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\ListController"/>
       </call>
     </service>
-    <service id="App\Controller\MenuController" class="App\Controller\MenuController" public="true" autowire="true" autoconfigure="true">
+    <service id="App\Controller\PDFController" class="App\Controller\PDFController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\MenuController"/>
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\PDFController"/>
       </call>
     </service>
     <service id="App\Controller\UserController" class="App\Controller\UserController" public="true" autowire="true" autoconfigure="true">
@@ -386,6 +386,10 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\AsistenciaRepository" class="App\Repository\AsistenciaRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\AulaRepository" class="App\Repository\AulaRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -399,6 +403,14 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\DiasSemanaRepository" class="App\Repository\DiasSemanaRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\JornadaLaboralRepository" class="App\Repository\JornadaLaboralRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\MensajeRepository" class="App\Repository\MensajeRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -448,7 +460,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.84G0F13"/>
+      <argument type="service" id=".service_locator.dfNwd74"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3311,7 +3323,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.84G0F13"/>
+      <argument type="service" id=".service_locator.dfNwd74"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -5059,7 +5071,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.fuecMjN"/>
+      <argument type="service" id=".service_locator.Y3C6E4o"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7004,9 +7016,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ListController" class="App\Controller\ListController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ListController" class="App\Controller\ListController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ListController" class="App\Controller\ListController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\MenuController" class="App\Controller\MenuController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\MenuController" class="App\Controller\MenuController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\MenuController" class="App\Controller\MenuController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PDFController" class="App\Controller\PDFController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PDFController" class="App\Controller\PDFController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\PDFController" class="App\Controller\PDFController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7014,6 +7026,8 @@
     <service id=".abstract.instanceof.App\Repository\AlumnoRepository" class="App\Repository\AlumnoRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AsignaturaRepository" class="App\Repository\AsignaturaRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AsignaturaRepository" class="App\Repository\AsignaturaRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AsistenciaRepository" class="App\Repository\AsistenciaRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\AsistenciaRepository" class="App\Repository\AsistenciaRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AulaRepository" class="App\Repository\AulaRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AulaRepository" class="App\Repository\AulaRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CalificacionRepository" class="App\Repository\CalificacionRepository" autowire="true" abstract="true"/>
@@ -7022,6 +7036,10 @@
     <service id=".abstract.instanceof.App\Repository\ClaseRepository" class="App\Repository\ClaseRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\DiasSemanaRepository" class="App\Repository\DiasSemanaRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\DiasSemanaRepository" class="App\Repository\DiasSemanaRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\JornadaLaboralRepository" class="App\Repository\JornadaLaboralRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\JornadaLaboralRepository" class="App\Repository\JornadaLaboralRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\MensajeRepository" class="App\Repository\MensajeRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\MensajeRepository" class="App\Repository\MensajeRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\MenuRepository" class="App\Repository\MenuRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\MenuRepository" class="App\Repository\MenuRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\MesaRepository" class="App\Repository\MesaRepository" autowire="true" abstract="true"/>
@@ -7508,6 +7526,25 @@
         <argument key="serializer" type="service_closure" id="debug.serializer"/>
       </argument>
     </service>
+    <service id=".service_locator.Lo2Ugx9" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="ar" type="service_closure" id="App\Repository\AlumnoRepository"/>
+        <argument key="jwt_auth" type="service_closure" id="App\Services\JwtAuth"/>
+        <argument key="pr" type="service_closure" id="App\Repository\ProfesorRepository"/>
+        <argument key="serializer" type="service_closure" id="debug.serializer"/>
+      </argument>
+    </service>
+    <service id=".service_locator.Nh3VliV" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="ar" type="service_closure" id="App\Repository\AlumnoRepository"/>
+        <argument key="cr" type="service_closure" id="App\Repository\ClaseRepository"/>
+        <argument key="jwt_auth" type="service_closure" id="App\Services\JwtAuth"/>
+        <argument key="pr" type="service_closure" id="App\Repository\ProfesorRepository"/>
+        <argument key="serializer" type="service_closure" id="debug.serializer"/>
+      </argument>
+    </service>
     <service id=".service_locator.TXyTJ1t" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7516,17 +7553,77 @@
         <argument key="serializer" type="service_closure" id="debug.serializer"/>
       </argument>
     </service>
-    <service id=".service_locator.JWdUnm1" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.pOyeS6x" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="menu" type="service_closure" id="App\Repository\MenuRepository"/>
+        <argument key="ar" type="service_closure" id="App\Repository\AlumnoRepository"/>
+        <argument key="cr" type="service_closure" id="App\Repository\ClaseRepository"/>
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="jwt_auth" type="service_closure" id="App\Services\JwtAuth"/>
+        <argument key="serializer" type="service_closure" id="debug.serializer"/>
       </argument>
     </service>
-    <service id=".service_locator..hcxsvo" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.lZ4AHVK" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="claseRepository" type="service_closure" id="App\Repository\ClaseRepository"/>
+        <argument key="ar" type="service_closure" id="App\Repository\AlumnoRepository"/>
+        <argument key="jwt_auth" type="service_closure" id="App\Services\JwtAuth"/>
         <argument key="serializer" type="service_closure" id="debug.serializer"/>
+      </argument>
+    </service>
+    <service id=".service_locator.t30H6m0" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="jwt_auth" type="service_closure" id="App\Services\JwtAuth"/>
+        <argument key="mr" type="service_closure" id="App\Repository\MensajeRepository"/>
+        <argument key="serializer" type="service_closure" id="debug.serializer"/>
+        <argument key="ur" type="service_closure" id="App\Repository\UsuarioRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.O4xlrSc" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="jwt_auth" type="service_closure" id="App\Services\JwtAuth"/>
+        <argument key="mr" type="service_closure" id="App\Repository\MensajeRepository"/>
+        <argument key="serializer" type="service_closure" id="debug.serializer"/>
+        <argument key="ur" type="service_closure" id="App\Repository\UsuarioRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.ELU_RjS" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="jwt_auth" type="service_closure" id="App\Services\JwtAuth"/>
+        <argument key="serializer" type="service_closure" id="debug.serializer"/>
+        <argument key="ur" type="service_closure" id="App\Repository\UsuarioRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.fWqNEGS" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="jr" type="service_closure" id="App\Repository\JornadaLaboralRepository"/>
+        <argument key="jwt_auth" type="service_closure" id="App\Services\JwtAuth"/>
+        <argument key="pr" type="service_closure" id="App\Repository\ProfesorRepository"/>
+        <argument key="serializer" type="service_closure" id="debug.serializer"/>
+      </argument>
+    </service>
+    <service id=".service_locator.wP_VaX6" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="jr" type="service_closure" id="App\Repository\JornadaLaboralRepository"/>
+        <argument key="jwt_auth" type="service_closure" id="App\Services\JwtAuth"/>
+        <argument key="pr" type="service_closure" id="App\Repository\ProfesorRepository"/>
+        <argument key="serializer" type="service_closure" id="debug.serializer"/>
+      </argument>
+    </service>
+    <service id=".service_locator.DCYmHdI" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="ar" type="service_closure" id="App\Repository\AlumnoRepository"/>
+        <argument key="jwt_auth" type="service_closure" id="App\Services\JwtAuth"/>
       </argument>
     </service>
     <service id=".service_locator.GX7SP2j" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7554,22 +7651,32 @@
         <argument key="ur" type="service_closure" id="App\Repository\UsuarioRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.84G0F13" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.dfNwd74" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::crearAsignaturas" type="service_closure" id=".service_locator.fAOFpw7"/>
         <argument key="App\Controller\AdminController::crearAulas" type="service_closure" id=".service_locator.fAOFpw7"/>
         <argument key="App\Controller\AdminController::crearClase" type="service_closure" id=".service_locator.k96.lq6"/>
+        <argument key="App\Controller\ListController::Asistencia" type="service_closure" id=".service_locator.pOyeS6x"/>
+        <argument key="App\Controller\ListController::Calificaciones" type="service_closure" id=".service_locator.pOyeS6x"/>
+        <argument key="App\Controller\ListController::FinJornada" type="service_closure" id=".service_locator.fWqNEGS"/>
+        <argument key="App\Controller\ListController::InicioJornada" type="service_closure" id=".service_locator.fWqNEGS"/>
+        <argument key="App\Controller\ListController::crearMensaje" type="service_closure" id=".service_locator.ELU_RjS"/>
         <argument key="App\Controller\ListController::listarAsignaturas" type="service_closure" id=".service_locator.duEuCPr"/>
         <argument key="App\Controller\ListController::listarAulas" type="service_closure" id=".service_locator.JcuJoe1"/>
+        <argument key="App\Controller\ListController::listarClaseDetalle" type="service_closure" id=".service_locator.TXyTJ1t"/>
         <argument key="App\Controller\ListController::listarClases" type="service_closure" id=".service_locator.opWywnp"/>
         <argument key="App\Controller\ListController::listarDias" type="service_closure" id=".service_locator.ebwTjN1"/>
         <argument key="App\Controller\ListController::listarProfesores" type="service_closure" id=".service_locator.KYiCKuy"/>
         <argument key="App\Controller\ListController::listarUsuarios" type="service_closure" id=".service_locator.uRFjvvA"/>
-        <argument key="App\Controller\ListController::misClases" type="service_closure" id=".service_locator.TXyTJ1t"/>
-        <argument key="App\Controller\MenuController::listarClaseDetalle" type="service_closure" id=".service_locator..hcxsvo"/>
-        <argument key="App\Controller\MenuController::listarClasesbasic" type="service_closure" id=".service_locator..hcxsvo"/>
-        <argument key="App\Controller\MenuController::listarMenus" type="service_closure" id=".service_locator.JWdUnm1"/>
+        <argument key="App\Controller\ListController::miJornada" type="service_closure" id=".service_locator.wP_VaX6"/>
+        <argument key="App\Controller\ListController::misClases" type="service_closure" id=".service_locator.Lo2Ugx9"/>
+        <argument key="App\Controller\ListController::misClasesHoy" type="service_closure" id=".service_locator.Nh3VliV"/>
+        <argument key="App\Controller\ListController::misFaltas" type="service_closure" id=".service_locator.Lo2Ugx9"/>
+        <argument key="App\Controller\ListController::misMensajes" type="service_closure" id=".service_locator.t30H6m0"/>
+        <argument key="App\Controller\ListController::misMensajesUnicos" type="service_closure" id=".service_locator.O4xlrSc"/>
+        <argument key="App\Controller\ListController::misNotas" type="service_closure" id=".service_locator.lZ4AHVK"/>
+        <argument key="App\Controller\PDFController::misNotasPdf" type="service_closure" id=".service_locator.DCYmHdI"/>
         <argument key="App\Controller\UserController::crearUsuario" type="service_closure" id=".service_locator.GX7SP2j"/>
         <argument key="App\Controller\UserController::editUser" type="service_closure" id=".service_locator.P_7xx3H"/>
         <argument key="App\Controller\UserController::login" type="service_closure" id=".service_locator.HZHLc46"/>
@@ -7580,16 +7687,26 @@
         <argument key="App\Controller\AdminController:crearAsignaturas" type="service_closure" id=".service_locator.fAOFpw7"/>
         <argument key="App\Controller\AdminController:crearAulas" type="service_closure" id=".service_locator.fAOFpw7"/>
         <argument key="App\Controller\AdminController:crearClase" type="service_closure" id=".service_locator.k96.lq6"/>
+        <argument key="App\Controller\ListController:Asistencia" type="service_closure" id=".service_locator.pOyeS6x"/>
+        <argument key="App\Controller\ListController:Calificaciones" type="service_closure" id=".service_locator.pOyeS6x"/>
+        <argument key="App\Controller\ListController:FinJornada" type="service_closure" id=".service_locator.fWqNEGS"/>
+        <argument key="App\Controller\ListController:InicioJornada" type="service_closure" id=".service_locator.fWqNEGS"/>
+        <argument key="App\Controller\ListController:crearMensaje" type="service_closure" id=".service_locator.ELU_RjS"/>
         <argument key="App\Controller\ListController:listarAsignaturas" type="service_closure" id=".service_locator.duEuCPr"/>
         <argument key="App\Controller\ListController:listarAulas" type="service_closure" id=".service_locator.JcuJoe1"/>
+        <argument key="App\Controller\ListController:listarClaseDetalle" type="service_closure" id=".service_locator.TXyTJ1t"/>
         <argument key="App\Controller\ListController:listarClases" type="service_closure" id=".service_locator.opWywnp"/>
         <argument key="App\Controller\ListController:listarDias" type="service_closure" id=".service_locator.ebwTjN1"/>
         <argument key="App\Controller\ListController:listarProfesores" type="service_closure" id=".service_locator.KYiCKuy"/>
         <argument key="App\Controller\ListController:listarUsuarios" type="service_closure" id=".service_locator.uRFjvvA"/>
-        <argument key="App\Controller\ListController:misClases" type="service_closure" id=".service_locator.TXyTJ1t"/>
-        <argument key="App\Controller\MenuController:listarClaseDetalle" type="service_closure" id=".service_locator..hcxsvo"/>
-        <argument key="App\Controller\MenuController:listarClasesbasic" type="service_closure" id=".service_locator..hcxsvo"/>
-        <argument key="App\Controller\MenuController:listarMenus" type="service_closure" id=".service_locator.JWdUnm1"/>
+        <argument key="App\Controller\ListController:miJornada" type="service_closure" id=".service_locator.wP_VaX6"/>
+        <argument key="App\Controller\ListController:misClases" type="service_closure" id=".service_locator.Lo2Ugx9"/>
+        <argument key="App\Controller\ListController:misClasesHoy" type="service_closure" id=".service_locator.Nh3VliV"/>
+        <argument key="App\Controller\ListController:misFaltas" type="service_closure" id=".service_locator.Lo2Ugx9"/>
+        <argument key="App\Controller\ListController:misMensajes" type="service_closure" id=".service_locator.t30H6m0"/>
+        <argument key="App\Controller\ListController:misMensajesUnicos" type="service_closure" id=".service_locator.O4xlrSc"/>
+        <argument key="App\Controller\ListController:misNotas" type="service_closure" id=".service_locator.lZ4AHVK"/>
+        <argument key="App\Controller\PDFController:misNotasPdf" type="service_closure" id=".service_locator.DCYmHdI"/>
         <argument key="App\Controller\UserController:crearUsuario" type="service_closure" id=".service_locator.GX7SP2j"/>
         <argument key="App\Controller\UserController:editUser" type="service_closure" id=".service_locator.P_7xx3H"/>
         <argument key="App\Controller\UserController:login" type="service_closure" id=".service_locator.HZHLc46"/>
@@ -7882,15 +7999,18 @@
         <argument key="turbo.doctrine.event_listener" type="service_closure" id="turbo.doctrine.event_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.fuecMjN" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Y3C6E4o" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\AlumnoRepository" type="service_closure" id="App\Repository\AlumnoRepository"/>
         <argument key="App\Repository\AsignaturaRepository" type="service_closure" id="App\Repository\AsignaturaRepository"/>
+        <argument key="App\Repository\AsistenciaRepository" type="service_closure" id="App\Repository\AsistenciaRepository"/>
         <argument key="App\Repository\AulaRepository" type="service_closure" id="App\Repository\AulaRepository"/>
         <argument key="App\Repository\CalificacionRepository" type="service_closure" id="App\Repository\CalificacionRepository"/>
         <argument key="App\Repository\ClaseRepository" type="service_closure" id="App\Repository\ClaseRepository"/>
         <argument key="App\Repository\DiasSemanaRepository" type="service_closure" id="App\Repository\DiasSemanaRepository"/>
+        <argument key="App\Repository\JornadaLaboralRepository" type="service_closure" id="App\Repository\JornadaLaboralRepository"/>
+        <argument key="App\Repository\MensajeRepository" type="service_closure" id="App\Repository\MensajeRepository"/>
         <argument key="App\Repository\MenuRepository" type="service_closure" id="App\Repository\MenuRepository"/>
         <argument key="App\Repository\MesaRepository" type="service_closure" id="App\Repository\MesaRepository"/>
         <argument key="App\Repository\ProfesorRepository" type="service_closure" id="App\Repository\ProfesorRepository"/>
@@ -8218,9 +8338,9 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
-    <service id=".service_locator.O2p6Lk7.App\Controller\MenuController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\MenuController"/>
-      <argument>App\Controller\MenuController</argument>
+    <service id=".service_locator.O2p6Lk7.App\Controller\PDFController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\PDFController"/>
+      <argument>App\Controller\PDFController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
@@ -8405,7 +8525,7 @@
           <argument>App\Kernel</argument>
           <argument>App\Controller\AdminController</argument>
           <argument>App\Controller\ListController</argument>
-          <argument>App\Controller\MenuController</argument>
+          <argument>App\Controller\PDFController</argument>
           <argument>App\Controller\UserController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
         </argument>
@@ -9781,7 +9901,7 @@
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.84G0F13"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.dfNwd74"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -9812,10 +9932,20 @@
     <service id=".service_locator.FwGgeLv" alias=".service_locator.opWywnp"/>
     <service id=".service_locator.2rAzo7U" alias=".service_locator.JcuJoe1"/>
     <service id=".service_locator.ffyxRW8" alias=".service_locator.ebwTjN1"/>
+    <service id=".service_locator.Ff3EhBE" alias=".service_locator.Lo2Ugx9"/>
+    <service id=".service_locator.GvYD2j5" alias=".service_locator.Nh3VliV"/>
     <service id=".service_locator.PjVDn_X" alias=".service_locator.TXyTJ1t"/>
+    <service id=".service_locator.WmZh9xw" alias=".service_locator.pOyeS6x"/>
+    <service id=".service_locator.ZuDGha6" alias=".service_locator.lZ4AHVK"/>
+    <service id=".service_locator.F6JocMf" alias=".service_locator.t30H6m0"/>
+    <service id=".service_locator.uGXSK5E" alias=".service_locator.O4xlrSc"/>
+    <service id=".service_locator.JNvU.xw" alias=".service_locator.ELU_RjS"/>
+    <service id=".service_locator.owP6XhS" alias=".service_locator.fWqNEGS"/>
+    <service id=".service_locator.G.u2TjP" alias=".service_locator.wP_VaX6"/>
+    <service id=".service_locator.KxBDbQI" alias=".service_locator.DCYmHdI"/>
     <service id=".service_locator.b32JBf8" alias=".service_locator.GX7SP2j"/>
     <service id=".service_locator.mdx1xgv" alias=".service_locator.P_7xx3H"/>
-    <service id=".service_locator.c1oRce7" alias=".service_locator.84G0F13"/>
+    <service id=".service_locator.p0zrDss" alias=".service_locator.dfNwd74"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.F9PKc.7"/>
     <service id=".service_locator.Za9MpXe" alias=".service_locator.y4dplYt"/>
     <service id=".service_locator.XtmiKbi" alias=".service_locator.MfxSDRP"/>
@@ -9849,9 +9979,17 @@
     <service id=".service_locator.zcakC9q" alias=".service_locator.JcuJoe1"/>
     <service id=".service_locator.c.gn8SJ" alias=".service_locator.KYiCKuy"/>
     <service id=".service_locator.fludQZj" alias=".service_locator.ebwTjN1"/>
+    <service id=".service_locator.Uq39iXk" alias=".service_locator.Lo2Ugx9"/>
+    <service id=".service_locator.lMn4s1A" alias=".service_locator.Nh3VliV"/>
     <service id=".service_locator.ey_sPbD" alias=".service_locator.TXyTJ1t"/>
-    <service id=".service_locator.cKXBEff" alias=".service_locator.JWdUnm1"/>
-    <service id=".service_locator.p17.yxX" alias=".service_locator..hcxsvo"/>
+    <service id=".service_locator.465rXRN" alias=".service_locator.pOyeS6x"/>
+    <service id=".service_locator.Mln.f.L" alias=".service_locator.lZ4AHVK"/>
+    <service id=".service_locator.7kPGxU_" alias=".service_locator.t30H6m0"/>
+    <service id=".service_locator.NVJ_rD5" alias=".service_locator.O4xlrSc"/>
+    <service id=".service_locator.yq32oC8" alias=".service_locator.ELU_RjS"/>
+    <service id=".service_locator.0ZxSJG0" alias=".service_locator.fWqNEGS"/>
+    <service id=".service_locator.CrLGje9" alias=".service_locator.wP_VaX6"/>
+    <service id=".service_locator.vMk_PQi" alias=".service_locator.DCYmHdI"/>
     <service id=".service_locator.cpyopW1" alias=".service_locator.GX7SP2j"/>
     <service id=".service_locator.BbgU2rE" alias=".service_locator.HZHLc46"/>
     <service id=".service_locator.ZuUpMUu" alias=".service_locator.P_7xx3H"/>

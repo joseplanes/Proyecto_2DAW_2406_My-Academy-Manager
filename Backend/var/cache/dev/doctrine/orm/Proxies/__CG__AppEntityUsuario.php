@@ -7,7 +7,7 @@ namespace Proxies\__CG__\App\Entity;
  */
 class Usuario extends \App\Entity\Usuario implements \Doctrine\ORM\Proxy\InternalProxy
 {
-    use \Symfony\Component\VarExporter\LazyGhostTrait {
+     use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -22,6 +22,7 @@ class Usuario extends \App\Entity\Usuario implements \Doctrine\ORM\Proxy\Interna
         "\0".parent::class."\0".'email' => [parent::class, 'email', null],
         "\0".parent::class."\0".'fecha_nacimiento' => [parent::class, 'fecha_nacimiento', null],
         "\0".parent::class."\0".'id' => [parent::class, 'id', null],
+        "\0".parent::class."\0".'mensajes' => [parent::class, 'mensajes', null],
         "\0".parent::class."\0".'nombre' => [parent::class, 'nombre', null],
         "\0".parent::class."\0".'password' => [parent::class, 'password', null],
         "\0".parent::class."\0".'profesors' => [parent::class, 'profesors', null],
@@ -32,11 +33,12 @@ class Usuario extends \App\Entity\Usuario implements \Doctrine\ORM\Proxy\Interna
         'email' => [parent::class, 'email', null],
         'fecha_nacimiento' => [parent::class, 'fecha_nacimiento', null],
         'id' => [parent::class, 'id', null],
+        'mensajes' => [parent::class, 'mensajes', null],
         'nombre' => [parent::class, 'nombre', null],
         'password' => [parent::class, 'password', null],
         'profesors' => [parent::class, 'profesors', null],
         'rol' => [parent::class, 'rol', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

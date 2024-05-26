@@ -7,7 +7,7 @@ namespace Proxies\__CG__\App\Entity;
  */
 class Profesor extends \App\Entity\Profesor implements \Doctrine\ORM\Proxy\InternalProxy
 {
-    use \Symfony\Component\VarExporter\LazyGhostTrait {
+     use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -18,11 +18,13 @@ class Profesor extends \App\Entity\Profesor implements \Doctrine\ORM\Proxy\Inter
     private const LAZY_OBJECT_PROPERTY_SCOPES = [
         "\0".parent::class."\0".'clases' => [parent::class, 'clases', null],
         "\0".parent::class."\0".'id' => [parent::class, 'id', null],
+        "\0".parent::class."\0".'jornadaLaborals' => [parent::class, 'jornadaLaborals', null],
         "\0".parent::class."\0".'usuario' => [parent::class, 'usuario', null],
         'clases' => [parent::class, 'clases', null],
         'id' => [parent::class, 'id', null],
+        'jornadaLaborals' => [parent::class, 'jornadaLaborals', null],
         'usuario' => [parent::class, 'usuario', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {

@@ -7,7 +7,7 @@ namespace Proxies\__CG__\App\Entity;
  */
 class Asignatura extends \App\Entity\Asignatura implements \Doctrine\ORM\Proxy\InternalProxy
 {
-    use \Symfony\Component\VarExporter\LazyGhostTrait {
+     use \Symfony\Component\VarExporter\LazyGhostTrait {
         initializeLazyObject as __load;
         setLazyObjectAsInitialized as public __setInitialized;
         isLazyObjectInitialized as private;
@@ -26,7 +26,7 @@ class Asignatura extends \App\Entity\Asignatura implements \Doctrine\ORM\Proxy\I
         'id' => [parent::class, 'id', null],
         'img' => [parent::class, 'img', null],
         'nombre' => [parent::class, 'nombre', null],
-    ];
+    ];
 
     public function __isInitialized(): bool
     {
