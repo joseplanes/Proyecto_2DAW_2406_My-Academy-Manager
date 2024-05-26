@@ -157,38 +157,40 @@
             <button (click)="toggleDropdown()" type="button" class="relative flex text-sm rounded-full bg-custom-darkgreen focus:outline-none focus:ring-2 focus:ring-custom-darkgreen focus:ring-offset-2 focus:ring-offset-custom-darkgreen" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Open user menu</span>
-              <div class="flex items-center font-bold text-2xl justify-center h-16 w-16 rounded-full bg-custom-gray flex-shrink-0" >
+              <div class="flex items-center font-bold text-2xl justify-center h-14 w-14 rounded-full bg-custom-gray flex-shrink-0">
                 {{identity.nombre[0]}}
               </div>
             </button>
           </div>
 
-
           <div [class.hidden]="!isMenuVisible" [class.block]="isMenuVisible" id="user-menu" class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-            <div class="flex items-center justify-left">
+            <div class="flex items-center justify-center">
               <div class="inline-flex items-center px-4 py-2 text-sm text-gray-700">
                 <span class="block text-sm text-gray-900">{{identity.nombre+' '+identity.apellidos}}</span>
                 <span class="block text-sm text-gray-500 truncate"></span>
               </div>
             </div>
-            <div class="flex items-center justify-left">
+
+            <!-- Línea divisoria -->
+            <div class="border-t border-gray-300 mx-4"></div>
+
+            <div class="flex items-center justify-left mt-2">
               <a [routerLink]="['perfil']" class="inline-flex items-center px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                 </svg>&nbsp;
-                  Perfil
+                Perfil
               </a>
             </div>
 
             <div class="flex items-center justify-left">
               <a [routerLink]="['/logout/1']" class="inline-flex items-center px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
-                <p></p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16" style="vertical-align: middle; margin-left: 2.3px;">
-                    <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0z"/>
-                    <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                  <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0z"/>
+                  <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
                 </svg>
                 <span style="margin-left: 5.7px;">Cerrar Sesión</span>
-            </a>
+              </a>
             </div>
           </div>
         </div>
