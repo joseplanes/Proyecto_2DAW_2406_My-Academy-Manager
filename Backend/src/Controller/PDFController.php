@@ -90,4 +90,55 @@ class PDFController extends AbstractController
         ]);
     }
 
+    #[Route('/misjornadas', name: 'app_jornadas_pdf', methods: ['GET'])]
+    public function misJornadas(Request $request,JwtAuth $jwt_auth ,ProfesorRepository $pr, JornadaLaboralRepository $jr , SerializerInterface $serializer,EntityManagerInterface $em)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            $json = json_decode($request->getContent(), true);
+
+            $identity = $jwt_auth->checkToken($token, true);
+            
+            if($identity->rol == 'profesor'){
+                $profesorId = $identity->id_profesor;
+                $profesor = $pr->find($profesorId);
+                $jornadas = $jr->findBy(['profesor' => $pr->find($profesorId)]);
+                if($jornadas!=null){
+                     // Crear el contenido HTML para el PDF
+                $html = $this->renderView('pdf/jornadas.html.twig', [
+                    'jornadas' => $jornadas,
+                    'profesor' => $profesor
+                ]);
+
+                // Configuración de Dompdf
+                $options = new Options();
+                $options->set('defaultFont', 'Arial');
+                $options->set('isRemoteEnabled', true);
+                $dompdf = new Dompdf($options);
+                $dompdf->loadHtml($html);
+                $dompdf->setPaper('A4', 'portrait');
+                $dompdf->render();
+
+                $output = $dompdf->output();
+
+                return new Response($output, 200, [
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'inline; filename="jornadas.pdf"',
+                ]);
+            }
+        }
+
+        return new JsonResponse([
+            'status' => 'error',
+            'code' => 400,
+            'message' => 'No tienes permiso para realizar esta acción'
+        ]);
+        }
+    }
+
 }

@@ -630,6 +630,12 @@ class ListController extends AbstractController
                     'code' => 200,
                     'data' => $datos
                 ];
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No tienes permiso para realizar esta acción'
+                ];
             }
         }else{
             $data = [
@@ -1024,5 +1030,53 @@ class ListController extends AbstractController
         return new JsonResponse($data);
     }
 
+    #[Route('/misjornadas', name: 'app_misjornadas', methods: ['GET'])]
+    public function misJornadas(Request $request,JwtAuth $jwt_auth ,ProfesorRepository $pr, JornadaLaboralRepository $jr , SerializerInterface $serializer,EntityManagerInterface $em)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
 
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            $json = json_decode($request->getContent(), true);
+
+            $identity = $jwt_auth->checkToken($token, true);
+            
+            if($identity->rol == 'profesor'){
+                $profesorId = $identity->id_profesor;
+                $jornadas = $jr->findBy(['profesor' => $pr->find($profesorId)]);
+                if($jornadas!=null){
+                    $datos = $serializer->serialize($jornadas, 'json', ['groups' => 'jornada', 'max_depth' => 1]);
+
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'data' => $datos
+                    ];
+                }else{
+                    $data = [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'No tienes jornadas laborales'
+                    ];
+                }
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No tienes permiso para realizar esta acción'
+                ];
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+            
+        }
+        return new JsonResponse($data);
+    }
 }

@@ -14,6 +14,18 @@ export class ApiService {
       
   }
 
+  getMisJornadas(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`list/misjornadas`, {headers: headers});
+    
+  }  
+  getMisJornadasPDF(token:any){
+    let headers = new HttpHeaders().set('Authorization', token);
+
+    return this.http.get(this.baseUrl+'pdf/misjornadas', {headers: headers, responseType: 'blob'});
+  }
+
   getMiJornada(token:any){
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
                                    .set('Authorization', token);

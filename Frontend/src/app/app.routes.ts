@@ -17,6 +17,7 @@ import { RegistroAsistenciaComponent } from './registro-asistencia/registro-asis
 import { RegistroCalificacionesComponent } from './registro-calificaciones/registro-calificaciones.component';
 import { CalificacionesComponent } from './calificaciones/calificaciones.component';
 import { MensajesComponent } from './mensajes/mensajes.component';
+import { JornadaComponent } from './jornada/jornada.component';
 
 export const routes: Routes = [
 {
@@ -129,6 +130,12 @@ export const routes: Routes = [
     path: 'mensajes',
     component: MensajesComponent,
     title: 'Mensajes',
+    canActivate: [IdentityGuard]
+},
+{
+    path: 'jornadas',
+    component: JornadaComponent,
+    title: 'Mis Jornadas Laborales',
     canActivate: [IdentityGuard]
 }
 ];
