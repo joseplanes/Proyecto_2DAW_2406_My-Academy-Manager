@@ -96,7 +96,7 @@ export class MensajesComponent {
     this.remi.remitente.nombre=remi.nombre;
     this.remi.remitente.apellidos=remi.apellidos;
   }
-
+  
   enviarMensaje(){
     if(this.identity.sub==this.remi.receptor.id){
       
@@ -112,7 +112,7 @@ export class MensajesComponent {
             this.status = 'success';
             this.messageenvio = response.message;
             
-            this.getMensajesUnicos(this.remi.remitente.id);      
+            this.getMensajesUnicos(mensaje.receptor);      
           }else{
             this.status = 'error';
             this.messageenvio = response.message;
@@ -135,7 +135,7 @@ export class MensajesComponent {
           if(response && response.status == 'success'){
             this.status = 'success';
             this.messageenvio = response.message;
-            
+            this.getMensajesUnicos(mensaje.receptor);
           }else{
             this.status = 'error';
             this.messageenvio = response.message;
