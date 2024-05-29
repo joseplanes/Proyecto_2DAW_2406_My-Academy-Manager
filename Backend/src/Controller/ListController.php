@@ -1079,4 +1079,23 @@ class ListController extends AbstractController
         }
         return new JsonResponse($data);
     }
+
+    #[Route('/cabeceras', name: 'cabecera', methods: ['GET'])]
+    public function cabeceras(Request $request)
+    {   
+        $token= $request->headers->get('Authorization');
+        //Recoger cabeceras
+        $headers = $request->headers->all();
+        
+        $data=[
+            'status' => 'success',
+            'code' => 200,
+            'cabeceras' => $headers,
+            'token' => $token
+        ];
+        // Formatear la respuesta como JSON
+        return new JsonResponse($data);
+
+
+    }
 }

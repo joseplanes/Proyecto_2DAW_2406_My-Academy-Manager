@@ -26,12 +26,23 @@ export class HomeComponent implements OnInit {
     this.loadUser();
     if (this.identity.rol == 'alumno' || this.identity.rol == 'profesor' || this.identity.rol == 'admin') {
       this.getMisClasesHoy();
+      this.getCabeceras();
       if (this.identity.rol == 'profesor') {
         this.getJornada();
       }
     }
   }
 
+  getCabeceras(){
+    return this.api.getHeaders(this.token).subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
   getJornada() {
     return this.api.getMiJornada(this.token).subscribe(
       (response: any) => {

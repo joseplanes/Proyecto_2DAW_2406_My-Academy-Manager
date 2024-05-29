@@ -14,6 +14,13 @@ export class ApiService {
       
   }
 
+  getHeaders(token:any){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`list/cabeceras`, {headers: headers});
+  }
+
+
   getMisJornadas(token:any){
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
                                    .set('Authorization', token);
