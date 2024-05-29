@@ -30,9 +30,13 @@
         <textarea placeholder="Decripción" id="descripcion" name="descripcion" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.descripcion" required></textarea>
     </div>
     <div class="mb-4">
-        <label for="img" class="block text-gray-700 text-sm font-bold mb-2">Imagen</label>
-        <input placeholder="Ingrese el svg" type="text" id="img" name="img" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.img" required>
+      <label for="img" class="block text-gray-700 text-sm font-bold mb-2">Imagen</label>
+      <div class="grid grid-cols-3 gap-4">
+        @for (item of svg; track $index) {
+          <div class="cursor-pointer inline-flex items-center justify-center flex-shrink-0 w-16 h-16 mb-4 rounded-full sm:mr-8 sm:mb-0 bg-custom-green text-custom-green-500" [innerHTML]="getSafeHtml(item.value)" (click)="selectOption(item)"></div>
+        }
     </div>
+  </div>
     <div class="mb-4">
         <button type="submit" class="bg-custom-green hover:bg-custom-darkgreen text-dark font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Guardar Asignatura</button>
     </div>
