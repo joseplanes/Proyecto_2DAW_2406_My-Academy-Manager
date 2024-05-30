@@ -75,6 +75,36 @@ class UserController extends AbstractController
                         ];
                         return new JsonResponse($data);
                     }
+                    //Comprobar y validar
+                    $validarDNI = $this->validarDNI($dni);
+                    if (!$validarDNI) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'DNI no válido',
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    
+                    $validarEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+                    if (!$validarEmail) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'Email no válido',
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    $validarpassword = strlen($password) >= 6;
+                    if (!$validarpassword) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'La contraseña debe tener al menos 6 caracteres',
+                        ];
+                        return new JsonResponse($data);
+                    }
+
                     $usuario = new Usuario();
                     $usuario->setNombre($nombre);
                     $usuario->setApellidos($apellidos);
@@ -234,5 +264,28 @@ class UserController extends AbstractController
 
 
         return new JsonResponse($data);
+    }
+
+
+    public function validarDNI($dni) {
+        // Eliminar espacios en blanco y convertir a mayúsculas
+        $dni = strtoupper(trim($dni));
+    
+        // Comprobar si el formato es válido (8 dígitos seguidos por una letra)
+        if (preg_match('/^[0-9]{8}[A-Z]$/', $dni)) {
+            // Extraer los números y la letra
+            $numero = substr($dni, 0, -1);
+            $letra = substr($dni, -1);
+    
+            // Calcular la letra correcta
+            $letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+            $letraCalculada = $letras[$numero % 23];
+    
+            // Comparar la letra calculada con la letra proporcionada
+            if ($letraCalculada === $letra) {
+                return true;
+            }
+        }
+        return false;
     }
 }
