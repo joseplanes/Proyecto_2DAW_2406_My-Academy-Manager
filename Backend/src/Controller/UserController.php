@@ -64,6 +64,14 @@ class UserController extends AbstractController
                     $fechaNacimiento= (!empty($params->fechaNacimiento)) ? $params->fechaNacimiento : null;
                     $rol= (!empty($params->rol)) ? $params->rol : null;
                     $clases= (!empty($params->clases)) ? $params->clases : null;
+                    if ($rol == 'alumno' && !$clases) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'El alumno debe estar matriculado en al menos una clase',
+                        ];
+                        return new JsonResponse($data);
+                    }
                     
                 
                     $usuarioExistente = $ur->findOneBy(['email' => $email]);
@@ -119,6 +127,14 @@ class UserController extends AbstractController
                     
                     switch ($usuario->getRol()) {
                         case 'alumno':
+                            if (!$clases) {
+                                $data = [
+                                    'status' => 'error',
+                                    'code' => 400,
+                                    'message' => 'El alumno debe estar matriculado en al menos una clase',
+                                ];
+                                return new JsonResponse($data);
+                            }
                             $alumno = new Alumno();
                             $alumno->setUsuario($usuario);
                             foreach ($clases as $claseId) {
@@ -231,10 +247,32 @@ class UserController extends AbstractController
                 $nombre= (!empty($params->nombre)) ? $params->nombre : null;
                 $apellidos= (!empty($params->apellidos)) ? $params->apellidos : null;
                 $email= (!empty($params->email)) ? $params->email : null;
+                $password= (!empty($params->password)) ? $params->password : null;
 
+                $validarEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+                if (!$validarEmail) {
+                    $data = [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'Email no válido',
+                    ];
+                    return new JsonResponse($data);
+                }
+                if($password!=null){
+                    $validarpassword = strlen($password) >= 6;
+                    if (!$validarpassword) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'La contraseña debe tener al menos 6 caracteres',
+                        ];
+                        return new JsonResponse($data);
+                    }
+                }
+                
 
                 //Asignar nuevos dartos al objeto de usuario
-                if(!empty($nombre) && !empty($apellidos) && !empty($email)){
+                if(!empty($nombre) && !empty($apellidos) && !empty($email) && $password==null){
                     //Asignar nuevos valores al objeto
                     $usuario->setNombre($nombre);
                     $usuario->setApellidos($apellidos);
@@ -252,6 +290,23 @@ class UserController extends AbstractController
                         'usuario' => $usuario
                     ]; 
                     
+                }else if(!empty($nombre) && !empty($apellidos) && !empty($email) && !empty($password)){
+                    //Asignar nuevos valores al objeto
+                    $usuario->setNombre($nombre);
+                    $usuario->setApellidos($apellidos);
+                    $usuario->setEmail($email);
+                    $usuario->setPassword($password);
+
+                    $entityManager->persist($usuario);
+                    $entityManager->flush();
+
+                    //Devolver respuesta
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Usuario actualizado',
+                        'usuario' => $usuario
+                    ]; 
                 }
             }
           

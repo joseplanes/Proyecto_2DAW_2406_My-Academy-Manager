@@ -18,6 +18,7 @@ export class PerfilComponent {
   public identity: any;
   public status:string='';
   public token: any;
+  public mensaje:string='';
 
   constructor(private _router: Router, private _route: ActivatedRoute) {
     this.identity = this.userService.getIdentity();
@@ -41,6 +42,7 @@ export class PerfilComponent {
           }, 2000);
         }else{
           this.status = 'error';
+          this.mensaje=response.message;
         }
       },
       error => {

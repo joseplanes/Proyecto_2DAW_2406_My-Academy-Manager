@@ -57,8 +57,6 @@ export class RegistroUsuarioComponent {
       ...this.formData,
       clases: selectedClases
     };
-    
-    console.log(this.formData);
 
     this.userService.create(this.token,formDataToSend).subscribe(
      (response:any ) => {
