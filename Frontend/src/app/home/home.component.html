@@ -8,7 +8,7 @@
                     <div class="grid sm:grid-cols-2">
                         <div class="relative z-10 flex flex-col justify-between space-y-12 lg:space-y-6">
                             <ul class="pl-4 space-y-4 list-disc">
-                                @if (!clases) {
+                                @if (clases==null || clases.length == 0) {
                                     <li>No tienes clases hoy</li>
                                 }@else{
                                 @for (c of clases; track c.id) {
@@ -33,7 +33,7 @@
                                             Iniciar Jornada Laboral
                                         </button>
 
-                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black text-gray-700 bg-gray-400 rounded-md" disabled>
+                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-btn-fill" viewBox="0 0 16 16">
                                                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.5-7A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5z"/>
                                             </svg>
@@ -43,7 +43,7 @@
                                     </div>
                                 }@else if (jornada.inicio && !jornada.fin){
                                     <div class="flex justify-center space-x-4">
-                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black text-gray-700 bg-gray-400 rounded-md" disabled>
+                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-btn-fill" viewBox="0 0 16 16">
                                                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.79-6.907A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z"/>
                                             </svg>
@@ -59,14 +59,14 @@
                                     </div>
                                 }@else if (jornada.fin){
                                     <div class="flex justify-center space-x-4">
-                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black text-gray-700 bg-gray-400 rounded-md" disabled>
+                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-btn-fill" viewBox="0 0 16 16">
                                                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.79-6.907A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z"/>
                                             </svg>
                                             Iniciar Jornada Laboral
                                         </button>
 
-                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black text-gray-700 bg-gray-400 rounded-md" disabled>
+                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-btn-fill" viewBox="0 0 16 16">
                                                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.5-7A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5z"/>
                                             </svg>
