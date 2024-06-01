@@ -671,6 +671,16 @@ class ListController extends AbstractController
                     $notas=(!empty($params->notas)) ? $params->notas : null;
                     
                     $clase = $cr->find($claseid);
+                    foreach($notas as $nota){
+                        if($nota<0 || $nota>10){
+                            $data = [
+                                'status' => 'error',
+                                'code' => 400,
+                                'message' => 'Las notas deben estar entre 0 y 10'
+                            ];
+                            return new JsonResponse($data);
+                        }
+                    }
 
                 if ($clase && $notas) {
                     $alumnos = $clase->getAlumnos();
