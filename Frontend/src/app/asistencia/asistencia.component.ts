@@ -20,19 +20,60 @@ export class AsistenciaComponent {
   public identity:any;
   public faltas:any;
   public faltasAgrupadas:any;
+  public clases:any;
 
   constructor(private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
     this.loadUser();
     if(this.identity.rol=='alumno'){
       this.getFaltas();
+      this.getClases();
+      this.contarFaltas();
     }else{
       this.router.navigate(['/inicio']);
     }
   }
+  subirFalta(nombreAsignatura: string) {
+    if (this.faltasPorAsignatura[nombreAsignatura] === 0) {
+      this.faltasPorAsignatura[nombreAsignatura] = 1;
+    }else{
+    this.faltasPorAsignatura[nombreAsignatura]++;
+    }
+  }
+
+  faltasPorAsignatura: { [key: string]: number } = {};
 
   loadUser(){
     this.token=this.userService.getToken();
     this.identity=this.userService.getIdentity();
+  }
+
+  contarFaltas() {
+    if (this.faltas && this.faltas.length > 0) {
+      this.faltas.forEach((falta:any) => {
+        let nombreAsignatura = falta.clase.asignatura.nombre;
+        if (this.faltasPorAsignatura[nombreAsignatura] !== undefined) {
+          this.subirFalta(nombreAsignatura);
+        }
+      });
+    }
+  } 
+
+  getClases(){
+    return this.api.getMisClases(this.token).subscribe(
+      (response:any)=>{
+        let clases = response.data;
+        this.clases = JSON.parse(clases);
+        for (let i = 0; i < this.clases.length; i++) {
+          this.faltasPorAsignatura[this.clases[i].asignatura.nombre] = 0;
+        }
+        if (this.faltas) {
+          this.contarFaltas();
+        }
+      },
+      error =>{
+        console.log(error);
+      }
+    );
   }
 
   getFaltas(){
@@ -41,6 +82,10 @@ export class AsistenciaComponent {
         let faltas = response.data;
         this.faltas = JSON.parse(faltas);
         this.faltasAgrupadas = this.agruparPorDia(this.faltas);
+
+        if (this.clases) {
+          this.contarFaltas();
+        }
       },
       error =>{
         console.log(error);

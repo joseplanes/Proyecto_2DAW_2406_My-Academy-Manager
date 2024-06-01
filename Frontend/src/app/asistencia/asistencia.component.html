@@ -20,18 +20,17 @@
           </div>
           <div>
               <div class="p-4 border border-gray-200 rounded-md">
-                  @for (grupo of faltasAgrupadas; track $index)
-                  {
-                      <h2 class="mb-4 text-xl font-bold">{{ grupo.fecha.charAt(0).toUpperCase() + grupo.fecha.slice(1) }}</h2>
+                  
                       <div class="space-y-4">
-                          @for (falta of grupo.faltas; track $index)
+                          @for (c of clases; track $index)
                           {
-                              <div class="p-2 bg-gray-100 rounded-md">
-                                  {{ falta.clase.asignatura.nombre }} - {{ falta.fecha | date: 'mediumTime' }}
-                              </div>
+                            <div class="p-2 bg-gray-100 rounded-md">
+                                {{ c.asignatura.nombre }} -  Faltas: <span>{{ faltasPorAsignatura[c.asignatura.nombre] }}</span>
+                            </div>
+                            
                           }
                       </div>
-                  }
+                  
               </div>
           </div>
       </div>
