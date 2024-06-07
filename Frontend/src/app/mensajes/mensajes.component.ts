@@ -158,6 +158,7 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
           console.log(error);
         }
       );
+      this.getMensajesInicio();
   }
 }
 
