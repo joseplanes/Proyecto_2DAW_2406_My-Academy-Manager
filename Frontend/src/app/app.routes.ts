@@ -18,6 +18,7 @@ import { RegistroCalificacionesComponent } from './registro-calificaciones/regis
 import { CalificacionesComponent } from './calificaciones/calificaciones.component';
 import { MensajesComponent } from './mensajes/mensajes.component';
 import { JornadaComponent } from './jornada/jornada.component';
+import { ErrorComponent } from './error/error.component';
 
 export const routes: Routes = [
 {
@@ -137,5 +138,10 @@ export const routes: Routes = [
     component: JornadaComponent,
     title: 'Mis Jornadas Laborales',
     canActivate: [IdentityGuard]
+},
+{
+    path: '**',
+    component: ErrorComponent,
+    title: 'Error 404'
 }
 ];

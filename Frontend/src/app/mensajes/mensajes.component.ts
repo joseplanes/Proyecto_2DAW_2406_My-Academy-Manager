@@ -1,36 +1,64 @@
-import { Component, ElementRef, ViewChild, AfterViewChecked, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewChecked, inject, OnDestroy } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CommonModule, DatePipe } from '@angular/common';
-import { ModalService } from '../services/ModalService.service';
-import { ListaModalComponent } from '../lista-modal/lista-modal.component';
+import { PatronPipe } from '../pipes/patron.pipe';
 
 @Component({
   selector: 'app-mensajes',
   standalone: true,
-  imports: [RouterModule, CommonModule, DatePipe, ListaModalComponent],
+  imports: [RouterModule, CommonModule, DatePipe, PatronPipe],
   templateUrl: './mensajes.component.html',
   styleUrl: './mensajes.component.css'
 })
-export class MensajesComponent implements AfterViewChecked {
+export class MensajesComponent implements AfterViewChecked, OnDestroy {
   private api = inject(ApiService);
   private userService = inject(UserService);
-  public modalService = inject(ModalService);
   public token: any;
   public identity: any;
   public mensajes: any;
   public mensajesunicos: any;
   public mostrarmensaje: boolean = false;
-  public isFlex: boolean = false;
   public remi: any = { remitente: { id: '0', nombre: '', apellidos: '' } };
-  public remimm: any = { remitente: { id: '', nombre: '', apellidos: '' } };
   input: string = '';
   public status: string = '';
   public numremi: number = 0;
-  public remimodal: any;
   public messageenvio: string = '';
+  public antiguos:boolean=true;
+  patron:string='';
+  public usuarios:any;
+  
+  getUsuarios(){
+    return this.api.getUsuarios(this.token).subscribe(
+      (response:any)=>{
+        let usuarios=response.data;
+        this.usuarios=JSON.parse(usuarios);
+      },
+      error =>{
+        console.log(error);
+      }
+    );
+  }
+  private intervalId: any;
+  startInterval(): void {
+    this.intervalId = setInterval(() => {
+      this.getMensajesUnicos(this.remi.id);
+    }, 2000); // 2000 ms = 2 segundos
+  }
+  ngOnDestroy(): void {
+    this.clearInterval();
+  }
+  clearInterval(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+  clickbuscar(){
+    this.getUsuarios();
+    this.antiguos=false;
+  }
 
   @ViewChild('messagesContainer') private messagesContainer?: ElementRef;
 
@@ -63,12 +91,7 @@ export class MensajesComponent implements AfterViewChecked {
 
   navigateToMensajes() {
     this.mostrarmensaje = false;
-    this.remimodal = null;
     this.router.navigate(['/mensajes']);
-  }
-
-  abrirModal(): void {
-    this.modalService.abrirModal();
   }
 
   loadUser() {
@@ -101,26 +124,17 @@ export class MensajesComponent implements AfterViewChecked {
       }
     );
   }
-
-  seleccionarRemi() {
-    this.isFlex = !this.isFlex;
-  }
-
   setRemi(remi: any) {
-    this.remi = remi;
+    this.remi = remi
+    this.getMensajesUnicos(remi.id);
+    this.startInterval();
   }
 
-  setRemiModal(remi: any) {
-    this.remi.remitente.id = remi.id;
-    this.remi.remitente.nombre = remi.nombre;
-    this.remi.remitente.apellidos = remi.apellidos;
-  }
 
   enviarMensaje() {
-    if (this.identity.sub == this.remi.receptor.id) {
       let mensaje = {
         remi: this.identity.sub,
-        receptor: this.remi.remitente.id,
+        receptor: this.remi.id,
         mensaje: this.input
       };
 
@@ -140,64 +154,6 @@ export class MensajesComponent implements AfterViewChecked {
           console.log(error);
         }
       );
-    } else {
-      let mensaje = {
-        remi: this.identity.sub,
-        receptor: this.remi.receptor.id,
-        mensaje: this.input
-      };
-
-      this.api.enviarMensaje(this.token, mensaje).subscribe(
-        (response: any) => {
-          if (response && response.status == 'success') {
-            this.status = 'success';
-            this.messageenvio = response.message;
-            this.getMensajesUnicos(mensaje.receptor);
-          } else {
-            this.status = 'error';
-            this.messageenvio = response.message;
-          }
-        },
-        error => {
-          this.status = 'error';
-          console.log(error);
-        }
-      );
-      this.getMensajesUnicos(this.numremi);
-    }
-  }
-
-  onElementoSeleccionado(id: any): void {
-    this.remimodal = id;
-    this.modalService.cerrarModal();
-  }
-
-  enviarMensajeModal() {
-    let mensaje = {
-      remi: this.identity.sub,
-      receptor: this.remimodal.id,
-      mensaje: this.input
-    };
-
-    this.api.enviarMensaje(this.token, mensaje).subscribe(
-      (response: any) => {
-        if (response && response.status == 'success') {
-          this.status = 'success';
-          this.messageenvio = response.message;
-          this.setRemiModal(this.remimodal);
-          this.getMensajesInicio();
-          this.remimodal = null;
-          this.getMensajesUnicos(mensaje.receptor);
-        } else {
-          this.status = 'error';
-          this.messageenvio = response.message;
-        }
-      },
-      error => {
-        this.status = 'error';
-        console.log(error);
-      }
-    );
   }
 }
 

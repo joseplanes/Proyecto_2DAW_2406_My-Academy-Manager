@@ -30,76 +30,72 @@
               </div>
             </div>
             <div class="mt-6">
-                <div class="flex flex-col -mx-4 overflow-y-auto">
-                  @for (m of mensajes; track $index) {
-                    @if (isRemitente(m.remitente.id)) {
-                        <div #{{m.receptir.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green" (click)="getMensajesUnicos(m.receptor.id)" (click)="setRemi(m)">
-                            <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
-                                {{m.receptor.nombre[0]}}
-                            </div>
-                            <div class="flex flex-col flex-grow ml-3">
-                              <div class="flex items-center">
-                                <div class="text-sm font-medium">{{m.receptor.nombre}} {{m.receptor.apellidos}}</div>
+                <div class="flex flex-col -mx-4 overflow-x-auto">
+                  <div class="flex-grow mr-2 mb-2">
+                    <input #pattern (keyup)="patron=pattern.value" (click)="clickbuscar()" type="text" placeholder="Buscar usuario..." class="w-full px-5 py-2 rounded-lg shadow-sm ">
+                  </div>
+                  @if (antiguos) {
+                    @for (m of mensajes; track $index) {
+                      @if (isRemitente(m.remitente.id)) {
+                          <div #{{m.receptir.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green" (click)="setRemi(m.receptor)">
+                              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
+                                  {{m.receptor.nombre[0]}}
+                              </div>
+                              <div class="flex flex-col flex-grow ml-3">
+                                <div class="flex items-center">
+                                  <div class="text-sm font-medium">{{m.receptor.nombre}} {{m.receptor.apellidos}}</div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                    }@else {
-                        <div #{{m.remitente.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green"  (click)="getMensajesUnicos(m.remitente.id)" (click)="setRemi(m)">
-                            <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
-                                {{m.remitente.nombre[0]}}
-                            </div>
-                            <div class="flex flex-col flex-grow ml-3">
-                              <div class="flex items-center">
-                                <div class="text-sm font-medium">{{m.remitente.nombre}} {{m.remitente.apellidos}}</div>
+                      }@else {
+                          <div #{{m.remitente.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green"  (click)="setRemi(m.remitente)">
+                              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
+                                  {{m.remitente.nombre[0]}}
+                              </div>
+                              <div class="flex flex-col flex-grow ml-3">
+                                <div class="flex items-center">
+                                  <div class="text-sm font-medium">{{m.remitente.nombre}} {{m.remitente.apellidos}}</div>
+                                </div>
                               </div>
                             </div>
+                      }
+                    }
+                  }@else {
+                    @for (u of usuarios|patron:patron; track $index) {
+                      <div #{{u.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green" (click)="setRemi(u)" (click)="antiguos=true">
+                        <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
+                            {{u.nombre[0]}}
+                        </div>
+                        <div class="flex flex-col flex-grow ml-3">
+                          <div class="flex items-center">
+                            <div class="text-sm font-medium">{{u.nombre}} {{u.apellidos}}</div>
                           </div>
+                        </div>
+                      </div>
                     }
                   }
-
-
-              </div>
-            </div>
-
-            <div class="relative h-full pt-2 overflow-hidden">
-
-
-              <div class="absolute bottom-0 right-0 mr-2">
-                <button class="flex items-center justify-center w-10 h-10 text-black rounded-full shadow-sm bg-custom-green hover:bg-custom-darkgreen hover:text-custom-gray" (click)="abrirModal()" (click)="mostrarmensaje=false">
-                  <svg class="w-6 h-6"
-                       fill="none"
-                       stroke="currentColor"
-                       viewBox="0 0 24 24"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                  </svg>
-                </button>
-                <app-lista-modal *ngIf="modalService.modalAbierto$ | async" (elementoSeleccionado)="onElementoSeleccionado($event)" class="h-4"></app-lista-modal>
               </div>
             </div>
           </div>
         </div>
         <div class="flex flex-col w-full h-full px-4 py-6 bg-white rounded-r-3xl">
             @if (mostrarmensaje) {
-              @if (isRemitente(remi.remitente.id)) {
+              @if (isRemitente(remi.id)) {
           <div class="flex flex-row items-center px-6 py-4 bg-gray-100 shadow rounded-2xl">
             <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
-              {{remi.receptor.nombre[0]}}
+              {{remi.nombre[0]}}
             </div>
             <div class="flex flex-col ml-3">
-              <div class="text-sm font-semibold">{{remi.receptor.nombre}} {{remi.receptor.apellidos}}</div>
+              <div class="text-sm font-semibold">{{remi.nombre}} {{remi.apellidos}}</div>
             </div>
           </div>
         }@else {
           <div class="flex flex-row items-center px-6 py-4 bg-gray-100 shadow rounded-2xl">
             <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
-              {{remi.remitente.nombre[0]}}
+              {{remi.nombre[0]}}
             </div>
             <div class="flex flex-col ml-3">
-              <div class="text-sm font-semibold">{{remi.remitente.nombre}} {{remi.remitente.apellidos}} </div>
+              <div class="text-sm font-semibold">{{remi.nombre}} {{remi.apellidos}} </div>
             </div>
           </div>
         }
@@ -164,46 +160,6 @@
               </button>
             </div>
           </div>
-        }@else if (remimodal!=null) {
-            <div class="flex flex-row items-center px-6 py-4 shadow rounded-2xl">
-              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
-                {{remimodal.nombre[0]}}
-              </div>
-              <div class="flex flex-col ml-3">
-                <div class="text-sm font-semibold">{{remimodal.nombre}} {{remimodal.apellidos}}</div>
-              </div>
-            </div>
-
-            <div class="h-full py-4 overflow-hidden">
-              <div #messagesContainer class="h-full overflow-y-auto">
-                <div class="grid grid-cols-12 gap-y-2">
-
-                </div>
-              </div>
-            </div>
-
-            <div class="flex flex-row items-center">
-              <div class="flex flex-row items-center w-full h-12 px-2 align-bottom border rounded-3xl">
-                <div class="w-full">
-                  <input #inputc (keyup)="input=inputc.value" type="text" class="flex items-center w-full h-10 text-sm border border-transparent focus:outline-none" placeholder="Escribe tu mensaje....">
-                </div>
-              </div>
-              <div class="ml-4">
-                  <!-- Enviar mensaje -->
-                <button (click)="enviarMensajeModal()" class="flex items-center justify-center w-12 h-12 text-black rounded-full bg-custom-green hover:bg-custom-darkgreen hover:text-custom-gray">
-                  <svg class="w-6 h-6 -mr-px transform rotate-90"
-                       fill="none"
-                       stroke="currentColor"
-                       viewBox="0 0 24 24"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
 
         }
         @else {
