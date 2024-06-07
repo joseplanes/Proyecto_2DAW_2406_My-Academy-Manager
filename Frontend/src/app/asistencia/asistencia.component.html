@@ -1,38 +1,42 @@
 <section class="py-16">
   <div class="relative p-4 px-8 mx-auto overflow-hidden bg-white border-4 border-gray-200 max-w-7xl col-span-full lg:col-span-3 rounded-xl">
       <h2 class="mb-4 text-2xl font-bold text-center">Faltas de Asistencia</h2>
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
-          <div>
-              <ul class="pl-4 space-y-4 list-disc">
-                  @for (grupo of faltasAgrupadas; track $index)
-                  {
-                      <h2 class="mb-4 text-xl font-bold">{{ grupo.fecha.charAt(0).toUpperCase() + grupo.fecha.slice(1) }}</h2>
-                      <ul>
-                          @for (falta of grupo.faltas; track $index)
-                          {
-                              <li>
-                                  {{ falta.clase.asignatura.nombre }} - {{ falta.fecha | date: 'mediumTime' }}
-                              </li>
-                          }
-                      </ul>
-                  }
-              </ul>
-          </div>
-          <div>
-              <div class="p-4 border border-gray-200 rounded-md">
-                  
-                      <div class="space-y-4">
-                          @for (c of clases; track $index)
-                          {
-                            <div class="p-2 bg-gray-100 rounded-md">
-                                {{ c.asignatura.nombre }} -  Faltas: <span>{{ faltasPorAsignatura[c.asignatura.nombre] }}</span>
-                            </div>
-                            
-                          }
-                      </div>
-                  
-              </div>
-          </div>
-      </div>
+      @if (faltas.length > 0) {
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
+            <div>
+                <ul class="pl-4 space-y-4 list-disc">
+                    @for (grupo of faltasAgrupadas; track $index)
+                    {
+                        <h2 class="mb-4 text-xl font-bold">{{ grupo.fecha.charAt(0).toUpperCase() + grupo.fecha.slice(1) }}</h2>
+                        <ul>
+                            @for (falta of grupo.faltas; track $index)
+                            {
+                                <li>
+                                    {{ falta.clase.asignatura.nombre }} - {{ falta.fecha | date: 'mediumTime' }}
+                                </li>
+                            }
+                        </ul>
+                    }
+                </ul>
+            </div>
+            <div>
+                <div class="p-4 border border-gray-200 rounded-md">
+                    
+                        <div class="space-y-4">
+                            @for (c of clases; track $index)
+                            {
+                              <div class="p-2 bg-gray-100 rounded-md">
+                                  {{ c.asignatura.nombre }} -  Faltas: <span>{{ faltasPorAsignatura[c.asignatura.nombre] }}</span>
+                              </div>
+                              
+                            }
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+      }@else {
+        <h3 class="mb-4 text-center">No tienes faltas de asistencia, sigue así👍</h3>
+      }
   </div>
 </section>
