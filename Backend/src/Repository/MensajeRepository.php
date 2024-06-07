@@ -26,8 +26,8 @@ class MensajeRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('m')
                 ->select('m')
                 ->where('m.remitente = :id OR m.receptor = :id')
-                ->setParameter('id', $usuarioId);
-                
+                ->setParameter('id', $usuarioId)
+                ->orderBy('m.fecha', 'DESC'); 
         $results = $qb->getQuery()->getResult();
 
         $uniqueChats = [];
