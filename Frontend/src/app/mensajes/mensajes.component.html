@@ -143,7 +143,7 @@
           <div class="flex flex-row items-center">
             <div class="flex flex-row items-center w-full h-12 px-2 bg-gray-100 border rounded-3xl">
               <div class="w-full mx-6">
-                <input #inputc (keyup)="input=inputc.value" type="text" class="flex items-center w-full h-10 text-sm bg-gray-100 border border-transparent focus:outline-none" placeholder="Escribe tu mensaje....">
+                <input #inputc (keyup)="input=inputc.value"  (keyup.enter)="enviarMensaje()" (keyup.enter)="inputc.value=''" type="text" class="flex items-center w-full h-10 text-sm bg-gray-100 border border-transparent focus:outline-none" placeholder="Escribe tu mensaje....">
               </div>
 
             </div>
