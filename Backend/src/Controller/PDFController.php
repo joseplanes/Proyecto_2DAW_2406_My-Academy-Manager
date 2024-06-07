@@ -90,8 +90,8 @@ class PDFController extends AbstractController
         ]);
     }
 
-    #[Route('/misjornadas', name: 'app_jornadas_pdf', methods: ['GET'])]
-    public function misJornadas(Request $request,JwtAuth $jwt_auth ,ProfesorRepository $pr, JornadaLaboralRepository $jr , SerializerInterface $serializer,EntityManagerInterface $em)
+    #[Route('/misjornadas/{mes}', name: 'app_jornadas_pdf', methods: ['GET'])]
+    public function misJornadas($mes, Request $request,JwtAuth $jwt_auth ,ProfesorRepository $pr, JornadaLaboralRepository $jr , SerializerInterface $serializer,EntityManagerInterface $em)
     {
         //Recoger token
         $token = $request->headers->get('Authorization');
@@ -107,12 +107,29 @@ class PDFController extends AbstractController
             if($identity->rol == 'profesor'){
                 $profesorId = $identity->id_profesor;
                 $profesor = $pr->find($profesorId);
-                $jornadas = $jr->findBy(['profesor' => $pr->find($profesorId)]);
-                if($jornadas!=null){
-                     // Crear el contenido HTML para el PDF
+                if($mes==0){
+                    $jornadas = $jr->findBy(['profesor' => $pr->find($profesorId)]);
+                }else{
+                    $anio = date('Y'); 
+                    $inicioMes = new \DateTime($anio . '-' . $mes . '-01');
+                    $finMes = clone $inicioMes;
+                    $finMes->modify('last day of this month');
+
+                    $jornadas = $jr->createQueryBuilder('j')
+                        ->where('j.profesor = :profesor')
+                        ->andWhere('j.dia BETWEEN :inicioMes AND :finMes')
+                        ->setParameter('profesor', $profesor)
+                        ->setParameter('inicioMes', $inicioMes)
+                        ->setParameter('finMes', $finMes)
+                        ->getQuery()
+                        ->getResult();
+                }
+
+                }
+                // Crear el contenido HTML para el PDF
                 $html = $this->renderView('pdf/jornadas.html.twig', [
-                    'jornadas' => $jornadas,
-                    'profesor' => $profesor
+                'jornadas' => $jornadas,
+                'profesor' => $profesor
                 ]);
 
                 // Configuración de Dompdf
@@ -131,14 +148,12 @@ class PDFController extends AbstractController
                     'Content-Disposition' => 'inline; filename="jornadas.pdf"',
                 ]);
             }
-        }
+        
 
         return new JsonResponse([
             'status' => 'error',
             'code' => 400,
             'message' => 'No tienes permiso para realizar esta acción'
         ]);
-        }
     }
-
 }

@@ -27,10 +27,10 @@ export class ApiService {
     return this.http.get(this.baseUrl+`list/misjornadas`, {headers: headers});
     
   }  
-  getMisJornadasPDF(token:any){
+  getMisJornadasPDF(token:any,mes:any){
     let headers = new HttpHeaders().set('Authorization', token);
 
-    return this.http.get(this.baseUrl+'pdf/misjornadas', {headers: headers, responseType: 'blob'});
+    return this.http.get(this.baseUrl+`pdf/misjornadas/${mes}`, {headers: headers, responseType: 'blob'});
   }
 
   getMiJornada(token:any){

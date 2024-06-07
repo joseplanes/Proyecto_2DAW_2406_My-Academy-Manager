@@ -67,7 +67,7 @@ export class JornadaComponent {
     );
   }
   getPDF() {
-    this.api.getMisJornadasPDF(this.token).subscribe(
+    this.api.getMisJornadasPDF(this.token,this.selectedMonth).subscribe(
       (response: Blob) => { 
         let fileURL = URL.createObjectURL(response);
         window.open(fileURL);
