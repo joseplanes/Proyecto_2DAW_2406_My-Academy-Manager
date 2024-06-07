@@ -110,6 +110,10 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
       }
     );
   }
+  cancelarBusqueda(){
+    this.antiguos=true;
+    this.patron='';
+  }
 
   getMensajesUnicos(remi: number) {
     return this.api.getMisMensajesUnicos(remi, this.token).subscribe(
