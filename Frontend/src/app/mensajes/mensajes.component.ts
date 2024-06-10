@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewChecked, inject, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewChecked, inject, OnDestroy, HostListener } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
@@ -29,7 +29,10 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
   public antiguos:boolean=true;
   patron:string='';
   public usuarios:any;
-  
+  public mostrarCancelar: boolean = false;
+
+  @ViewChild('pattern') patternInput!: ElementRef;
+
   getUsuarios(){
     return this.api.getUsuarios(this.token).subscribe(
       (response:any)=>{
@@ -113,6 +116,7 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
   cancelarBusqueda(){
     this.antiguos=true;
     this.patron='';
+    this.mostrarCancelar = false;
   }
 
   getMensajesUnicos(remi: number) {
@@ -159,6 +163,17 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
         }
       );
       this.getMensajesInicio();
+  }
+
+  mostrarBotonCancelar() {
+    this.mostrarCancelar = true;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    if (this.patternInput && !this.patternInput.nativeElement.contains(event.target)) {
+      this.cancelarBusqueda();
+    }
   }
 }
 
