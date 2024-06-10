@@ -45,7 +45,7 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
   startInterval(): void {
     this.intervalId = setInterval(() => {
       this.getMensajesUnicos(this.remi.id);
-    }, 2000); // 2000 ms = 2 segundos
+    }, 10000); // 2000 ms = 2 segundos
   }
   ngOnDestroy(): void {
     this.clearInterval();
