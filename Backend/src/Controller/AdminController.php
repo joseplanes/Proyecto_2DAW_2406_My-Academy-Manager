@@ -246,7 +246,7 @@ class AdminController extends AbstractController
     
     
     #[Route('/eliminar/clase/{id}', name: 'eliminar_clase', methods: ['GET'])]
-    public function eliminarClase($id,Request $request,JwtAuth $jwt_auth ,SerializerInterface $serializer, EntityManagerInterface $entityManager, ClaseRepository $cr)
+    public function eliminarClase($id,Request $request,JwtAuth $jwt_auth ,SerializerInterface $serializer, EntityManagerInterface $entityManager,ClaseRepository $cr)
     {
         //Recoger token
         $token = $request->headers->get('Authorization');
@@ -262,33 +262,21 @@ class AdminController extends AbstractController
                 $clase = $cr->findOneBy(['id' => $id]);
                 $alumnos = $clase->getAlumnos();
                 $dias = $clase->getDias();
-                $calificaciones = $clase->getCalificaciones();
-                $asistencia= $clase->getAsistencia();
-                if ($asistencia) {
-                    foreach ($asistencia as $asist) {
-                        $clase->removeAsistencia($asist);
-                    }
-                    $entityManager->persist($clase);
-                }
-                if ($calificaciones) {
-                    foreach ($calificaciones as $calificacion) {
-                        $clase->removeCalificacion($calificacion);
-                    }
-                    $entityManager->persist($clase);
-                }
-                if ($dias) {
-                    foreach ($dias as $dia) {
-                        $clase->removeDia($dia);
-                    }
-                    $entityManager->persist($clase);
-                }
-                if ($alumnos) {
+                $calificaciones = $clase->getCalificacions();
+                $asistencia= $clase->getAsistencias();
+                if ($clase) {
                     foreach ($alumnos as $alumno) {
                         $clase->removeAlumno($alumno);
                     }
-                    $entityManager->persist($clase);
-                }
-                if ($clase) {
+                    foreach ($dias as $dia) {
+                        $clase->removeDia($dia);
+                    }
+                    foreach ($calificaciones as $calificacion) {
+                        $entityManager->remove($calificacion);
+                    }
+                    foreach ($asistencia as $asist) {
+                        $entityManager->remove($asist);
+                    }
                     $entityManager->remove($clase);
                     $entityManager->flush();
                     $data = [
