@@ -41,6 +41,17 @@ export class ClaseComponent {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
+  deleteClase(id:any){
+    this.api.deleteClase(this.token,id).subscribe(
+      (response:any)=>{
+        this.getClases();
+      },
+      error =>{
+        console.log(error);
+      }
+    );
+  }
+
   getClases(){
     return this.api.getClases(this.token).subscribe(
       (response:any)=>{

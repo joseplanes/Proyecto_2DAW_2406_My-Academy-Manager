@@ -39,8 +39,15 @@
 
       <div class="grid grid-cols-1 gap-4 -m-4 sm:grid-cols-2 lg:grid-cols-3">
         @for (c of clases|patronClase:patron; track c.id) {
-          <div class="p-4 flex flex-col">
+          <div class="p-4 flex flex-col relative">
             <div class="flex flex-col p-8 bg-white border-2 border-gray-200 rounded-lg flex-grow">
+              <div class="absolute top-0 right-0 mt-2 mr-2">
+                <button (click)="deleteClase(c.id)" class="text-white bg-red-500 rounded-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                </button>
+              </div>
               <div class="inline-flex items-center justify-center flex-shrink-0 w-16 h-16 mb-4 rounded-full sm:mr-8 sm:mb-0 bg-custom-green text-custom-green-500" [innerHTML]="getSafeHtml(c.asignatura.img)"></div>
               <div class="flex-grow">
                 <h2 class="mb-3 text-lg font-medium text-gray-900 title-font">{{c.asignatura.nombre}}</h2>
@@ -55,6 +62,7 @@
               </div>
             </div>
           </div>
+          
         }
       </div>
   </div>

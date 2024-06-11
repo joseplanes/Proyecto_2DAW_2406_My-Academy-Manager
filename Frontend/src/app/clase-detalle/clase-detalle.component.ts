@@ -41,6 +41,17 @@ export class ClaseDetalleComponent {
     }
   }
 
+  eliminarAlumno(id:any){
+    this.api.deleteAlumno(this.token,this.claseId,id).subscribe(
+      (response:any)=>{
+        this.getClase();
+      },
+      error =>{
+        console.log(error);
+      }
+    );
+  }
+
   getClase(){
     return this.api.getClase(this.claseId,this.token).subscribe(
       (response:any)=>{

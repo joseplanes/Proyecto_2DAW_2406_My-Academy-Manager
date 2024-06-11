@@ -60,18 +60,67 @@
                   <div class="relative">
                     <div class="flex justify-between items-center py-4 px-6">
                     
-                      <div class="flex-grow mr-4">
+                      <div class="flex-grow mb-4 mr-4">
                         <input #pattern (keyup)="patron=pattern.value" type="text" placeholder="Buscar alumno..." class="w-full px-4 py-2 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                       </div>
+                      @if (identity.rol=='admin') {
+                        <div class="mr-4">
+                          <a >
+                            <button class="flex flex-col items-center px-3 py-2 mb-4 font-semibold text-black rounded-md hover:text-custom-gray hover:bg-custom-darkgreen bg-custom-green">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"/>
+                              </svg>
+                                Inscribir Alumno
+                            </button>
+                          </a>
+                        </div>
+                      }
                     </div>
                     
                      <!-- lista alumnos -->
                      <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  
-                      @for (alumno of clase.alumnos| patronAlumno:patron; track $index) {
+                       @for (alumno of clase.alumnos| patronAlumno:patron; track $index) {
+                        @if (identity.rol=='admin') {
+                          <li class="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
+                            <div class="flex w-full items-center justify-between space-x-6 p-6">
+                              <div class="flex-1 truncate">
+                                <div class="flex items-center space-x-3">
+                                  <h3 class="truncate text-sm font-medium text-gray-900">{{alumno.usuario.nombre}} {{alumno.usuario.apellidos}}</h3>
+                                  <span class="inline-flex flex-shrink-0 items-center rounded-full bg-custom-gray px-1.5 py-0.5 text-xs font-medium text-custom-darkgreen ring-1 ring-inset ring-custom-green">{{alumno.id}}</span>
+                                </div>
+                                <p class="mt-1 truncate text-sm text-gray-500">{{alumno.usuario.rol.charAt(0).toUpperCase() + alumno.usuario.rol.slice(1)}}</p>
+                              </div>
+                              
+                              <div class="flex items-center justify-center h-10 w-10 rounded-full bg-custom-darkgreen text-custom-gray font-bold flex-shrink-0">
+                                {{alumno.usuario.nombre[0]}}
+                            </div>
+                            </div>
+                            <div>
+                              <div class="-mt-px flex divide-x divide-gray-200">
+                                <div class="flex w-0 flex-1">
+                                  <a href="mailto:{{alumno.usuario.email}}" class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
+                                    <svg class="h-5 w-5 text-custom-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                      <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/>
+                                      <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/>
+                                    </svg>
+                                    {{alumno.usuario.email}}
+                                  </a>
+                                </div>
+                                <div class="flex w-0 flex-1">
+                                  <button (click)="eliminarAlumno(alumno.id)" class="relative bg-red-500 -ml-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                    Borrar
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        }@else {
   
                         <app-alumno-card [alumno]="alumno"></app-alumno-card>
-                      }
+                      }}
                      </ul>
          
          

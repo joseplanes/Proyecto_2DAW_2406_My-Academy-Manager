@@ -245,6 +245,134 @@ class AdminController extends AbstractController
     }
     
     
+    #[Route('/eliminar/clase/{id}', name: 'eliminar_clase', methods: ['GET'])]
+    public function eliminarClase($id,Request $request,JwtAuth $jwt_auth ,SerializerInterface $serializer, EntityManagerInterface $entityManager, ClaseRepository $cr)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
 
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+
+            $identity = $jwt_auth->checkToken($token, true);
+
+            if($identity->rol == 'admin'){
+                $clase = $cr->findOneBy(['id' => $id]);
+                $alumnos = $clase->getAlumnos();
+                if ($alumnos) {
+                    foreach ($alumnos as $alumno) {
+                        $clase->removeAlumno($alumno);
+                    }
+                    $entityManager->persist($clase);
+                }
+                if ($clase) {
+                    $entityManager->remove($clase);
+                    $entityManager->flush();
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Clase eliminada con éxito'
+                    ];
+                }else{
+                    $data = [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'No se ha podido eliminar la clase'
+                    ];
+                
+                }
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+        
+        }
+
+        return new JsonResponse($data);
+    }
+
+
+    #[Route('/eliminar/alumno/{clase}/{id}', name: 'eliminar_alumnoclase', methods: ['GET'])]
+    public function eliminarAlumnoClase($id,$clase,Request $request,JwtAuth $jwt_auth ,SerializerInterface $serializer,AlumnoRepository $ar, EntityManagerInterface $entityManager, ClaseRepository $cr)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+
+            $identity = $jwt_auth->checkToken($token, true);
+
+            if($identity->rol == 'admin'){
+                $clase = $cr->findOneBy(['id' => $clase]);
+                $alumno = $ar->findOneBy(['id' => $id]);
+                if ($alumno) {
+                    $clase->removeAlumno($alumno);
+                    $entityManager->persist($clase);
+                    $entityManager->flush();
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Alumno eliminado con éxito'
+                    ];
+                }
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+        
+        }
+
+        return new JsonResponse($data);
+    }
     
+    #[Route('/add/alumno/{clase}/{id}', name: 'añadir_alumnoclase', methods: ['GET'])]
+    public function anadirAlumnoClase($id,$clase,Request $request,JwtAuth $jwt_auth ,SerializerInterface $serializer,AlumnoRepository $ar, EntityManagerInterface $entityManager, ClaseRepository $cr)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+
+            $identity = $jwt_auth->checkToken($token, true);
+
+            if($identity->rol == 'admin'){
+                $clase = $cr->findOneBy(['id' => $clase]);
+                $alumno = $ar->findOneBy(['id' => $id]);
+                if ($alumno) {
+                    $clase->addAlumno($alumno);
+                    $entityManager->persist($clase);
+                    $entityManager->flush();
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Alumno añadido con éxito'
+                    ];
+                }
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+        
+        }
+
+        return new JsonResponse($data);
+    }
+
 }

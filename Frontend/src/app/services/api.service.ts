@@ -110,7 +110,22 @@ export class ApiService {
     return this.http.post(this.baseUrl+'admin/clase/crear', params, {headers: headers});
   }
 
- 
+  deleteClase(token:any, id:number){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`admin/eliminar/clase/${id}`, {headers: headers});
+  }
+  deleteAlumno(token:any,clase:number, alumno:number){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`admin/eliminar/alumno/${clase}/${alumno}`, {headers: headers});
+  }
+  addAlumno(token:any,clase:number, alumno:number){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`admin/add/alumno/${clase}/${alumno}`, {headers: headers});
+  }
+
 
   getAsignaturas(token:any){
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
