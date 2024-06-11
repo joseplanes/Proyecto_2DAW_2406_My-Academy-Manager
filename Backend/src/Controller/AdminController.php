@@ -261,6 +261,27 @@ class AdminController extends AbstractController
             if($identity->rol == 'admin'){
                 $clase = $cr->findOneBy(['id' => $id]);
                 $alumnos = $clase->getAlumnos();
+                $dias = $clase->getDias();
+                $calificaciones = $clase->getCalificaciones();
+                $asistencia= $clase->getAsistencia();
+                if ($asistencia) {
+                    foreach ($asistencia as $asist) {
+                        $clase->removeAsistencia($asist);
+                    }
+                    $entityManager->persist($clase);
+                }
+                if ($calificaciones) {
+                    foreach ($calificaciones as $calificacion) {
+                        $clase->removeCalificacion($calificacion);
+                    }
+                    $entityManager->persist($clase);
+                }
+                if ($dias) {
+                    foreach ($dias as $dia) {
+                        $clase->removeDia($dia);
+                    }
+                    $entityManager->persist($clase);
+                }
                 if ($alumnos) {
                     foreach ($alumnos as $alumno) {
                         $clase->removeAlumno($alumno);
@@ -283,6 +304,13 @@ class AdminController extends AbstractController
                     ];
                 
                 }
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No tienes permiso para realizar esta acción'
+                ];
+            
             }
         }else{
             $data = [
