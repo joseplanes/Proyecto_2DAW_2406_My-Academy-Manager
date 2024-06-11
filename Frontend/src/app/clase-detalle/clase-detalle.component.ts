@@ -14,7 +14,7 @@ import { PatronClasePipe } from '../pipes/patron-clase.pipe';
 @Component({
   selector: 'app-clase-detalle',
   standalone: true,
-  imports: [AlumnoCardComponent, DiasPipe, HoraPipe, PatronAlumnoPipe],
+  imports: [AlumnoCardComponent, DiasPipe, HoraPipe, PatronAlumnoPipe,RouterModule],
   templateUrl: './clase-detalle.component.html',
   styleUrl: './clase-detalle.component.css'
 })

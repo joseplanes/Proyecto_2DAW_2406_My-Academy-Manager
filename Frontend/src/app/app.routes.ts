@@ -19,6 +19,7 @@ import { CalificacionesComponent } from './calificaciones/calificaciones.compone
 import { MensajesComponent } from './mensajes/mensajes.component';
 import { JornadaComponent } from './jornada/jornada.component';
 import { ErrorComponent } from './error/error.component';
+import { AddAlumnoComponent } from './admin/add-alumno/add-alumno.component';
 
 export const routes: Routes = [
 {
@@ -63,7 +64,12 @@ export const routes: Routes = [
     title:'Informacion Clase',
     canActivate: [IdentityGuard]
 },
-
+{
+    path:'add/alumno/:id',
+    component:AddAlumnoComponent,
+    title:'Inscribir Alumnos en Clase',
+    canActivate: [IdentityGuard]
+},
 {
     path:'usuario/crear',
     component:RegistroUsuarioComponent,

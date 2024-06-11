@@ -1108,4 +1108,49 @@ class ListController extends AbstractController
 
 
     }
+
+    #[Route('/noalumnosclase/{id}', name: 'app_noalumnos', methods: ['GET'])]
+    public function listarnoalumnos(Request $request, JwtAuth $jwt_auth ,ClaseRepository $cr, SerializerInterface $serializer, $id, AlumnoRepository $ar)
+    {
+        //Recoger token
+        $token = $request->headers->get('Authorization');
+
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+
+        if($authCheck){
+            $json = json_decode($request->getContent(), true);
+
+            $identity = $jwt_auth->checkToken($token, true);
+
+            if($identity->rol == 'admin'){
+                $clase = $cr->findOneBy(['id' => $id]);
+                $alumnosclase= $clase->getAlumnos();
+                $alumnos = $ar->findAll();
+                foreach($alumnos as $alumno){
+                    if(!$alumnosclase->contains($alumno)){
+                        $noalumnos[] = $alumno;
+                    }
+                }
+               
+                $datos = $serializer->serialize($noalumnos, 'json', ['groups' => 'clase', 'max_depth' => 1]);
+
+                $data = [
+                    'status' => 'success',
+                    'code' => 200,
+                    'data' => $datos
+                ];
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permiso para realizar esta acción'
+            ];
+            
+        }
+
+        return new JsonResponse($data);
+    }
+
 }

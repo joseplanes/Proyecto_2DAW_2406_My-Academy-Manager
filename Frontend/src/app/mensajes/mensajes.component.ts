@@ -30,6 +30,9 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
   patron:string='';
   public usuarios:any;
   public mostrarCancelar: boolean = false;
+  public primerRecarga: boolean = true;
+  private intervalId: any;
+
 
   @ViewChild('pattern') patternInput!: ElementRef;
 
@@ -44,20 +47,23 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
       }
     );
   }
-  private intervalId: any;
+  
   startInterval(): void {
     this.intervalId = setInterval(() => {
       this.getMensajesUnicos(this.remi.id);
-    }, 10000); // 2000 ms = 2 segundos
+    }, 4000); // 2000 ms = 2 segundos
   }
+
   ngOnDestroy(): void {
     this.clearInterval();
   }
+
   clearInterval(): void {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
   }
+
   clickbuscar(){
     this.getUsuarios();
     this.antiguos=false;
@@ -79,7 +85,10 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
   }
 
   ngAfterViewChecked() {
-    this.scrollToBottom();
+    if (this.mostrarmensaje && this.primerRecarga) {
+      this.scrollToBottom();
+      this.primerRecarga = false;
+    }
   }
 
   private scrollToBottom(): void {
@@ -132,6 +141,7 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
       }
     );
   }
+
   setRemi(remi: any) {
     this.remi = remi
     this.getMensajesUnicos(remi.id);

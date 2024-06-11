@@ -336,8 +336,8 @@ class AdminController extends AbstractController
         return new JsonResponse($data);
     }
     
-    #[Route('/add/alumno/{clase}/{id}', name: 'añadir_alumnoclase', methods: ['GET'])]
-    public function anadirAlumnoClase($id,$clase,Request $request,JwtAuth $jwt_auth ,SerializerInterface $serializer,AlumnoRepository $ar, EntityManagerInterface $entityManager, ClaseRepository $cr)
+    #[Route('/add/alumno/{clase}', name: 'añadir_alumnoclase', methods: ['POST'])]
+    public function anadirAlumnoClase($clase,Request $request,JwtAuth $jwt_auth ,SerializerInterface $serializer,AlumnoRepository $ar, EntityManagerInterface $entityManager, ClaseRepository $cr)
     {
         //Recoger token
         $token = $request->headers->get('Authorization');
@@ -350,18 +350,51 @@ class AdminController extends AbstractController
             $identity = $jwt_auth->checkToken($token, true);
 
             if($identity->rol == 'admin'){
-                $clase = $cr->findOneBy(['id' => $clase]);
-                $alumno = $ar->findOneBy(['id' => $id]);
-                if ($alumno) {
-                    $clase->addAlumno($alumno);
-                    $entityManager->persist($clase);
-                    $entityManager->flush();
+                $json = $request->get('json', null);
+                $params =  json_decode($json);
+                if(!empty($json)){
+                    $alumnos= (!empty($params->alumnos)) ? $params->alumnos : null;
+                    $clase=$cr->findOneBy(['id' => $clase]);
+
+                    if ($alumnos && $clase) {
+                        foreach ($alumnos as $alumnoId) {
+                            $alumno = $ar->findOneBy(['id' => $alumnoId]);
+                            if ($alumno) {
+                                $clase->addAlumno($alumno);
+                            }
+                        }
+            
+                        $entityManager->persist($clase);
+                        $entityManager->flush();
+                
+                        $data = [
+                            'status' => 'success',
+                            'code' => 200,
+                            'message' => 'Alumnos añadidos con éxito'
+                        ];
+                    }else{
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se han podido añadir a los nuevos alumnos'
+                        ];
+                    
+                    }
+                }else{
                     $data = [
-                        'status' => 'success',
-                        'code' => 200,
-                        'message' => 'Alumno añadido con éxito'
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'No se han podido añadir a los nuevos alumnos'
                     ];
+                
                 }
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No tienes permiso para realizar esta acción'
+                ];
+            
             }
         }else{
             $data = [
@@ -374,5 +407,4 @@ class AdminController extends AbstractController
 
         return new JsonResponse($data);
     }
-
 }
