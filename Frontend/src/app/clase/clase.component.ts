@@ -40,6 +40,13 @@ export class ClaseComponent {
   getSafeHtml(html: any) {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
+  
+  confirmDelete(id: number) {
+    const confirmed = window.confirm('¿Estás seguro de que quieres eliminar esta clase?');
+    if (confirmed) {
+      this.deleteClase(id);
+    }
+  }
 
   deleteClase(id:any){
     this.api.deleteClase(this.token,id).subscribe(
