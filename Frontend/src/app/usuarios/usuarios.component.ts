@@ -49,6 +49,23 @@ export class UsuariosComponent {
       }
     );
   }
+  confirmDelete(user:any) {
+    let nombrecompleto=user.nombre+' '+user.apellidos;
+    const confirmed = window.confirm('¿Estás seguro de que quieres eliminar el usuario: '+ nombrecompleto+'?\nSi es un profesor, se eliminarán todas las clases que haya impartido.');
+    if (confirmed) {
+      this.eliminarAlumno(user.id);
+    }
+  }
+eliminarAlumno(id:any){
+  this.api.deleteUsuario(this.token,id).subscribe(
+    (response:any)=>{
+      this.getUsuarios();
+    },
+    error =>{
+      console.log(error);
+    }
+  );
+}
 
   
 

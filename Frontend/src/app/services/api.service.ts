@@ -120,6 +120,13 @@ export class ApiService {
                                    .set('Authorization', token);
     return this.http.get(this.baseUrl+`admin/eliminar/alumno/${clase}/${alumno}`, {headers: headers});
   }
+
+  deleteUsuario(token:any, user:number){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+                                   .set('Authorization', token);
+    return this.http.get(this.baseUrl+`usuarios/borrar/${user}`, {headers: headers});
+  }
+
   addAlumno(token:any,clase:number, alumnos:any){
     let json = JSON.stringify(alumnos);
     let params = 'json='+json;

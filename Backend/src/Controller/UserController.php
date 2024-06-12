@@ -85,6 +85,40 @@ class UserController extends AbstractController
                     }
                     //Comprobar y validar
                     $validarDNI = $this->validarDNI($dni);
+                    $validarEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+                    $validarpassword = strlen($password) >= 6;
+                    if (!$validarDNI && !$validarEmail && !$validarpassword) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'DNI, email y contraseña no válidos',
+                        ];                        
+                        return new JsonResponse($data);
+                    }
+                    if(!$validarDNI && !$validarEmail){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'DNI y email no válidos',
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if(!$validarDNI && !$validarpassword){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'DNI y contraseña no válidos',
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if(!$validarEmail && !$validarpassword){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'Email y contraseña no válidos',
+                        ];
+                        return new JsonResponse($data);
+                    }
                     if (!$validarDNI) {
                         $data = [
                             'status' => 'error',
@@ -92,9 +126,7 @@ class UserController extends AbstractController
                             'message' => 'DNI no válido',
                         ];
                         return new JsonResponse($data);
-                    }
-                    
-                    $validarEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+                    }                    
                     if (!$validarEmail) {
                         $data = [
                             'status' => 'error',
@@ -103,7 +135,6 @@ class UserController extends AbstractController
                         ];
                         return new JsonResponse($data);
                     }
-                    $validarpassword = strlen($password) >= 6;
                     if (!$validarpassword) {
                         $data = [
                             'status' => 'error',
@@ -342,5 +373,117 @@ class UserController extends AbstractController
             }
         }
         return false;
+    }
+
+    #[Route('/borrar/{id}', name: 'borrar_usuarios', methods: ['GET'])]
+    public function borrarUsuario($id,Request $request,JwtAuth $jwtAuth ,SerializerInterface $serializer, MensajeRepository $mensar,UsuarioRepository $ur,AlumnoRepository $ar ,ProfesorRepository $pr, EntityManagerInterface $entityManager)
+    {
+        //Recoger la cabecera de autenticación
+        $token=$request->headers->get('Authorization');
+        //Crea rmetodo para comprobar si el token es correcto
+        $authCheck = $jwtAuth->checkToken($token);
+        
+        //Si es correcto, comprobar admin
+        if($authCheck){
+            
+            //Conseguir datos del usuario identificado
+            $identity = $jwtAuth->checkToken($token, true);
+
+            if($identity->rol == 'admin'){
+                $usuario = $ur->find($id);
+                if($usuario){
+                    $rol = $usuario->getRol();
+                    switch ($rol) {
+                        case 'alumno':
+                            $alumno = $ar->findOneBy(['usuario' => $usuario]);
+                            $clases = $alumno->getClases();
+                            $calificaciones = $alumno->getCalificacions();
+                            $asistencias = $alumno->getAsistencias();
+                            foreach ($clases as $clase) {
+                                $alumno->removeClase($clase);
+                            }
+                            foreach ($calificaciones as $calificacion) {
+                                $alumno->removeCalificacion($calificacion);
+                            }
+                            foreach ($asistencias as $asistencia) {
+                                $alumno->removeAsistencia($asistencia);
+                            }
+                            $entityManager->remove($alumno);
+
+                            break;
+                        case 'profesor':
+                            $profesor = $pr->findOneBy(['usuario' => $usuario]);
+                            $clases = $profesor->getClases();
+                            $jornadasLaborales = $profesor->getJornadaLaborals();
+                            foreach ($clases as $clase) {
+                                $alumnos = $clase->getAlumnos();
+                                $dias = $clase->getDias();
+                                $calificaciones = $clase->getCalificacions();
+                                $asistencia= $clase->getAsistencias();
+                                if ($clase) {
+                                    foreach ($alumnos as $alumno) {
+                                        $clase->removeAlumno($alumno);
+                                    }
+                                    foreach ($dias as $dia) {
+                                        $clase->removeDia($dia);
+                                    }
+                                    foreach ($calificaciones as $calificacion) {
+                                        $entityManager->remove($calificacion);
+                                    }
+                                    foreach ($asistencia as $asist) {
+                                        $entityManager->remove($asist);
+                                    }
+                                    $entityManager->remove($clase);
+                                    $entityManager->flush();
+                                }
+                                $profesor->removeClase($clase);
+                                $entityManager->remove($clase);
+                            }
+                            foreach ($jornadasLaborales as $jornadaLaboral) {
+                                $profesor->removeJornadaLaboral($jornadaLaboral);
+                            }
+                            $entityManager->remove($profesor);
+                            break;
+                    }
+                    $qb = $mensar->createQueryBuilder('m');
+                    $qb->where('m.remitente = :usuario')
+                    ->orWhere('m.receptor = :usuario')
+                    ->setParameter('usuario', $usuario);
+
+                    $mensajes = $qb->getQuery()->getResult();
+                    foreach ($mensajes as $mensaje) {
+                        $entityManager->remove($mensaje);
+                    }
+                    $entityManager->remove($usuario);
+                    $entityManager->flush();
+                    $data = [
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Usuario eliminado con éxito',
+                    ];
+                }else{
+                    $data = [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'El usuario no existe',
+                    ];
+                }
+
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No tienes permisos para realizar esta acción',
+                ];
+            }
+
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No tienes permisos para realizar esta acción',
+            ];
+        }
+        return new JsonResponse($data);
     }
 }
