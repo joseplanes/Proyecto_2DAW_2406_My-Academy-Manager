@@ -73,6 +73,11 @@ export class AddAlumnoComponent {
     );
   
   }
+
+  goBack(){
+    this.router.navigate(['/clase',this.claseId]);
+  }
+  
   onSubmit(createasignatura: any) {
     const selectedDias = Object.keys(this.formData.alumnos)
     .filter(key => this.formData.alumnos[key])

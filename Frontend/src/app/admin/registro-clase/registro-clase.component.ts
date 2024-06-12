@@ -91,7 +91,9 @@ export class RegistroclaseComponent {
       }
     );
   }
-  
+  goBack(){
+    this.router.navigate(['/clase']);
+  }
   onSubmit(createasignatura: any) {
     const selectedDias = Object.keys(this.formData.dias)
     .filter(key => this.formData.dias[key])

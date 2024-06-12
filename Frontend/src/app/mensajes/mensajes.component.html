@@ -46,7 +46,7 @@
                   </div>
                   </div>
                   @if (antiguos) {
-                    <div class="h-full mb-2 overflow-y-auto">
+                    <div class="max-h-96 mb-2 overflow-y-auto">
                     @for (m of mensajes; track $index) {
                       @if (isRemitente(m.remitente.id)) {
                           <div #{{m.receptir.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green" (click)="setRemi(m.receptor)">

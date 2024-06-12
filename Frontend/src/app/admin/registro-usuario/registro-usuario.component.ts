@@ -48,6 +48,10 @@ export class RegistroUsuarioComponent {
       }
     );
   }
+  
+  goBack(){
+    this.router.navigate(['/usuario']);
+  }
 
   onSubmit(useredirForm: any) {
     const selectedClases = Object.keys(this.formData.clases)

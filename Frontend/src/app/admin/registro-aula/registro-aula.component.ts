@@ -33,6 +33,10 @@ export class RegistroAulaComponent {
     this.identity=this.userService.getIdentity();
   }
   
+  goBack(){
+    this.router.navigate(['/clase']);
+  }
+
   onSubmit(createaula: any) {
     this.api.createAula(this.token, this.formData).subscribe(
       (response:any ) => {

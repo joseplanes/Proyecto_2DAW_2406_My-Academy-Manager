@@ -37,6 +37,11 @@ export class RegistroAsignaturaComponent {
   getSafeHtml(html: any) {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
+
+  goBack(){
+    this.router.navigate(['/clase']);
+  }
+  
   onSubmit(createasignatura: any) {
     this.api.createAsignatura(this.token, this.formData).subscribe(
       (response:any ) => {
