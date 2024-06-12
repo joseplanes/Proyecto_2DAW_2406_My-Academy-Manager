@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, HostListener, DoCheck } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/user.service';
 
@@ -17,10 +17,19 @@ import { UserService } from '../services/user.service';
 export class NavBarComponent{
 
   
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer, private router: Router) { }
   private userService=inject(UserService)
   public identity: any;
   public token: any;
+  public currentRoute: string='';
+
+  ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+      }
+    });
+  }
   
   ngDoCheck(){
     this.loadUser();

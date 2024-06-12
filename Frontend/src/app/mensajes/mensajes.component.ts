@@ -155,6 +155,11 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
         receptor: this.remi.id,
         mensaje: this.input
       };
+      if (mensaje.mensaje == '') {
+        this.status = 'error';
+        this.messageenvio = 'El mensaje no puede estar vacío';
+        return;
+      }
 
       this.api.enviarMensaje(this.token, mensaje).subscribe(
         (response: any) => {
