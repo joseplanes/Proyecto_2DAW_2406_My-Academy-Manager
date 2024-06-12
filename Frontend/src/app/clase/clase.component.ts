@@ -41,10 +41,11 @@ export class ClaseComponent {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
   
-  confirmDelete(id: number) {
-    const confirmed = window.confirm('¿Estás seguro de que quieres eliminar esta clase?');
+  confirmDelete(id: any) {
+    let nombre=id.asignatura.nombre;
+    const confirmed = window.confirm('¿Estás seguro de que quieres eliminar esta clase: '+ nombre +'?');
     if (confirmed) {
-      this.deleteClase(id);
+      this.deleteClase(id.id);
     }
   }
 

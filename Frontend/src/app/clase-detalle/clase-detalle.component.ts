@@ -40,7 +40,13 @@ export class ClaseDetalleComponent {
       this.router.navigate(['/']);
     }
   }
-
+    confirmDelete(id:any) {
+      let nombrecompleto=id.usuario.nombre+' '+id.usuario.apellidos;
+      const confirmed = window.confirm('¿Estás seguro de que quieres quitar al alumno: '+ nombrecompleto+' de la clase?');
+      if (confirmed) {
+        this.eliminarAlumno(id.id);
+      }
+    }
   eliminarAlumno(id:any){
     this.api.deleteAlumno(this.token,this.claseId,id).subscribe(
       (response:any)=>{
