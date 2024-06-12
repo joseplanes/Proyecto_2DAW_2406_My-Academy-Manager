@@ -39,7 +39,7 @@ export class RegistroAulaComponent {
         if(response && response.status == 'success'){
           this.status = 'success';
           this.message = response.message;
-          
+          this.router.navigate(['/clase']);
         }else{
           this.status = 'error';
           this.message = response.message;

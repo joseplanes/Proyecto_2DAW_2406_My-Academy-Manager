@@ -86,6 +86,7 @@ export class AddAlumnoComponent {
         if(response && response.status == 'success'){
           this.status = 'success';
           this.message = response.message;
+          this.router.navigate(['/clase',this.claseId]);
           
         }else{
           this.status = 'error';

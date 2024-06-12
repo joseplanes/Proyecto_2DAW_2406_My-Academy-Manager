@@ -63,6 +63,7 @@ export class RegistroUsuarioComponent {
        if(response && response.status == 'success'){
          this.status = 'success';
          this.message = response.message;
+         this.router.navigate(['/usuario']);
          
        }else{
          this.status = 'error';

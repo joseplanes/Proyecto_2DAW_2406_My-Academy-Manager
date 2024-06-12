@@ -106,6 +106,7 @@ export class RegistroclaseComponent {
         if(response && response.status == 'success'){
           this.status = 'success';
           this.message = response.message;
+          this.router.navigate(['/clase']);
           
         }else{
           this.status = 'error';
