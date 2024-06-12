@@ -20,7 +20,10 @@
   </div>
 }
 
-
+<div class="max-w-md mx-auto mt-8 p-6 bg-white border-gray-200 border-4 rounded-lg shadow-md">
+  <div class="flex justify-center mb-6">
+    <img src="../assets/logo.png" alt="Logo" class="w-24 h-24">
+  </div>
 <form #loginForm (ngSubmit)="onSubmit(loginForm)" class="max-w-md mx-auto mt-8">
     <div class="mb-4">
         <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Correo Electrónico</label>
@@ -34,3 +37,4 @@
         <button type="submit" class="bg-custom-green hover:bg-custom-darkgreen text-dark hover:text-custom-gray font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Iniciar Sesión</button>
     </div>
 </form>
+</div>
