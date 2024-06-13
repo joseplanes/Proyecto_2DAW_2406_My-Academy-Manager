@@ -40,7 +40,7 @@
                       </div>
                       <input #pattern (keyup)="patron=pattern.value" (click)="mostrarBotonCancelar()" (click)="clickbuscar()" type="text" id="search" class="p-4 px-3 py-2 pr-10 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar usuario..." required />
                       @if (mostrarCancelar) {
-                        <button (click)="cancelarBusqueda()" (click)="pattern.value=''" class="absolute px-2 py-0 text-white transform -translate-y-1/2 bg-red-400 rounded-lg shadow-sm right-2 top-1/2 hover:bg-red-600">✖</button>
+                        <button alt="Cancelar Busqueda de Usuario" (click)="cancelarBusqueda()" (click)="pattern.value=''" class="absolute px-2 py-0 text-white transform -translate-y-1/2 bg-red-400 rounded-lg shadow-sm right-2 top-1/2 hover:bg-red-600">✖</button>
                       }
                       
                   </div>
@@ -160,7 +160,7 @@
 
             </div>
             <div class="ml-4">
-              <button (click)="enviarMensaje()" (click)="inputc.value=''" class="flex items-center justify-center w-12 h-12 text-black rounded-full bg-custom-green hover:bg-custom-darkgreen hover:text-custom-gray">
+              <button alt="Enviar Mensaje" (click)="enviarMensaje()" (click)="inputc.value=''" class="flex items-center justify-center w-12 h-12 text-black rounded-full bg-custom-green hover:bg-custom-darkgreen hover:text-custom-gray">
                 <svg class="w-6 h-6 -mr-px transform rotate-90"
                      fill="none"
                      stroke="currentColor"

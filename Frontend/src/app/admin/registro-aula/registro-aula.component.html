@@ -19,7 +19,7 @@
       </div>
     </div>
   }
-  <button (click)="goBack()" class="ml-2 bg-custom-green text-black hover:bg-custom-darkgreen hover:text-white  mt-2 font-semibold py-1 px-2 rounded flex items-center">
+  <button alt="Volver a la pagina de Clases" (click)="goBack()" class="ml-2 bg-custom-green text-black hover:bg-custom-darkgreen hover:text-white  mt-2 font-semibold py-1 px-2 rounded flex items-center">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi  mr-2 bi-arrow-left-square-fill" viewBox="0 0 16 16">
       <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"/>
     </svg>
@@ -36,7 +36,7 @@
         <input placeholder="Ingrese la capacidad del aula" type="number" id="capacidad" name="capacidad" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.capacidad" required min="1">
     </div>
     <div class="mb-4">
-        <button type="submit" class="bg-custom-green hover:bg-custom-darkgreen text-dark hover:text-custom-gray font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear Aula</button>
+        <button alt="Guardar Aula" type="submit" class="bg-custom-green hover:bg-custom-darkgreen text-dark hover:text-custom-gray font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear Aula</button>
     </div>
 </form>
 

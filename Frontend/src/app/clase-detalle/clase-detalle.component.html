@@ -3,15 +3,15 @@
       
       <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
         
-        <a (click)="cinfo()" id="inf" class="cursor-pointer bg-custom-green flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
+        <a alt="Ir a la pagina de Información de la Clase" (click)="cinfo()" id="inf" class="cursor-pointer bg-custom-green flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
           </svg>Info</a>
-          <a (click)="calumno()" id="alum" class="cursor-pointer flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
+          <a alt="Ir a la pagina de Alumnos de la Clase" (click)="calumno()" id="alum" class="cursor-pointer flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
               </svg>Alumnos</a>
-            <a (click)="cprof()" id="prof" class="cursor-pointer flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
+            <a alt="Ir a la pagina de Profesor de la Clase" (click)="cprof()" id="prof" class="cursor-pointer flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
@@ -98,7 +98,7 @@
                             <div>
                               <div class="-mt-px flex divide-x divide-gray-200">
                                 <div class="flex w-0 flex-1">
-                                  <a href="mailto:{{alumno.usuario.email}}" class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
+                                  <a alt="Enviar correo electrónico al alumno" href="mailto:{{alumno.usuario.email}}" class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
                                     <svg class="h-5 w-5 text-custom-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                       <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/>
                                       <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/>
@@ -107,7 +107,7 @@
                                   </a>
                                 </div>
                                 <div class="flex w-0 flex-1">
-                                  <button (click)="confirmDelete(alumno)" class="relative bg-red-500 -ml-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-white">
+                                  <button alt="Borrar Alumno de esta clase" (click)="confirmDelete(alumno)" class="relative bg-red-500 -ml-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-white">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>

@@ -26,14 +26,14 @@
                         <div class="relative z-10 flex flex-col justify-between space-y-12 lg:space-y-6">
                                 @if (!jornada){
                                     <div class="flex justify-center space-x-4">
-                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black rounded-md hover:bg-custom-darkgreen hover:text-custom-gray bg-custom-green" (click)="setJornada()">
+                                        <button alt="Botón para fichar la entrada al trabajo" class="flex flex-col items-center px-3 py-6 font-semibold text-black rounded-md hover:bg-custom-darkgreen hover:text-custom-gray bg-custom-green" (click)="setJornada()">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-btn-fill" viewBox="0 0 16 16">
                                                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.79-6.907A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z"/>
                                             </svg>
                                             Iniciar Jornada Laboral
                                         </button>
 
-                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
+                                        <button alt="Botón para fichar la salida del trabajo" class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-btn-fill" viewBox="0 0 16 16">
                                                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.5-7A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5z"/>
                                             </svg>
@@ -43,14 +43,14 @@
                                     </div>
                                 }@else if (jornada.inicio && !jornada.fin){
                                     <div class="flex justify-center space-x-4">
-                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
+                                        <button alt="Botón para fichar la entrada del trabajo" class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-btn-fill" viewBox="0 0 16 16">
                                                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.79-6.907A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z"/>
                                             </svg>
                                             Iniciar Jornada Laboral
                                         </button>
 
-                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black rounded-md hover:bg-custom-darkgreen hover:text-custom-gray bg-custom-green" (click)="setFinJornada()">
+                                        <button alt="Botón para fichar la salida del trabajo" class="flex flex-col items-center px-3 py-6 font-semibold text-black rounded-md hover:bg-custom-darkgreen hover:text-custom-gray bg-custom-green" (click)="setFinJornada()">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-btn-fill" viewBox="0 0 16 16">
                                                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.5-7A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5z"/>
                                             </svg>
@@ -59,14 +59,14 @@
                                     </div>
                                 }@else if (jornada.fin){
                                     <div class="flex justify-center space-x-4">
-                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
+                                        <button alt="Botón para fichar la entrada al trabajo" class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-btn-fill" viewBox="0 0 16 16">
                                                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.79-6.907A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z"/>
                                             </svg>
                                             Iniciar Jornada Laboral
                                         </button>
 
-                                        <button class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
+                                        <button alt="Botón para fichar la salida del trabajo" class="flex flex-col items-center px-3 py-6 font-semibold text-black bg-gray-400 rounded-md" disabled>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-btn-fill" viewBox="0 0 16 16">
                                                 <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.5-7A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5z"/>
                                             </svg>
@@ -92,11 +92,11 @@
                   <div class="relative p-6 overflow-hidden bg-white border-4 border-gray-200 calendar-container col-span-full lg:col-span-6 rounded-xl">
 
                     <div class="flex justify-between mb-4">
-                        <button (click)="previousMonth()" class="px-3 py-2 text-black rounded-md bg-custom-green hover:bg-custom-darkgreen hover:text-custom-gray"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                        <button alt="Visualizar el mes anterior" (click)="previousMonth()" class="px-3 py-2 text-black rounded-md bg-custom-green hover:bg-custom-darkgreen hover:text-custom-gray"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
                             <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"/>
                           </svg></button>
                         <div class="font-bold" style="text-transform: uppercase;">{{ monthYear }}</div>
-                        <button (click)="nextMonth()" class="px-3 py-2 text-black rounded-md bg-custom-green hover:bg-custom-darkgreen hover:text-custom-gray"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                        <button alt="Visualizar el siguiente mes" (click)="nextMonth()" class="px-3 py-2 text-black rounded-md bg-custom-green hover:bg-custom-darkgreen hover:text-custom-gray"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
                             <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
                           </svg></button>
                     </div>
@@ -110,7 +110,7 @@
                         <div class="font-bold">Vie</div>
                         <div class="font-bold">Sab</div>
                         <div class="font-bold">Dom</div>
-                        <!-- Los días se generarán aquí con Angular -->
+                        
                         <div *ngFor="let day of days; let i = index" [ngClass]="{'current-day': isToday(day, i)}" class="py-2 text-center">
                           {{ day || ' ' }}
                         </div>

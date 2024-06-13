@@ -18,7 +18,7 @@
             </div>
 
             <div>
-                <a [routerLink]="['crear']">
+                <a alt="Ir a la pagina de Crear Usuarios" [routerLink]="['crear']">
                     <button class="flex flex-col items-center px-3 py-2 mb-4 font-semibold text-black rounded-md hover:text-custom-gray hover:bg-custom-darkgreen bg-custom-green">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
                             <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
@@ -49,7 +49,7 @@
                     <div>
                       <div class="-mt-px flex divide-x divide-gray-200">
                         <div class="flex w-0 flex-1">
-                          <a href="mailto:{{usuario.email}}" class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
+                          <a alt="Enviar Correo Electrónico al usuario" href="mailto:{{usuario.email}}" class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
                             <svg class="h-5 w-5 text-custom-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                               <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
                               <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
@@ -58,7 +58,7 @@
                           </a>
                         </div>
                         <div class="flex w-0 flex-1">
-                            <button (click)="confirmDelete(usuario)" class="relative bg-red-500 -ml-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-white">
+                            <button alt="Borrar Usuario" (click)="confirmDelete(usuario)" class="relative bg-red-500 -ml-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-white">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                               </svg>
