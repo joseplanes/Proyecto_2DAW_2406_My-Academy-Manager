@@ -87,11 +87,51 @@ class UserController extends AbstractController
                     $validarDNI = $this->validarDNI($dni);
                     $validarEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
                     $validarpassword = strlen($password) >= 6;
+                    $fecha=new \DateTime($fechaNacimiento);
+                    $fechaActual=new \DateTime();
+                    if($fechaActual<$fecha){
+                        $validarFecha=false;
+                    }
+                    else{
+                        $validarFecha=true;
+                    }
+                    if (!$validarDNI && !$validarEmail && !$validarpassword && !$validarFecha) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'DNI, email, fecha de nacimiento y contraseña no válidos',
+                        ];                        
+                        return new JsonResponse($data);
+                    }
                     if (!$validarDNI && !$validarEmail && !$validarpassword) {
                         $data = [
                             'status' => 'error',
                             'code' => 400,
                             'message' => 'DNI, email y contraseña no válidos',
+                        ];                        
+                        return new JsonResponse($data);
+                    }
+                    if (!$validarDNI && !$validarEmail && !$validarFecha) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'DNI, email y fecha de nacimiento no válidos',
+                        ];                        
+                        return new JsonResponse($data);
+                    }
+                    if (!$validarDNI && !$validarpassword && !$validarFecha) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'DNI, contraseña y fecha de nacimiento no válidos',
+                        ];                        
+                        return new JsonResponse($data);
+                    }
+                    if (!$validarEmail && !$validarpassword && !$validarFecha) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'Email, contraseña y fecha de nacimiento no válidos',
                         ];                        
                         return new JsonResponse($data);
                     }
@@ -116,6 +156,38 @@ class UserController extends AbstractController
                             'status' => 'error',
                             'code' => 400,
                             'message' => 'Email y contraseña no válidos',
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if(!$validarDNI && !$validarFecha){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'DNI y fecha de nacimiento no válidos',
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if(!$validarEmail && !$validarFecha){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'Email y fecha de nacimiento no válidos',
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if(!$validarpassword && !$validarFecha){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'Contraseña y fecha de nacimiento no válidos',
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if (!$validarDNI) {
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'DNI no válido',
                         ];
                         return new JsonResponse($data);
                     }
