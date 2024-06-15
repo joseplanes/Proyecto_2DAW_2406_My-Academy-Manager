@@ -68,8 +68,11 @@
   </div>
 </section>
 
+<!-- Modal Overlay -->
+<div id="modal-overlay" style="z-index: 9999;" class="fixed inset-0 hidden bg-black opacity-50"></div>
+
 <!-- Modal -->
-<div id="delete-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div id="delete-modal" tabindex="-1" aria-hidden="true" style="z-index: 99999;" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
   <div class="relative w-full max-w-md max-h-full p-4">
     <div class="relative rounded-lg shadow bg-custom-darkgreen">
       <button type="button" class="absolute top-3 end-2.5 text-gray-900 bg-white hover:bg-gray-100 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="delete-modal" (click)="closeModal()">
@@ -82,13 +85,6 @@
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
         </svg>
         <h3 class="mb-5 text-lg font-normal text-white">¿Está seguro de que desea borrar esta clase?</h3>
-        <h4 class="mb-5  font-normal text-dark"> <div class="flex items-center p-4 mb-4 text-sm border border-white rounded-lg bg-custom-green">
-          <svg class="text-custom-darkgreen flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-          </svg>
-          Si elimina la clase, también eliminará todas las calificaciones y faltas de asistencia asociadas a esta clase.
-        </div>
-      </h4>
         <button (click)="deleteClase(claseToDelete)" data-modal-hide="delete-modal" type="button" class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-600 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
           Sí, estoy seguro
         </button>

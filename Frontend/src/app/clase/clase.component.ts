@@ -45,9 +45,12 @@ export class ClaseComponent {
   confirmDelete(clase: any) {
     this.claseToDelete = clase;
     const modal = document.getElementById('delete-modal');
-    if (modal) {
+    const overlay = document.getElementById('modal-overlay');
+    if (modal && overlay) {
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      overlay.classList.remove('hidden');
+      overlay.classList.add('block');
     }
   }
 
@@ -65,12 +68,14 @@ export class ClaseComponent {
 
   closeModal() {
     const modal = document.getElementById('delete-modal');
-    if (modal) {
+    const overlay = document.getElementById('modal-overlay');
+    if (modal && overlay) {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      overlay.classList.add('hidden');
+      overlay.classList.remove('block');
     }
   }
-
   getClases() {
     return this.api.getClases(this.token).subscribe(
       (response: any) => {

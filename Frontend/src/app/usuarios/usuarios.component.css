@@ -1,0 +1,8 @@
+/* Clase para el overlay del modal */
+#modal-overlay {
+  display: none;
+}
+
+#modal-overlay.block {
+  display: block;
+}

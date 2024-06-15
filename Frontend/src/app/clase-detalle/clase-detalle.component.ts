@@ -41,9 +41,12 @@ export class ClaseDetalleComponent {
   confirmDelete(alumno: any) {
     this.alumnoToDelete = alumno;
     const modal = document.getElementById('delete-modal');
-    if (modal) {
+    const overlay = document.getElementById('modal-overlay');
+    if (modal && overlay) {
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      overlay.classList.remove('hidden');
+      overlay.classList.add('block');
     }
   }
 
@@ -61,9 +64,12 @@ export class ClaseDetalleComponent {
 
   closeModal() {
     const modal = document.getElementById('delete-modal');
-    if (modal) {
+    const overlay = document.getElementById('modal-overlay');
+    if (modal && overlay) {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      overlay.classList.add('hidden');
+      overlay.classList.remove('block');
     }
   }
 
@@ -130,4 +136,3 @@ export class ClaseDetalleComponent {
     campo = !campo;
   }
 }
-

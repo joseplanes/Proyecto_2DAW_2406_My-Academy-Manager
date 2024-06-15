@@ -54,9 +54,12 @@ export class UsuariosComponent {
   confirmDelete(user: any) {
     this.usuarioToDelete = user;
     const modal = document.getElementById('delete-modal');
-    if (modal) {
+    const overlay = document.getElementById('modal-overlay');
+    if (modal && overlay) {
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      overlay.classList.remove('hidden');
+      overlay.classList.add('block');
     }
   }
 
@@ -74,11 +77,16 @@ export class UsuariosComponent {
 
   closeModal() {
     const modal = document.getElementById('delete-modal');
-    if (modal) {
+    const overlay = document.getElementById('modal-overlay');
+    if (modal && overlay) {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      overlay.classList.add('hidden');
+      overlay.classList.remove('block');
     }
   }
 
+  trackByUsuarioId(index: number, usuario: any): any {
+    return usuario.id;
+  }
 }
-
