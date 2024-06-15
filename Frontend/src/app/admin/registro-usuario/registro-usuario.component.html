@@ -19,42 +19,43 @@
     </div>
   </div>
 }
-
-<button alt="Volver a la pagina de Usuarios" (click)="goBack()" class="ml-2 bg-custom-green text-black hover:bg-custom-darkgreen hover:text-white  mt-2 font-semibold py-1 px-2 rounded flex items-center">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi  mr-2 bi-arrow-left-square-fill" viewBox="0 0 16 16">
+<div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+<button alt="Volver a la pagina de Usuarios" (click)="goBack()" class="flex items-center px-2 py-1 mt-2 ml-2 font-semibold text-black rounded bg-custom-green hover:bg-custom-darkgreen hover:text-white">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
     <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"/>
   </svg>
   Volver
 </button>
+</div>
 
 <form #createUser (ngSubmit)="onSubmit(createUser)" class="max-w-md mx-auto mt-8">
     <div class="mb-4">
-      <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
-      <input placeholder="Nombre" type="text" id="nombre" name="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.nombre" required>
+      <label for="nombre" class="block mb-2 text-sm font-bold text-gray-700">Nombre</label>
+      <input placeholder="Nombre" type="text" id="nombre" name="nombre" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="formData.nombre" required>
     </div>
     <div class="mb-4">
-      <label for="apellidos" class="block text-gray-700 text-sm font-bold mb-2">Apellidos</label>
-      <input placeholder="Apellidos" type="text" id="apellidos" name="apellidos" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.apellidos" required>
+      <label for="apellidos" class="block mb-2 text-sm font-bold text-gray-700">Apellidos</label>
+      <input placeholder="Apellidos" type="text" id="apellidos" name="apellidos" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="formData.apellidos" required>
     </div>
     <div class="mb-4">
-      <label for="dni" class="block text-gray-700 text-sm font-bold mb-2">DNI</label>
-      <input placeholder="Dni" type="text" id="dni" name="dni" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.dni" required>
+      <label for="dni" class="block mb-2 text-sm font-bold text-gray-700">DNI</label>
+      <input placeholder="Dni" type="text" id="dni" name="dni" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="formData.dni" required>
     </div>
     <div class="mb-4">
-      <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
-      <input placeholder="Email" type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.email" required>
+      <label for="email" class="block mb-2 text-sm font-bold text-gray-700">Email</label>
+      <input placeholder="Email" type="email" id="email" name="email" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="formData.email" required>
     </div>
     <div class="mb-4">
-      <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
-      <input placeholder="Contraseña" type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.password" required>
+      <label for="password" class="block mb-2 text-sm font-bold text-gray-700">Contraseña</label>
+      <input placeholder="Contraseña" type="password" id="password" name="password" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="formData.password" required>
     </div>
     <div class="mb-4">
-      <label for="fechaNacimiento" class="block text-gray-700 text-sm font-bold mb-2">Fecha de Nacimiento</label>
-      <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.fechaNacimiento" required>
+      <label for="fechaNacimiento" class="block mb-2 text-sm font-bold text-gray-700">Fecha de Nacimiento</label>
+      <input type="date" id="fechaNacimiento" [max]="maxDate()" name="fechaNacimiento" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="formData.fechaNacimiento" required>
     </div>
     <div class="mb-4">
-      <label for="rol" class="block text-gray-700 text-sm font-bold mb-2">Rol</label>
-      <select id="rol" name="rol" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.rol" required>
+      <label for="rol" class="block mb-2 text-sm font-bold text-gray-700">Rol</label>
+      <select id="rol" name="rol" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="formData.rol" required>
         <option value="" disabled selected hidden>Selecciona un rol</option>
         <option value="alumno">Alumno</option>
         <option value="profesor">Profesor</option>
@@ -63,11 +64,11 @@
     </div>
     @if (formData.rol === "alumno") {
       <div class="mb-4">
-          <label for="clases" class="block text-gray-700 text-sm font-bold mb-2">Matrícula de Clases</label>
+          <label for="clases" class="block mb-2 text-sm font-bold text-gray-700">Matrícula de Clases</label>
           @for (c of clases; track c.id) {
             <div class="relative flex gap-x-3">
-                <div class="flex h-6 items-center">
-                  <input id="{{ c.id }}" name="{{ c.asignatura.nombre }}" [(ngModel)]="formData.clases[c.id]" [value]="c.id" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                <div class="flex items-center h-6">
+                  <input id="{{ c.id }}" name="{{ c.asignatura.nombre }}" [(ngModel)]="formData.clases[c.id]" [value]="c.id" type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600">
                 </div>
                 <div class="text-sm leading-6">
                     <label for="{{ c.id }}" class="font-medium text-gray-900">{{c.asignatura.nombre}}</label>
@@ -77,7 +78,7 @@
       </div>
   }
     <div class="mb-4">
-      <button alt="Registrar Usuario" type="submit" class="hover:text-custom-gray hover:bg-custom-darkgreen bg-custom-green text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Registrar Usuario</button>
+      <button alt="Registrar Usuario" type="submit" class="px-4 py-2 font-bold text-black rounded hover:text-custom-gray hover:bg-custom-darkgreen bg-custom-green focus:outline-none focus:shadow-outline">Registrar Usuario</button>
     </div>
   </form>
 

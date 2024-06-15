@@ -48,7 +48,7 @@ export class RegistroUsuarioComponent {
       }
     );
   }
-  
+
   goBack(){
     this.router.navigate(['/usuario']);
   }
@@ -68,7 +68,7 @@ export class RegistroUsuarioComponent {
          this.status = 'success';
          this.message = response.message;
          this.router.navigate(['/usuario']);
-         
+
        }else{
          this.status = 'error';
          this.message = response.message;
@@ -79,9 +79,16 @@ export class RegistroUsuarioComponent {
        console.log(error);
      }
    );
-
-  
-   
  }
+
+ maxDate(): string {
+  
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0
+  const yyyy = today.getFullYear();
+
+  return `${yyyy}-${mm}-${dd}`;
+}
 
 }

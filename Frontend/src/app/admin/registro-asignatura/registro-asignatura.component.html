@@ -19,31 +19,33 @@
       </div>
     </div>
   }
-  <button alt="Volver a la pagina de Clases" (click)="goBack()" class="ml-2 bg-custom-green text-black hover:bg-custom-darkgreen hover:text-white  mt-2 font-semibold py-1 px-2 rounded flex items-center">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi  mr-2 bi-arrow-left-square-fill" viewBox="0 0 16 16">
+  <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+  <button alt="Volver a la pagina de Clases" (click)="goBack()" class="flex items-center px-2 py-1 mt-2 ml-2 font-semibold text-black rounded bg-custom-green hover:bg-custom-darkgreen hover:text-white">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
       <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"/>
     </svg>
     Volver
   </button>
+</div>
 <form #createasignatura (ngSubmit)="onSubmit(createasignatura)" class="max-w-md mx-auto mt-8">
     <div class="mb-4">
-        <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
-        <input placeholder="Nombre" type="text" id="nombre" name="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.nombre" required>
+        <label for="nombre" class="block mb-2 text-sm font-bold text-gray-700">Nombre</label>
+        <input placeholder="Nombre" type="text" id="nombre" name="nombre" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="formData.nombre" required>
     </div>
     <div class="mb-4">
-        <label for="descripcion" class="block text-gray-700 text-sm font-bold mb-2">Descripción</label>
-        <textarea placeholder="Decripción" id="descripcion" name="descripcion" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="formData.descripcion" required></textarea>
+        <label for="descripcion" class="block mb-2 text-sm font-bold text-gray-700">Descripción</label>
+        <textarea placeholder="Decripción" id="descripcion" name="descripcion" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="formData.descripcion" required></textarea>
     </div>
     <div class="mb-4">
-      <label for="img" class="block text-gray-700 text-sm font-bold mb-2">Imagen</label>
+      <label for="img" class="block mb-2 text-sm font-bold text-gray-700">Imagen</label>
       <div class="grid grid-cols-3 gap-4">
         @for (item of svg; track $index) {
-          <div class="cursor-pointer inline-flex items-center justify-center flex-shrink-0 w-16 h-16 mb-4 rounded-full sm:mr-8 sm:mb-0 bg-custom-green text-dark hover:bg-custom-darkgreen hover:text-custom-gray" [innerHTML]="getSafeHtml(item.value)" (click)="selectOption(item)"></div>
+          <div class="inline-flex items-center justify-center flex-shrink-0 w-16 h-16 mb-4 rounded-full cursor-pointer sm:mr-8 sm:mb-0 bg-custom-green text-dark hover:bg-custom-darkgreen hover:text-custom-gray" [innerHTML]="getSafeHtml(item.value)" (click)="selectOption(item)"></div>
         }
     </div>
   </div>
     <div class="mb-4">
-        <button alt="Guardar Asignatura" type="submit" class="bg-custom-green hover:bg-custom-darkgreen hover:text-custom-gray text-dark font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Guardar Asignatura</button>
+        <button alt="Guardar Asignatura" type="submit" class="px-4 py-2 font-bold rounded bg-custom-green hover:bg-custom-darkgreen hover:text-custom-gray text-dark focus:outline-none focus:shadow-outline">Guardar Asignatura</button>
     </div>
 </form>
 

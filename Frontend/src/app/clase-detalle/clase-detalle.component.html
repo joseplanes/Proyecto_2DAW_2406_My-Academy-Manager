@@ -1,67 +1,67 @@
 <header class="text-gray-600 body-font">
-    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-      
-      <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-        
-        <a alt="Ir a la pagina de Información de la Clase" (click)="cinfo()" id="inf" class="cursor-pointer bg-custom-green flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
+    <div class="container flex flex-col flex-wrap items-center p-5 mx-auto md:flex-row">
+
+      <nav class="flex flex-wrap items-center justify-center text-base md:ml-auto md:mr-auto">
+
+        <a alt="Ir a la pagina de Información de la Clase" (click)="cinfo()" id="inf" class="flex flex-col items-center px-3 py-2 mr-5 font-medium text-black rounded-md cursor-pointer bg-custom-green hover:bg-custom-green">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
           </svg>Info</a>
-          <a alt="Ir a la pagina de Alumnos de la Clase" (click)="calumno()" id="alum" class="cursor-pointer flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
+          <a alt="Ir a la pagina de Alumnos de la Clase" (click)="calumno()" id="alum" class="flex flex-col items-center px-3 py-2 mr-5 font-medium text-black rounded-md cursor-pointer hover:bg-custom-green">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
               </svg>Alumnos</a>
-            <a alt="Ir a la pagina de Profesor de la Clase" (click)="cprof()" id="prof" class="cursor-pointer flex flex-col mr-5 px-3 py-2 items-center font-medium text-black rounded-md hover:bg-custom-green">
+            <a alt="Ir a la pagina de Profesor de la Clase" (click)="cprof()" id="prof" class="flex flex-col items-center px-3 py-2 mr-5 font-medium text-black rounded-md cursor-pointer hover:bg-custom-green">
                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                      </svg>Profesor</a>   
-                  
+                      </svg>Profesor</a>
+
       </nav>
     </div>
   </header>
 
   <main>
-   
-    
+
+
       @if (infoclick) {
         <section>
           <div class="py-16">
              <div class="px-8 mx-auto text-gray max-w-7xl">
                 <div class="relative">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Información de la clase</h1>
+            <h1 class="mb-2 text-2xl font-medium text-gray-900 sm:text-3xl title-font">Información de la clase</h1>
             @for (clase of claseinfo; track $index) {
-  
-              <p class="leading-relaxed text-base">Nombre: {{clase.asignatura.nombre}}</p>
-            <p class="leading-relaxed text-base">Descripción: {{clase.asignatura.descripcion}} </p>
-            <p class="leading-relaxed text-base">Dias:
+
+              <p class="text-base leading-relaxed">Nombre: {{clase.asignatura.nombre}}</p>
+            <p class="text-base leading-relaxed">Descripción: {{clase.asignatura.descripcion}} </p>
+            <p class="text-base leading-relaxed">Dias:
              @for (dias of clase.dias; track $index) {
               {{ dias.id | dias}}}
-                
+
               </p>
-            <p class="leading-relaxed text-base">Hora de inicio: {{clase.horaInicio | hora}}</p>
-            <p class="leading-relaxed text-base">Hora de fin: {{clase.horaFin | hora}}</p>
-            <p class="leading-relaxed text-base">Aula: {{clase.aula.nombre}}</p>
-            
+            <p class="text-base leading-relaxed">Hora de inicio: {{clase.horaInicio | hora}}</p>
+            <p class="text-base leading-relaxed">Hora de fin: {{clase.horaFin | hora}}</p>
+            <p class="text-base leading-relaxed">Aula: {{clase.aula.nombre}}</p>
+
             }
-              
-      
-          
+
+
+
           </div>
         </div>
      </div>
   </section>
-        
+
       }@else if (alumnosclick) {
         @for (clase of claseinfo; track $index) {
           <section>
             <div class="py-16">
                <div class="px-8 mx-auto text-gray max-w-7xl">
                   <div class="relative">
-                    <div class="flex justify-between items-center py-4 px-6">
-                    
+                    <div class="flex items-center justify-between px-6 py-4">
+
                       <div class="flex-grow mb-4 mr-4">
-                        <input #pattern (keyup)="patron=pattern.value" type="text" placeholder="Buscar alumno..." class="w-full px-4 py-2 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                        <input #pattern (keyup)="patron=pattern.value" type="text" placeholder="Buscar alumno..." class="w-full px-4 py-2 border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                       </div>
                       @if (identity.rol=='admin') {
                         <div class="mr-4">
@@ -76,41 +76,39 @@
                         </div>
                       }
                     </div>
-                    
+
                      <!-- lista alumnos -->
                      <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                        @for (alumno of clase.alumnos| patronAlumno:patron; track $index) {
                         @if (identity.rol=='admin') {
-                          <li class="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
-                            <div class="flex w-full items-center justify-between space-x-6 p-6">
+                          <li class="col-span-1 bg-white divide-y divide-gray-200 rounded-lg shadow">
+                            <div class="flex items-center justify-between w-full p-6 space-x-6">
                               <div class="flex-1 truncate">
                                 <div class="flex items-center space-x-3">
-                                  <h3 class="truncate text-sm font-medium text-gray-900">{{alumno.usuario.nombre}} {{alumno.usuario.apellidos}}</h3>
-                                  <span class="inline-flex flex-shrink-0 items-center rounded-full bg-custom-gray px-1.5 py-0.5 text-xs font-medium text-custom-darkgreen ring-1 ring-inset ring-custom-green">{{alumno.id}}</span>
+                                  <h3 class="text-sm font-medium text-gray-900 truncate">{{alumno.usuario.nombre}} {{alumno.usuario.apellidos}}</h3>
+                                  <span class="inline-flex flex-shrink-0 items-center rounded-full bg-custom-gray px-1.5 py-0.5 text-xs font-medium text-custom-darkgreen ring-1 ring-inset ring-custom-green">Id: {{alumno.id}}</span>
                                 </div>
-                                <p class="mt-1 truncate text-sm text-gray-500">{{alumno.usuario.rol.charAt(0).toUpperCase() + alumno.usuario.rol.slice(1)}}</p>
+                                <p class="mt-1 text-sm text-gray-500 truncate">{{alumno.usuario.rol.charAt(0).toUpperCase() + alumno.usuario.rol.slice(1)}}</p>
                               </div>
-                              
-                              <div class="flex items-center justify-center h-10 w-10 rounded-full bg-custom-darkgreen text-custom-gray font-bold flex-shrink-0">
+
+                              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold capitalize rounded-full bg-custom-darkgreen text-custom-gray">
                                 {{alumno.usuario.nombre[0]}}
                             </div>
                             </div>
                             <div>
-                              <div class="-mt-px flex divide-x divide-gray-200">
-                                <div class="flex w-0 flex-1">
-                                  <a alt="Enviar correo electrónico al alumno" href="mailto:{{alumno.usuario.email}}" class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
-                                    <svg class="h-5 w-5 text-custom-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <div class="flex -mt-px divide-x divide-gray-200">
+                                <div class="flex flex-1 w-0">
+                                  <a alt="Enviar correo electrónico al alumno" href="mailto:{{alumno.usuario.email}}" class="relative inline-flex items-center justify-center flex-1 w-0 py-4 -mr-px text-sm font-semibold text-gray-900 border border-transparent rounded-bl-lg gap-x-3">
+                                    <svg class="w-5 h-5 text-custom-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                       <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/>
                                       <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/>
                                     </svg>
                                     {{alumno.usuario.email}}
                                   </a>
                                 </div>
-                                <div class="flex w-0 flex-1">
-                                  <button alt="Borrar Alumno de esta clase" (click)="confirmDelete(alumno)" class="relative bg-red-500 -ml-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                                    </svg>
+                                <div class="flex w-24">
+                                  <button alt="Borrar Alumno de esta clase" (click)="confirmDelete(alumno)" class="relative inline-flex items-center justify-center flex-1 w-0 py-4 -ml-px text-sm font-semibold text-white bg-red-500 border border-transparent rounded-br-lg hover:bg-red-600 gap-x-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     Borrar
                                   </button>
                                 </div>
@@ -118,18 +116,18 @@
                             </div>
                           </li>
                         }@else {
-  
+
                         <app-alumno-card [alumno]="alumno"></app-alumno-card>
                       }}
                      </ul>
-         
-         
+
+
                   </div>
                </div>
             </div>
          </section>
         }
-          
+
 
         }@else if (profclick) {
           @for (clase of claseinfo; track $index) {
@@ -137,17 +135,17 @@
               <div class="py-16">
                  <div class="px-8 mx-auto text-gray max-w-7xl">
                     <div class="relative">
-           
+
                        <!-- lista profesor -->
                        <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    
-                        
-    
+
+
+
                           <app-alumno-card [alumno]="clase.profesor"></app-alumno-card>
-                        
+
                        </ul>
-           
-           
+
+
                     </div>
                  </div>
               </div>
@@ -155,9 +153,28 @@
         }
       }
 
+      <!-- Modal -->
+      <div id="delete-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-md max-h-full p-4">
+          <div class="relative rounded-lg shadow bg-custom-darkgreen">
+            <button type="button" class="absolute top-3 end-2.5 text-gray-900 bg-white hover:bg-gray-100 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="delete-modal" (click)="closeModal()">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+            </button>
+            <div class="p-4 text-center md:p-5">
+              <svg class="w-12 h-12 mx-auto mb-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+              </svg>
+              <h3 class="mb-5 text-lg font-normal text-white">¿Está seguro de que desea borrar este alumno de la clase?</h3>
+              <button (click)="deleteAlumno(alumnoToDelete)" data-modal-hide="delete-modal" type="button" class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-600 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                Sí, estoy seguro
+              </button>
+              <button (click)="closeModal()" data-modal-hide="delete-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100">No, cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        
-      
-  
     </main>
-      
+

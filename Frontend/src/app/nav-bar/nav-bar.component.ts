@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, HostListener, DoCheck } from '@angular/core';
+import { Component, ElementRef, inject, HostListener, DoCheck, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../services/user.service';
@@ -15,13 +15,13 @@ import { UserService } from '../services/user.service';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent{
-
-  
-  constructor(private sanitizer: DomSanitizer, private router: Router) { }
+  constructor(private sanitizer: DomSanitizer, private router: Router) {
+   }
   private userService=inject(UserService)
   public identity: any;
   public token: any;
   public currentRoute: string='';
+  isMenuVisible: boolean = false;
 
   ngOnInit() {
     this.router.events.subscribe(event => {
@@ -30,13 +30,10 @@ export class NavBarComponent{
       }
     });
   }
-  
+
   ngDoCheck(){
     this.loadUser();
   }
-
-
-  isMenuVisible: boolean = false; // Inicialmente el menú está oculto
 
   toggleDropdown(): void {
     this.isMenuVisible = !this.isMenuVisible; // Alternar la visibilidad
@@ -66,6 +63,17 @@ export class NavBarComponent{
     this.token = this.userService.getToken();
   }
 
-  
+  menuFalse(): void {
+    this.isMenuVisible = false;
+  }
+
+  @ViewChild('pattern') patternInput!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    if (this.patternInput && !this.patternInput.nativeElement.contains(event.target)) {
+      this.isMenuVisible = false;
+    }
+  }
 
 }

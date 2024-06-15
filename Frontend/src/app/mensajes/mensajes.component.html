@@ -42,15 +42,15 @@
                       @if (mostrarCancelar) {
                         <button alt="Cancelar Busqueda de Usuario" (click)="cancelarBusqueda()" (click)="pattern.value=''" class="absolute px-2 py-0 text-white transform -translate-y-1/2 bg-red-400 rounded-lg shadow-sm right-2 top-1/2 hover:bg-red-600">✖</button>
                       }
-                      
+
                   </div>
                   </div>
                   @if (antiguos) {
-                    <div class="max-h-96 mb-2 overflow-y-auto">
+                    <div class="mb-2 overflow-y-auto max-h-96">
                     @for (m of mensajes; track $index) {
                       @if (isRemitente(m.remitente.id)) {
                           <div #{{m.receptir.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green" (click)="setRemi(m.receptor)">
-                              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
+                              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold capitalize rounded-full bg-custom-darkgreen text-custom-gray">
                                   {{m.receptor.nombre[0]}}
                               </div>
                               <div class="flex flex-col flex-grow ml-3">
@@ -61,7 +61,7 @@
                             </div>
                       }@else {
                           <div #{{m.remitente.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green"  (click)="setRemi(m.remitente)">
-                              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
+                              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold capitalize rounded-full bg-custom-darkgreen text-custom-gray">
                                   {{m.remitente.nombre[0]}}
                               </div>
                               <div class="flex flex-col flex-grow ml-3">
@@ -77,7 +77,7 @@
                     <div class="overflow-y-auto max-h-96">
                     @for (u of usuarios|patron:patron; track $index) {
                       <div #{{u.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green" (click)="setRemi(u)" (click)="antiguos=true">
-                        <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
+                        <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold capitalize rounded-full bg-custom-darkgreen text-custom-gray">
                             {{u.nombre[0]}}
                         </div>
                         <div class="flex flex-col flex-grow ml-3">
@@ -97,7 +97,7 @@
             @if (mostrarmensaje) {
               @if (isRemitente(remi.id)) {
           <div class="flex flex-row items-center px-6 py-4 bg-gray-100 shadow rounded-2xl">
-            <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
+            <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold capitalize rounded-full bg-custom-darkgreen text-custom-gray">
               {{remi.nombre[0]}}
             </div>
             <div class="flex flex-col ml-3">
@@ -106,7 +106,7 @@
           </div>
         }@else {
           <div class="flex flex-row items-center px-6 py-4 bg-gray-100 shadow rounded-2xl">
-            <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold rounded-full bg-custom-darkgreen text-custom-gray">
+            <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold capitalize rounded-full bg-custom-darkgreen text-custom-gray">
               {{remi.nombre[0]}}
             </div>
             <div class="flex flex-col ml-3">
@@ -121,7 +121,7 @@
                     @if (isRemitente(m.remitente.id)) {
                         <div class="col-start-6 col-end-13 p-3 rounded-lg">
                             <div class="flex flex-row-reverse items-center justify-start">
-                              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-full bg-custom-darkgreen text-custom-gray" >
+                              <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 capitalize rounded-full bg-custom-darkgreen text-custom-gray" >
                                 {{m.remitente.nombre[0]}}
                               </div>
                               <div class="relative px-4 py-2 mr-3 text-sm shadow bg-custom-green rounded-xl">
@@ -133,7 +133,7 @@
                     }@else {
                         <div class="col-start-1 col-end-8 p-3 rounded-lg">
                             <div class="flex flex-row items-center">
-                                <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-full bg-custom-darkgreen text-custom-gray">
+                                <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 capitalize rounded-full bg-custom-darkgreen text-custom-gray">
                                     {{ m.remitente.nombre[0] }}
                                 </div>
                                 <div class="ml-3">

@@ -23,24 +23,28 @@
 
 <form #usereditForm (ngSubmit)="onSubmit(usereditForm)" class="max-w-md mx-auto mt-8">
   <div class="mb-4">
-      <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre</label>
-      <input placeholder="Nombre" type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="user.nombre" required>
+      <label for="name" class="block mb-2 text-sm font-bold text-gray-700">Nombre</label>
+      <input placeholder="Nombre" type="text" id="name" name="name" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="user.nombre" required>
   </div>
 
   <div class="mb-4">
-      <label for="surname" class="block text-gray-700 text-sm font-bold mb-2">Apellidos</label>
-      <input placeholder="Apellidos" type="text" id="surname" name="surname" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="user.apellidos" required>
+      <label for="surname" class="block mb-2 text-sm font-bold text-gray-700">Apellidos</label>
+      <input placeholder="Apellidos" type="text" id="surname" name="surname" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="user.apellidos" required>
   </div>
   <div class="mb-4">
-      <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Correo Electrónico</label>
-      <input placeholder="Correo Electrónico" type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="user.email" required pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}">
+      <label for="email" class="block mb-2 text-sm font-bold text-gray-700">Correo Electrónico</label>
+      <input placeholder="Correo Electrónico" type="email" id="email" name="email" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="user.email" required pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}">
   </div>
   <div class="mb-4">
-    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Contraseña (Si no quieres modificarla, deja el hueco en blanco)</label>
-    <input placeholder="Contraseña" type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="user.password" required>
+    <label for="password" class="block mb-2 text-sm font-bold text-gray-700">
+      Contraseña
+      <span class="text-gray-400">(Si no quieres modificarla, deja el hueco en blanco)</span>
+    </label>
+
+    <input placeholder="Contraseña" type="password" id="password" name="password" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="user.password" required>
   </div>
 
   <div class="mb-4">
-      <button type="submit" class="bg-custom-green hover:bg-custom-darkgreen text-dark hover:text-custom-gray font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Actualizar Datos</button>
+      <button type="submit" class="px-4 py-2 font-bold rounded bg-custom-green hover:bg-custom-darkgreen text-dark hover:text-custom-gray focus:outline-none focus:shadow-outline">Actualizar Datos</button>
   </div>
 </form>

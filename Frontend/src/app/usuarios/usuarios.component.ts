@@ -3,10 +3,9 @@ import { ApiService } from '../services/api.service';
 import { UsuarioCardComponent } from '../usuario-card/usuario-card.component';
 import { PatronPipe } from '../pipes/patron.pipe';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Router,ActivatedRoute,Params } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
-
 
 @Component({
   selector: 'app-usuarios',
@@ -16,57 +15,73 @@ import { CommonModule } from '@angular/common';
   styleUrl: './usuarios.component.css'
 })
 export class UsuariosComponent {
-  private api=inject(ApiService)
-  private userService=inject(UserService)
-  public token:any;
-  public identity:any;
-  public usuarios:any;
+  private api = inject(ApiService);
+  private userService = inject(UserService);
+  public token: any;
+  public identity: any;
+  public usuarios: any;
+  public usuarioToDelete: any;
 
   patron: string = '';
-  roles:string='';
+  roles: string = '';
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.loadUser();
-    if(this.identity.rol=='admin'){
+    if (this.identity.rol == 'admin') {
       this.getUsuarios();
-    }else{
+    } else {
       this.router.navigate(['/inicio']);
     }
   }
-  loadUser(){
-    this.token=this.userService.getToken();
-    this.identity=this.userService.getIdentity();
+
+  loadUser() {
+    this.token = this.userService.getToken();
+    this.identity = this.userService.getIdentity();
   }
 
-  getUsuarios(){
+  getUsuarios() {
     return this.api.getUsuarios(this.token).subscribe(
-      (response:any)=>{
-        let usuarios=response.data;
-        this.usuarios=JSON.parse(usuarios);
+      (response: any) => {
+        let usuarios = response.data;
+        this.usuarios = JSON.parse(usuarios);
       },
-      error =>{
+      error => {
         console.log(error);
       }
     );
   }
-  confirmDelete(user:any) {
-    let nombrecompleto=user.nombre+' '+user.apellidos;
-    const confirmed = window.confirm('¿Estás seguro de que quieres eliminar el usuario: '+ nombrecompleto+'?\nSi es un profesor, se eliminarán todas las clases que haya impartido.');
-    if (confirmed) {
-      this.eliminarAlumno(user.id);
+
+  confirmDelete(user: any) {
+    this.usuarioToDelete = user;
+    const modal = document.getElementById('delete-modal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
     }
   }
-eliminarAlumno(id:any){
-  this.api.deleteUsuario(this.token,id).subscribe(
-    (response:any)=>{
-      this.getUsuarios();
-    },
-    error =>{
-      console.log(error);
+
+  deleteUsuario(user: any) {
+    this.api.deleteUsuario(this.token, user.id).subscribe(
+      (response: any) => {
+        this.getUsuarios();
+        this.closeModal();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  closeModal() {
+    const modal = document.getElementById('delete-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
     }
-  );
+  }
+
+  trackByUsuarioId(index: number, usuario: any): any {
+    return usuario.id;
+  }
 }
 
-  
-
-}
