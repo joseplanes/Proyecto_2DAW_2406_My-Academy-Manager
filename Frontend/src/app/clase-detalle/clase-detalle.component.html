@@ -33,97 +33,71 @@
 
 
       @if (infoclick) {
-        <!-- <section>
-          <div class="py-16">
-             <div class="px-8 mx-auto text-gray max-w-7xl">
-                <div class="relative">
-            <h1 class="mb-2 text-2xl font-medium text-gray-900 sm:text-3xl title-font">Información de la clase</h1>
-            @for (clase of claseinfo; track $index) {
-
-              <p class="text-base leading-relaxed">Nombre: {{clase.asignatura.nombre}}</p>
-            <p class="text-base leading-relaxed">Descripción: {{clase.asignatura.descripcion}} </p>
-            <p class="text-base leading-relaxed">Dias:
-             @for (dias of clase.dias; track $index) {
-              {{ dias.id | dias}}}
-
-              </p>
-            <p class="text-base leading-relaxed">Hora de inicio: {{clase.horaInicio | hora}}</p>
-            <p class="text-base leading-relaxed">Hora de fin: {{clase.horaFin | hora}}</p>
-            <p class="text-base leading-relaxed">Aula: {{clase.aula.nombre}}</p>
-
-            }
-
-
-
-          </div>
-        </div>
-     </div>
-  </section> -->
-  <section>
-    @for (clase of claseinfo; track $index) {
-      <div class="flex justify-center items-center py-16">
-        <div class="bg-custom-green max-w-2xl shadow overflow-hidden rounded-lg">
-          <div class="px-4 py-5 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-black">
-              {{clase.asignatura.nombre}}
-            </h3>
-            <p class="mt-1 max-w-2xl text-sm text-black">
-              Información de la clase.
-            </p>
-          </div>
-          <div class="border-t border-gray-200">
-            <dl>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500">
-                  Descripción: 
-                </dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {{clase.asignatura.descripcion}}
-                </dd>
+      <section>
+        @for (clase of claseinfo; track $index) {
+          <div class="flex justify-center items-center py-8">
+            <div class="bg-custom-green max-w-2xl shadow overflow-hidden rounded-lg">
+              <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg leading-6 font-medium text-black">
+                  {{clase.asignatura.nombre}}
+                </h3>
+                <p class="mt-1 max-w-2xl text-sm text-black">
+                  Información de la clase.
+                </p>
               </div>
-              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500">
-                  Días:
-                </dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {{clase.dias | dias}}
-                </dd>
+              <div class="border-t border-gray-200">
+                <dl>
+                  <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                      Descripción: 
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      {{clase.asignatura.descripcion}}
+                    </dd>
+                  </div>
+                  <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                      Días:
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      {{clase.dias | dias}}
+                    </dd>
+                  </div>
+                  <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500 flex items-center">
+                      Hora de inicio:                   
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex items-center">
+                      {{clase.horaInicio | hora}} 
+                    </dd>
+                  </div>
+                  <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                      Hora de fin: 
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      {{clase.horaFin | hora}}
+                    </dd>
+                  </div>
+                  <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                      Aula:
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      {{clase.aula.nombre}}
+                    </dd>
+                  </div>
+                </dl>
               </div>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500 flex items-center">
-                  Hora de inicio:                   
-                </dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex items-center">
-                  {{clase.horaInicio | hora}} 
-                </dd>
-              </div>
-              <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500">
-                  Hora de fin: 
-                </dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {{clase.horaFin | hora}}
-                </dd>
-              </div>
-              <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm font-medium text-gray-500">
-                  Aula:
-                </dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {{clase.aula.nombre}}
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-      </div>      
-  }
-  </section>
+            </div>
+          </div>      
+      }
+      </section>
 
       }@else if (alumnosclick) {
         @for (clase of claseinfo; track $index) {
           <section>
-            <div class="py-16">
+            <div class="py-8">
                <div class="px-8 mx-auto text-gray max-w-7xl">
                   <div class="relative">
                     <div class="flex items-center justify-between px-6 py-4">
@@ -202,7 +176,7 @@
         }@else if (profclick) {
           @for (clase of claseinfo; track $index) {
             <section>
-              <div class="py-16">
+              <div class="py-8">
                  <div class="px-8 mx-auto text-gray max-w-7xl">
                     <div class="relative">
 
