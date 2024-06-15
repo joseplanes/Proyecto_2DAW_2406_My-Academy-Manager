@@ -183,11 +183,11 @@ class UserController extends AbstractController
                         ];
                         return new JsonResponse($data);
                     }
-                    if (!$validarDNI) {
+                    if (!$validarFecha) {
                         $data = [
                             'status' => 'error',
                             'code' => 400,
-                            'message' => 'DNI no válido',
+                            'message' => 'Fecha de nacimiento no válida',
                         ];
                         return new JsonResponse($data);
                     }

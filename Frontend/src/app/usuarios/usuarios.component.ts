@@ -86,7 +86,4 @@ export class UsuariosComponent {
     }
   }
 
-  trackByUsuarioId(index: number, usuario: any): any {
-    return usuario.id;
-  }
 }
