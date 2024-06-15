@@ -85,6 +85,14 @@ export class ClaseDetalleComponent {
     );
   }
 
+  goBack(){
+    if(this.identity.rol == 'admin'){
+      this.router.navigate(['/clase']);
+    }else{
+    this.router.navigate(['/clases']);
+    }
+  }
+
   loadUser() {
     this.token = this.userService.getToken();
     this.identity = this.userService.getIdentity();

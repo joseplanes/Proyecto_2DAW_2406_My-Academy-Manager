@@ -1,17 +1,23 @@
 <header class="text-gray-600 body-font">
     <div class="container flex flex-col flex-wrap items-center p-5 mx-auto md:flex-row">
 
+      <button alt="Volver a la pagina de Clases" (click)="goBack()" class="flex items-center px-2 py-1 mt-2 ml-2 font-semibold text-black rounded bg-custom-green hover:bg-custom-darkgreen hover:text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mr-2 bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+          <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"/>
+        </svg>
+        Volver
+      </button>
       <nav class="flex flex-wrap items-center justify-center text-base md:ml-auto md:mr-auto">
 
-        <a alt="Ir a la pagina de Información de la Clase" (click)="cinfo()" id="inf" class="flex flex-col items-center px-3 py-2 mr-5 font-medium text-black rounded-md cursor-pointer bg-custom-green hover:bg-custom-green">
+        <a alt="Ir a la pagina de Información de la Clase" (click)="cinfo()" id="inf" class="flex flex-col items-center px-3 py-2 mr-5 font-medium hover:bg-custom-darkgreen hover:text-white text-black rounded-md cursor-pointer bg-custom-green ">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
           </svg>Info</a>
-          <a alt="Ir a la pagina de Alumnos de la Clase" (click)="calumno()" id="alum" class="flex flex-col items-center px-3 py-2 mr-5 font-medium text-black rounded-md cursor-pointer hover:bg-custom-green">
+          <a alt="Ir a la pagina de Alumnos de la Clase" (click)="calumno()" id="alum" class="flex flex-col items-center px-3 py-2 mr-5 font-medium text-black rounded-md cursor-pointer hover:bg-custom-darkgreen hover:text-white">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
               </svg>Alumnos</a>
-            <a alt="Ir a la pagina de Profesor de la Clase" (click)="cprof()" id="prof" class="flex flex-col items-center px-3 py-2 mr-5 font-medium text-black rounded-md cursor-pointer hover:bg-custom-green">
+            <a alt="Ir a la pagina de Profesor de la Clase" (click)="cprof()" id="prof" class="flex flex-col items-center px-3 py-2 mr-5 font-medium text-black rounded-md cursor-pointer hover:bg-custom-darkgreen hover:text-white">
                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
