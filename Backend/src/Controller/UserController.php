@@ -475,10 +475,10 @@ class UserController extends AbstractController
                                 $alumno->removeClase($clase);
                             }
                             foreach ($calificaciones as $calificacion) {
-                                $alumno->removeCalificacion($calificacion);
+                                $entityManager->remove($calificacion);
                             }
                             foreach ($asistencias as $asistencia) {
-                                $alumno->removeAsistencia($asistencia);
+                                $entityManager->remove($asistencia);
                             }
                             $entityManager->remove($alumno);
 

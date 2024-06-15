@@ -1127,12 +1127,16 @@ class ListController extends AbstractController
                 $clase = $cr->findOneBy(['id' => $id]);
                 $alumnosclase= $clase->getAlumnos();
                 $alumnos = $ar->findAll();
-                foreach($alumnos as $alumno){
-                    if(!$alumnosclase->contains($alumno)){
-                        $noalumnos[] = $alumno;
+                if(count($alumnosclase)==count($alumnos)){
+                    $noalumnos = [];
+                }else{
+                    foreach($alumnos as $alumno){
+                        if(!$alumnosclase->contains($alumno)){
+                            $noalumnos[] = $alumno;
+                        }
                     }
-                }
-               
+                }       
+                if($noalumnos!=null){
                 $datos = $serializer->serialize($noalumnos, 'json', ['groups' => 'clase', 'max_depth' => 1]);
 
                 $data = [
@@ -1140,7 +1144,14 @@ class ListController extends AbstractController
                     'code' => 200,
                     'data' => $datos
                 ];
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No hay alumnos disponibles'
+                ];
             }
+        }
         }else{
             $data = [
                 'status' => 'error',

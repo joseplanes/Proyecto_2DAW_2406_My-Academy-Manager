@@ -54,7 +54,7 @@ export class AddAlumnoComponent {
       },
       error => {
         this.status = 'error';
-        console.log(error);
+        this.message = error.message;
       }
     );
   }
