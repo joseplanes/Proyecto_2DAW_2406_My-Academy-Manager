@@ -78,6 +78,7 @@ export class ClaseDetalleComponent {
       (response: any) => {
         let clases = response.data;
         this.claseinfo = JSON.parse(clases);
+        console.log(this.claseinfo);
       },
       error => {
         console.log(error);

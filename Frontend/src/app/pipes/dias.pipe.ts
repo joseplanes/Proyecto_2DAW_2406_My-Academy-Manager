@@ -6,25 +6,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DiasPipe implements PipeTransform {
 
-  transform(value: number): string {
-    switch (value) {
-      case 1:
-        return 'Lunes';
-      case 2:
-        return 'Martes';
-      case 3:
-        return 'Miércoles';
-      case 4:
-        return 'Jueves';
-      case 5:
-        return 'Viernes';
-      case 6:
-        return 'Sábado';
-      case 7:
-        return 'Domingo';
-      default:
-        return '';
-    }
+  transform(values: {id: number}[]): string {
+    const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const result = values
+      .map(value => days[value.id - 1])
+      .filter(day => day !== undefined);
+
+    return result.length > 0 ? result.join(', ') : 'Valor no válido';
   }
 
 }
