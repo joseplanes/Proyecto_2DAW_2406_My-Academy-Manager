@@ -57,12 +57,12 @@ class Clase
         $this->calificacions = new ArrayCollection();
         $this->asistencias = new ArrayCollection();
     }
-    #[Groups(['alumno', 'clase', 'clasebasic','clasesalumno','clasesprofesor'])]
+    #[Groups(['alumno', 'clase', 'clasebasic','clasesalumno','clasesprofesor', 'infbasica'])]
     public function getId(): ?int
     {
         return $this->id;
     }
-    #[Groups(['alumno', 'clase', 'clasebasic','clasesalumno','clasesprofesor','asistencia','notas'])]
+    #[Groups(['alumno', 'clase', 'clasebasic','clasesalumno','clasesprofesor','asistencia','notas','infbasica'])]
     public function getAsignatura(): ?Asignatura
     {
         return $this->asignatura;
@@ -98,7 +98,7 @@ class Clase
 
         return $this;
     }
-    #[Groups(['clase','clasesalumno','clasesprofesor', 'asistencia'])]
+    #[Groups(['clase','clasesalumno','clasesprofesor', 'asistencia','infbasica'])]
     public function getHoraInicio(): ?\DateTimeInterface
     {
         return $this->hora_inicio;

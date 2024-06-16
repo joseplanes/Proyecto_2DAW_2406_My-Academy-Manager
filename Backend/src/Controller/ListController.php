@@ -392,7 +392,7 @@ class ListController extends AbstractController
                     }
                 }
                 
-                $datos = $serializer->serialize($clases, 'json', ['groups' => 'clasesalumno', 'max_depth' => 1]);
+                $datos = $serializer->serialize($clases, 'json', ['groups' => 'infbasica', 'max_depth' => 1]);
 
                 $data = [
                     'status' => 'success',
@@ -415,7 +415,7 @@ class ListController extends AbstractController
                     }
                 }
     
-                $datos = $serializer->serialize($clases, 'json', ['groups' => 'clasesprofesor', 'max_depth' => 1]);
+                $datos = $serializer->serialize($clases, 'json', ['groups' => 'infbasica', 'max_depth' => 1]);
     
                 
                 $data = [
@@ -439,7 +439,7 @@ class ListController extends AbstractController
                     }
                 }
     
-                $datos = $serializer->serialize($clases, 'json', ['groups' => 'clasesprofesor', 'max_depth' => 1]);
+                $datos = $serializer->serialize($clases, 'json', ['groups' => 'infbasica', 'max_depth' => 1]);
     
                 
                 $data = [

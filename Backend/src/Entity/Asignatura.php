@@ -34,12 +34,12 @@ class Asignatura
         $this->clases = new ArrayCollection();
     }
     
-    #[Groups(['clase', 'asignaturas','clasesprofesor','clasesalumno'])]
+    #[Groups(['clase', 'asignaturas','clasesprofesor','clasesalumno','infbasica'])]
     public function getId(): ?int
     {
         return $this->id;
     }
-    #[Groups(['clase', 'asignaturas', 'alumno','clasebasic','clasesprofesor','clasesalumno','asistencia','notas'])]
+    #[Groups(['clase', 'asignaturas', 'alumno','clasebasic','clasesprofesor','clasesalumno','asistencia','notas','infbasica'])]
     public function getNombre(): ?string
     {
         return $this->nombre;
