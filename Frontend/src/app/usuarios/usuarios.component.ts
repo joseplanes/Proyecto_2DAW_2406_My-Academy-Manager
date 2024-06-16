@@ -6,11 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [UsuarioCardComponent, PatronPipe, FormsModule, RouterModule, CommonModule],
+  imports: [UsuarioCardComponent, PatronPipe, FormsModule, RouterModule, CommonModule, NgxPaginationModule],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.css'
 })
@@ -21,7 +22,7 @@ export class UsuariosComponent {
   public identity: any;
   public usuarios: any;
   public usuarioToDelete: any;
-
+  page: number = 1;
   patron: string = '';
   roles: string = '';
 
