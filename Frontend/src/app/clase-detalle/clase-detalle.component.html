@@ -11,7 +11,7 @@
 
       <nav class="flex flex-wrap items-center justify-center text-base md:ml-auto md:mr-auto">
 
-        <a alt="Ir a la pagina de Información de la Clase" (click)="cinfo()" id="inf" class="flex flex-col items-center px-3 py-2 mr-5 font-medium hover:bg-custom-darkgreen hover:text-white text-black rounded-md cursor-pointer bg-custom-green ">
+        <a alt="Ir a la pagina de Información de la Clase" (click)="cinfo()" id="inf" class="flex flex-col items-center px-3 py-2 mr-5 font-medium text-black rounded-md cursor-pointer hover:bg-custom-darkgreen hover:text-white bg-custom-green ">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
           </svg>Info</a>
@@ -35,27 +35,27 @@
       @if (infoclick) {
       <section>
         @for (clase of claseinfo; track $index) {
-          <div class="flex justify-center items-center py-8">
-            <div class="bg-custom-green max-w-2xl shadow overflow-hidden rounded-lg">
+          <div class="flex items-center justify-center py-8">
+            <div class="w-full max-w-2xl overflow-hidden rounded-lg shadow bg-custom-green">
               <div class="px-4 py-5 sm:px-6">
-                <h3 class="text-lg leading-6 font-medium text-black">
+                <h3 class="text-lg font-bold leading-6 text-black">
                   {{clase.asignatura.nombre}}
                 </h3>
-                <p class="mt-1 max-w-2xl text-sm text-black">
-                  Información de la clase.
+                <p class="max-w-2xl mt-1 text-sm text-black">
+                  Información de la clase:
                 </p>
               </div>
               <div class="border-t border-gray-200">
                 <dl>
-                  <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <div class="px-4 py-5 bg-gray-50 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                      Descripción: 
+                      Descripción:
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                       {{clase.asignatura.descripcion}}
                     </dd>
                   </div>
-                  <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <div class="px-4 py-5 bg-white sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
                       Días:
                     </dt>
@@ -63,23 +63,23 @@
                       {{clase.dias | dias}}
                     </dd>
                   </div>
-                  <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500 flex items-center">
-                      Hora de inicio:                   
+                  <div class="px-4 py-5 bg-gray-50 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="flex items-center text-sm font-medium text-gray-500">
+                      Hora de inicio:
                     </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex items-center">
-                      {{clase.horaInicio | hora}} 
+                    <dd class="flex items-center mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                      {{clase.horaInicio | hora}}
                     </dd>
                   </div>
-                  <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <div class="px-4 py-5 bg-white sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
-                      Hora de fin: 
+                      Hora de fin:
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                       {{clase.horaFin | hora}}
                     </dd>
                   </div>
-                  <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <div class="px-4 py-5 bg-gray-50 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
                       Aula:
                     </dt>
@@ -90,7 +90,7 @@
                 </dl>
               </div>
             </div>
-          </div>      
+          </div>
       }
       </section>
 
@@ -214,9 +214,9 @@
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
         </svg>
         <h3 class="mb-5 text-lg font-normal text-white">¿Está seguro de que desea borrar este alumno de la clase?</h3>
-        <h4 class="mb-5  font-normal text-dark"> 
+        <h4 class="mb-5 font-normal text-dark">
           <div class="flex items-center p-4 mb-4 text-sm border border-white rounded-lg bg-custom-green">
-            <svg class="text-custom-darkgreen flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <svg class="flex-shrink-0 inline w-4 h-4 text-custom-darkgreen me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
             </svg>
             Si borra al alumno, también borrará todas las calificaciones y faltas de asistencia asociadas a esta clase y este alumno.
