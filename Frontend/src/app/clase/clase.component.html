@@ -50,8 +50,8 @@
               </div>
               <div class="inline-flex items-center justify-center flex-shrink-0 w-16 h-16 mb-4 rounded-full sm:mr-8 sm:mb-0 bg-custom-green text-custom-green-500" [innerHTML]="getSafeHtml(c.asignatura.img)"></div>
               <div class="flex-grow">
-                <h2 class="mb-3 text-lg font-medium text-gray-900 title-font">{{c.asignatura.nombre}}</h2>
-                <p class="text-base leading-relaxed">{{c.asignatura.descripcion}}</p>
+                <h2 class="mb-3 overflow-hidden text-lg font-medium text-gray-900 text-ellipsis whitespace-nowrap title-font">{{c.asignatura.nombre}}</h2>
+                <p class="overflow-hidden text-base leading-relaxed descripcion-asignatura text-ellipsis">{{c.asignatura.descripcion}}</p>
               </div>
               <div class="mt-auto">
                 <a alt="Ir a la pagina de los detalles de la Clase" [routerLink]="['/clase', c.id]" class="inline-flex items-center text-custom-darkgreen">Más información
@@ -85,9 +85,9 @@
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
         </svg>
         <h3 class="mb-5 text-lg font-normal text-white">¿Está seguro de que desea borrar esta clase?</h3>
-        <h4 class="mb-5  font-normal text-dark"> 
+        <h4 class="mb-5 font-normal text-dark">
           <div class="flex items-center p-4 mb-4 text-sm border border-white rounded-lg bg-custom-green">
-            <svg class="text-custom-darkgreen flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <svg class="flex-shrink-0 inline w-4 h-4 text-custom-darkgreen me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
             </svg>
             Si elimina la clase, también eliminará todas las calificaciones y faltas de asistencia asociadas a esta clase.

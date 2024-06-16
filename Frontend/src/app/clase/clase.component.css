@@ -6,3 +6,11 @@
 #modal-overlay.block {
   display: block;
 }
+
+.descripcion-asignatura {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* Número máximo de líneas */
+  max-height: 4.5em; /* Ajustar según el número de líneas */
+  line-height: 1.5em; /* Ajustar según el diseño */
+}
