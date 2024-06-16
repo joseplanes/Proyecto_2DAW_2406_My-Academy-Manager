@@ -46,7 +46,7 @@
                   </div>
                   </div>
                   @if (antiguos) {
-                    <div class="mb-2 overflow-y-auto max-h-96">
+                    <div class="overflow-y-auto maximo-h">
                     @for (m of mensajes; track $index) {
                       @if (isRemitente(m.remitente.id)) {
                           <div #{{m.receptir.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green" (click)="setRemi(m.receptor)">
@@ -74,7 +74,7 @@
                     }
                   </div>
                   }@else {
-                    <div class="overflow-y-auto max-h-96">
+                    <div class="overflow-y-auto maximo-h">
                     @for (u of usuarios|patron:patron; track $index) {
                       <div #{{u.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green" (click)="setRemi(u)" (click)="antiguos=true">
                         <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold capitalize rounded-full bg-custom-darkgreen text-custom-gray">
