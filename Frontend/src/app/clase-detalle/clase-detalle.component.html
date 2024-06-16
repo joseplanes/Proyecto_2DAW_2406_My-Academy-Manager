@@ -120,6 +120,12 @@
                     </div>
 
                      <!-- lista alumnos -->
+                      @if (clase.alumnos.length==0) {
+                        <div class="flex items" style="justify-content: center;">
+                          <p class="text-black">No hay alumnos inscritos en esta clase.</p>
+                        </div>
+
+                      }@else{
                      <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                        @for (alumno of clase.alumnos| patronAlumno:patron; track $index) {
                         @if (identity.rol=='admin') {
@@ -165,7 +171,7 @@
                       }}
                      </ul>
 
-
+                    }
                   </div>
                </div>
             </div>
