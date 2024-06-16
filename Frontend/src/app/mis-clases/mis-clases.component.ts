@@ -5,10 +5,11 @@ import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PatronClasePipe } from '../pipes/patron-clase.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
   selector: 'app-mis-clases',
   standalone: true,
-  imports: [RouterModule, PatronClasePipe],
+  imports: [RouterModule, PatronClasePipe,NgxPaginationModule],
   templateUrl: './mis-clases.component.html',
   styleUrl: './mis-clases.component.css'
 })
@@ -19,7 +20,7 @@ export class MisClasesComponent {
   public identity:any;
   public clases:any;
  
-
+  page:number=1;
   patron: string = '';
   roles:string='';
 

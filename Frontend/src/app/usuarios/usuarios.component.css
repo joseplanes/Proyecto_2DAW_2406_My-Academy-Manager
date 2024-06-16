@@ -6,3 +6,9 @@
 #modal-overlay.block {
   display: block;
 }
+
+.pagination::ng-deep .ngx-pagination .current{
+  text: white;
+  background: #4d6e51;
+  border-radius: 0.5rem
+}

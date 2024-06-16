@@ -14,3 +14,9 @@
   max-height: 4.5em; /* Ajustar según el número de líneas */
   line-height: 1.5em; /* Ajustar según el diseño */
 }
+
+.pagination::ng-deep .ngx-pagination .current{
+  text: white;
+  background: #4d6e51;
+  border-radius: 0.5rem
+}

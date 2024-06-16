@@ -5,11 +5,12 @@ import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PatronClasePipe } from '../pipes/patron-clase.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-clase',
   standalone: true,
-  imports: [RouterModule, PatronClasePipe],
+  imports: [RouterModule, PatronClasePipe, NgxPaginationModule],
   templateUrl: './clase.component.html',
   styleUrl: './clase.component.css'
 })
@@ -20,7 +21,7 @@ export class ClaseComponent {
   public identity: any;
   public clases: any;
   public claseToDelete: any;
-
+  page: number = 1;
   patron: string = '';
   roles: string = '';
 
