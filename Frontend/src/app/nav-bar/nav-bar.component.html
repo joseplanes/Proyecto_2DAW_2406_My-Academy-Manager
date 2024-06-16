@@ -36,8 +36,8 @@
             <span id="nombre" class="text-center" style="vertical-align: middle; margin-bottom: 10px;">My<br>Academy<br>Manager</span>
           </a>
 
-        <div class="hidden mx-auto sm:ml-6 sm:block">
-        <div class="flex space-x-4" *ngIf="identity">
+        <div class="hidden mx-auto sm:block">
+        <div class="flex w-full space-x-4" *ngIf="identity">
           @if (identity.rol == 'profesor') {
             <a alt="Ir a la pagina de Inicio" [routerLink]="'/inicio'" class="flex flex-col items-center px-3 py-2 text-sm font-medium text-black rounded-md hover:bg-custom-gray">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
@@ -146,7 +146,7 @@
       </div>
     </div>
 
-      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:pr-0">
 
         <div class="justify-end hidden pr-16 sm:flex lg:pr-0" *ngIf="!identity && currentRoute !== '/login'">
           <a alt="Ir a la pagina de Inicio de Sesión"
