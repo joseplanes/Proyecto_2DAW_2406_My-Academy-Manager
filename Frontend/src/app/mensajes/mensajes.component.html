@@ -49,7 +49,7 @@
                     <div class="overflow-y-auto maximo-h">
                     @for (m of mensajes; track $index) {
                       @if (isRemitente(m.remitente.id)) {
-                          <div #{{m.receptir.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green" (click)="setRemi(m.receptor)">
+                          <div #{{m.receptir.id}} class="flex flex-row items-center p-4 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent"  [ngClass]="{'selected': remi && remi.id === m.receptor.id}" (click)="setRemi(m.receptor)">
                               <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold capitalize rounded-full bg-custom-darkgreen text-custom-gray">
                                   {{m.receptor.nombre[0]}}
                               </div>
@@ -60,7 +60,7 @@
                               </div>
                             </div>
                       }@else {
-                          <div #{{m.remitente.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green"  (click)="setRemi(m.remitente)">
+                          <div #{{m.remitente.id}} class="flex flex-row items-center p-4 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent" [ngClass]="{'selected': remi && remi.id === m.remitente.id}"  (click)="setRemi(m.remitente)">
                               <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold capitalize rounded-full bg-custom-darkgreen text-custom-gray">
                                   {{m.remitente.nombre[0]}}
                               </div>
@@ -76,7 +76,7 @@
                   }@else {
                     <div class="overflow-y-auto maximo-h">
                     @for (u of usuarios|patron:patron; track $index) {
-                      <div #{{u.id}} class="flex flex-row items-center p-4 border-l-2 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent border-custom-green" (click)="setRemi(u)" (click)="antiguos=true">
+                      <div #{{u.id}} class="flex flex-row items-center p-4 cursor-pointer hover:bg-gradient-to-r from-custom-green to-transparent" [ngClass]="{'selected': remi && remi.id === u.id}" (click)="setRemi(u)" (click)="antiguos=true">
                         <div class="flex items-center justify-center flex-shrink-0 w-10 h-10 font-bold capitalize rounded-full bg-custom-darkgreen text-custom-gray">
                             {{u.nombre[0]}}
                         </div>

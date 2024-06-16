@@ -1,3 +1,13 @@
 .maximo-h{
   max-height: 470px;
 }
+.selected {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  border-left-width: 2px;
+  border-left-color: #4d6e51;
+  border-left-style: solid;
+  --tw-gradient-from: #A6BDA9 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(166 189 169 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-to: transparent var(--tw-gradient-to-position);
+}
