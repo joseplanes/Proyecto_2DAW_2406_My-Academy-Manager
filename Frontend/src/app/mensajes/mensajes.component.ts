@@ -51,6 +51,7 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
   startInterval(): void {
     this.intervalId = setInterval(() => {
       this.getMensajesUnicos(this.remi.id);
+      this.getMensajesInicio();
     }, 4000); // 2000 ms = 2 segundos
   }
 
@@ -104,6 +105,9 @@ export class MensajesComponent implements AfterViewChecked, OnDestroy {
   navigateToMensajes() {
     this.mostrarmensaje = false;
     this.router.navigate(['/mensajes']);
+    this.clearInterval();
+    this.remi={ remitente: { id: '0', nombre: '', apellidos: '' } };
+    this.mostrarmensaje = false;
   }
 
   loadUser() {
