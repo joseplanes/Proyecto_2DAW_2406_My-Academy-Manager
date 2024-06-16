@@ -22,6 +22,7 @@ export class RegistroAsistenciaComponent {
   public status:string='';
   public message:string='';
   submitting: boolean = false;
+  hoy: string = new Date().toISOString().split('T')[0];
 
   clases=<any>[];
   
@@ -30,6 +31,7 @@ export class RegistroAsistenciaComponent {
     this.loadUser();
     if(this.identity.rol=='profesor'){
       this.formData={
+        fecha: this.hoy,
         alumnos: []
       }
       this.getClases();
@@ -95,5 +97,14 @@ export class RegistroAsistenciaComponent {
       }
     );
     
+  }
+  maxDate(): string {
+  
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0
+    const yyyy = today.getFullYear();
+  
+    return `${yyyy}-${mm}-${dd}`;
   }
 }

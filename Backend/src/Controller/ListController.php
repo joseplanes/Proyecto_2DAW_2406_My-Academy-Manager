@@ -522,7 +522,17 @@ class ListController extends AbstractController
                     $alumnos= (!empty($params->alumnos)) ? $params->alumnos : null;
                     
                     $clase = $cr->find($claseid);
-
+                    $hoy = new \DateTime('now');
+                    $fechafaltas = new \DateTime($fecha);
+                    if($hoy < $fechafaltas){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No puedes poner faltas a una fecha posterior a hoy'
+                        ];
+                        return new JsonResponse($data);
+                    
+                    }
                 if ($clase && $fecha && $alumnos) {
                     foreach ($alumnos as $alumnoId) {
                         $asistencia = new Asistencia();
