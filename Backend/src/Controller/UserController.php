@@ -243,7 +243,23 @@ class UserController extends AbstractController
                             foreach ($clases as $claseId) {
                                 $clase = $cr->find($claseId);
                                 if ($clase) {
-                                    $alumno->addClase($clase);
+                                    $capacidad=$clase->getAula()->getCapacidad();
+                                    $alumnos=$clase->getAlumnos()->count();
+                                    $nomclase=$clase->getAsignatura()->getNombre();
+                                    if($capacidad>$alumnos){
+                                        $alumno->addClase($clase);
+                                    }else{
+                                        $data = [
+                                            'status' => 'error',
+                                            'code' => 400,
+                                            'message' => 'La clase '.$nomclase.' está llena',
+                                        ];
+                                        $entityManager->remove($alumno);
+                                        $entityManager->remove($usuario);
+                                        $entityManager->flush();
+                                        return new JsonResponse($data);
+                                    }
+                                    
                                 }
                             }
                             $entityManager->persist($alumno);
