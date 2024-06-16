@@ -385,7 +385,8 @@ class ListController extends AbstractController
                 foreach($clasesid as $clase){
                     $claseDia= $clase->getDias();
                     foreach($claseDia as $dia){
-                        if($dia->getId() == $todaynumber){
+                        $iddia = $dia->getId();
+                        if($iddia == $todaynumber){
                             $clases[] = $clase;
                         }
                     }
@@ -407,7 +408,8 @@ class ListController extends AbstractController
                 foreach($clasesid as $clase){
                     $claseDia= $clase->getDias();
                     foreach($claseDia as $dia){
-                        if($dia->getId() == $todaynumber){
+                        $iddia = $dia->getId();
+                        if($iddia == $todaynumber){
                             $clases[] = $clase;
                         }
                     }
@@ -430,7 +432,8 @@ class ListController extends AbstractController
                 foreach($clasesid as $clase){
                     $claseDia= $clase->getDias();
                     foreach($claseDia as $dia){
-                        if($dia->getId() == $todaynumber){
+                        $iddia = $dia->getId();
+                        if($iddia == $todaynumber){
                             $clases[] = $clase;
                         }
                     }
