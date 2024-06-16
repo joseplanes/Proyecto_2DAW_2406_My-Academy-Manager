@@ -56,6 +56,68 @@ class AdminController extends AbstractController
                     $nombre= (!empty($params->nombre)) ? $params->nombre : null;
                     $descripcion= (!empty($params->descripcion)) ? $params->descripcion : null;
                     $img= (!empty($params->img)) ? $params->img : null;
+
+                    if($nombre==null && $descripcion==null && $img==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se han rellenado todos los campos'
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if($nombre==null && $descripcion==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se han rellenado el nombre y la descripción'
+                        ];
+                        return new JsonResponse($data);
+
+                    }
+                    if($nombre==null && $img==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se han rellenado el nombre y la imagen'
+                        ];
+                        return new JsonResponse($data);
+
+                    }
+                    if($descripcion==null && $img==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se han rellenado la descripción y la imagen'
+                        ];
+                        return new JsonResponse($data);
+
+                    }
+                    if($nombre==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se ha rellenado el nombre'
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if($descripcion==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se ha rellenado la descripción'
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if($img==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se ha rellenado la imagen'
+                        ];
+                        return new JsonResponse($data);
+                    }
+
+
                     $asignatura = new Asignatura();
                     $asignatura->setNombre($nombre);
                     $asignatura->setDescripcion($descripcion);
@@ -116,6 +178,56 @@ class AdminController extends AbstractController
                 if(!empty($json)){
                     $nombre= (!empty($params->nombre)) ? $params->nombre : null;
                     $capacidad= (!empty($params->capacidad)) ? $params->capacidad : null;
+
+                    if($nombre==null && $capacidad==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se han rellenado todos los campos'
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    
+                    if($capacidad==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se ha rellenado la capacidad'
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if($capacidad<1){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'La capacidad no puede ser menor que 1'
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if($nombre==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se ha rellenado el nombre'
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if($capacidad==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se ha rellenado la capacidad'
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if($nombre==null || $capacidad==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se han rellenado todos los campos'
+                        ];
+                        return new JsonResponse($data);
+                    }
                     $aula = new Aula();
                     $aula->setNombre($nombre);
                     $aula->setCapacidad($capacidad);
@@ -177,6 +289,33 @@ class AdminController extends AbstractController
                     $profesor= (!empty($params->profesor)) ? $params->profesor : null;
                     $aula= (!empty($params->aula)) ? $params->aula : null;
                     $dias= (!empty($params->dias)) ? $params->dias : null;
+                    $horai= new \DateTime($hora_inicio);
+                    $horaf= new \DateTime($hora_fin);
+                    if($horaf<$horai){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'La hora de inicio no puede ser mayor que la hora de fin'
+                        ];
+                        return new JsonResponse($data);
+                    }
+                    if($dias==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se han seleccionado los días de la semana'
+                        ];
+                        return new JsonResponse($data);
+
+                    }
+                    if($hora_inicio==null || $hora_fin==null || $asignatura==null || $profesor==null || $aula==null){
+                        $data = [
+                            'status' => 'error',
+                            'code' => 400,
+                            'message' => 'No se han rellenado todos los campos'
+                        ];
+                        return new JsonResponse($data);
+                    }
 
                     $clase=new Clase();
 
