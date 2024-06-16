@@ -510,12 +510,24 @@ class AdminController extends AbstractController
                 if(!empty($json)){
                     $alumnos= (!empty($params->alumnos)) ? $params->alumnos : null;
                     $clase=$cr->findOneBy(['id' => $clase]);
+                    $capacidad=$clase->getAula()->getCapacidad();
+                    $numalumnos=$clase->getAlumnos()->count();
 
                     if ($alumnos && $clase) {
                         foreach ($alumnos as $alumnoId) {
                             $alumno = $ar->findOneBy(['id' => $alumnoId]);
                             if ($alumno) {
-                                $clase->addAlumno($alumno);
+                                if($numalumnos<$capacidad){
+                                    $clase->addAlumno($alumno);
+                                    $numalumnos++;
+                                }else{
+                                    $data = [
+                                        'status' => 'error',
+                                        'code' => 400,
+                                        'message' => 'El aula es de capacidad '.$capacidad.'. Seleccione menos alumnos'
+                                    ];
+                                    return new JsonResponse($data);
+                                }
                             }
                         }
             

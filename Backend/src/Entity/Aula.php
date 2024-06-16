@@ -46,7 +46,7 @@ class Aula
 
         return $this;
     }
-
+    #[Groups(['clase'])]
     public function getCapacidad(): ?int
     {
         return $this->capacidad;
