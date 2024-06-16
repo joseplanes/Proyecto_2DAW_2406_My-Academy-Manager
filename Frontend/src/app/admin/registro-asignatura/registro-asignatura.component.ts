@@ -21,6 +21,7 @@ export class RegistroAsignaturaComponent {
   formData:any={};
   public status:string='';
   public message:string='';
+  submitting: boolean = false;
   
   constructor(private router: Router, private route: ActivatedRoute,  private sanitizer: DomSanitizer) {
     this.loadUser();
@@ -43,6 +44,10 @@ export class RegistroAsignaturaComponent {
   }
   
   onSubmit(createasignatura: any) {
+    if (this.submitting) {
+      return;
+    }
+    this.submitting = true;
     this.api.createAsignatura(this.token, this.formData).subscribe(
       (response:any ) => {
         if(response && response.status == 'success'){
@@ -53,10 +58,12 @@ export class RegistroAsignaturaComponent {
           this.status = 'error';
           this.message = response.message;
         }
+        this.submitting = false;
       },
       error => {
         this.status = 'error';
         console.log(error);
+        this.submitting = false;
       }
     );
   }

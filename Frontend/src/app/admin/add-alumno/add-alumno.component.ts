@@ -23,7 +23,7 @@ export class AddAlumnoComponent {
   public claseId:number=0;
   public alumnos:any=[];
   public infoclase:any=null;
-
+  submitting: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.loadUser();
@@ -79,6 +79,10 @@ export class AddAlumnoComponent {
   }
   
   onSubmit(createasignatura: any) {
+    if (this.submitting) {
+      return;
+    }
+    this.submitting = true;
     const selectedDias = Object.keys(this.formData.alumnos)
     .filter(key => this.formData.alumnos[key])
     .map(Number);
@@ -97,10 +101,12 @@ export class AddAlumnoComponent {
           this.status = 'error';
           this.message = response.message;
         }
+        this.submitting = false;
       },
       error => {
         this.status = 'error';
         console.log(error);
+        this.submitting = false;
       }
     );
   }

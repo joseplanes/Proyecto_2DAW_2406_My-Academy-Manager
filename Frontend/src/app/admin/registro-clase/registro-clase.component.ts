@@ -20,6 +20,7 @@ export class RegistroclaseComponent {
   formData:any={};
   public status:string='';
   public message:string='';
+  submitting: boolean = false;
   
   asignaturas=<any>[];
   profesores=<any>[];
@@ -95,6 +96,10 @@ export class RegistroclaseComponent {
     this.router.navigate(['/clase']);
   }
   onSubmit(createasignatura: any) {
+    if (this.submitting) {
+      return;
+    }
+    this.submitting = true;
     const selectedDias = Object.keys(this.formData.dias)
     .filter(key => this.formData.dias[key])
     .map(Number);
@@ -114,10 +119,12 @@ export class RegistroclaseComponent {
           this.status = 'error';
           this.message = response.message;
         }
+        this.submitting = false;
       },
       error => {
         this.status = 'error';
         console.log(error);
+        this.submitting = false;
       }
     );
   }

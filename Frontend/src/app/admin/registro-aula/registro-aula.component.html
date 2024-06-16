@@ -37,7 +37,7 @@
         <input placeholder="Ingrese la capacidad del aula" type="number" id="capacidad" name="capacidad" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" [(ngModel)]="formData.capacidad" required min="1">
     </div>
     <div class="mb-4">
-        <button alt="Guardar Aula" type="submit" class="px-4 py-2 font-bold rounded bg-custom-green hover:bg-custom-darkgreen text-dark hover:text-custom-gray focus:outline-none focus:shadow-outline">Crear Aula</button>
+        <button [disabled]="submitting" alt="Guardar Aula" type="submit" class="px-4 py-2 font-bold rounded bg-custom-green hover:bg-custom-darkgreen text-dark hover:text-custom-gray focus:outline-none focus:shadow-outline">Crear Aula</button>
     </div>
 </form>
 

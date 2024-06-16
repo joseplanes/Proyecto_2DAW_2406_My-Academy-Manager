@@ -21,6 +21,7 @@ export class RegistroAsistenciaComponent {
   formData:any={};
   public status:string='';
   public message:string='';
+  submitting: boolean = false;
 
   clases=<any>[];
   
@@ -64,6 +65,10 @@ export class RegistroAsistenciaComponent {
   }
   
   onSubmit(createaula: any) {
+    if (this.submitting) {
+      return;
+    }
+    this.submitting = true;
     const selectedAlumnos = Object.keys(this.formData.alumnos)
     .filter(key => this.formData.alumnos[key])
     .map(Number);
@@ -81,10 +86,12 @@ export class RegistroAsistenciaComponent {
           this.status = 'error';
           this.message = response.message;
         }
+        this.submitting = false;
       },
       error => {
         this.status = 'error';
         console.log(error);
+        this.submitting = false;
       }
     );
     

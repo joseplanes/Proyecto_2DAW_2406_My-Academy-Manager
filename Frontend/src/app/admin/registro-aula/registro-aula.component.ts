@@ -19,6 +19,7 @@ export class RegistroAulaComponent {
   formData:any={};
   public status:string='';
   public message:string='';
+  submitting: boolean = false;
   
   constructor(private router: Router, private route: ActivatedRoute) {
     this.loadUser();
@@ -38,6 +39,10 @@ export class RegistroAulaComponent {
   }
 
   onSubmit(createaula: any) {
+    if (this.submitting) {
+      return;
+    }
+    this.submitting = true;
     this.api.createAula(this.token, this.formData).subscribe(
       (response:any ) => {
         if(response && response.status == 'success'){
@@ -48,10 +53,12 @@ export class RegistroAulaComponent {
           this.status = 'error';
           this.message = response.message;
         }
+        this.submitting = false;
       },
       error => {
         this.status = 'error';
         console.log(error);
+        this.submitting = false;
       }
     );
   }

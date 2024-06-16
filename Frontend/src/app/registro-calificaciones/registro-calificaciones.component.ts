@@ -21,6 +21,7 @@ export class RegistroCalificacionesComponent {
   formData:any={};
   public status:string='';
   public message:string='';
+  submitting: boolean = false;
 
   clases=<any>[];
   
@@ -64,6 +65,10 @@ export class RegistroCalificacionesComponent {
   }
   
   onSubmit(createaula: any) {
+    if (this.submitting) {
+      return;
+    }
+    this.submitting = true;
     this.api.createCalificaciones(this.token, this.formData).subscribe(
       (response:any ) => {
         if(response && response.status == 'success'){
@@ -74,10 +79,12 @@ export class RegistroCalificacionesComponent {
           this.status = 'error';
           this.message = response.message;
         }
+        this.submitting = false;
       },
       error => {
         this.status = 'error';
         console.log(error);
+        this.submitting = false;
       }
     ); 
     
