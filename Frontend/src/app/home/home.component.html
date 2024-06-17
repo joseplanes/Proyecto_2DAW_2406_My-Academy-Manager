@@ -12,7 +12,7 @@
                     <div class="grid ml-6 sm:grid-cols-2">
                         <div class="relative z-10 flex flex-col justify-between space-y-12 lg:space-y-6">
                             <ul class="pl-4 space-y-4 list-disc">
-                                @if (clases.length == 0) {
+                                @if (!claseshoy) {
                                     <li>No tienes clases hoy</li>
                                 }@else{
                                 @for (c of clases; track c.id) {

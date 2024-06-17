@@ -88,6 +88,9 @@ export class HomeComponent implements OnInit {
       (response: any) => {
         let clases = response.data;
         this.clases = JSON.parse(clases);
+        if (this.clases.length > 0) {
+          this.claseshoy = true;
+        }
       },
       error => {
         console.log(error);
@@ -173,6 +176,7 @@ export class HomeComponent implements OnInit {
   public token: any;
   public identity: any;
   public clases: any;
+  claseshoy: boolean = false;
 }
 
 
